@@ -28,6 +28,10 @@ public class CSVTester {
 		MenuItemFactory mif = new MenuItemFactory();
 		mif.constructFromCSV(ldr);
 		
+		// NOTE: ALWAYS CONSTRUCT NORMAL MENU ITEMS BEFORE PROMOTIONAL ITEMS
+		ldr = new CSVLoader("src/resource/promoitems.csv", true);
+		mif.constructFromCSV(ldr);
+		
 		// Check construction
 		for (MenuItem m : mif.getItemList()) {
 			System.out.println(m.getName() + " | " + m.getDescription() + " | $" + m.getPrice());
