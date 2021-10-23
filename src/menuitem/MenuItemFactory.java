@@ -145,7 +145,15 @@ public class MenuItemFactory {
 		obj.setName(name);
 		obj.setDescription(description);
 		obj.setPrice(price);
-		// TODO: Logic to add items into promo set
+		
+		// For each item in list, get the MenuItem and add it to the map of promo set
+		for (String id : items) {
+			MenuItem m = this.getItem(id);
+			if (m != null) 
+				obj.addItems(m, 1);
+			else System.out.println("MenuItemFactory: Cannot find item of id: " + id + " for PromoSet item " + name);
+		}
+		
 		return obj;
 	}
 }

@@ -32,6 +32,10 @@ public class CSVTester {
 		for (MenuItem m : mif.getItemList()) {
 			System.out.println(m.getName() + " | " + m.getDescription() + " | $" + m.getPrice());
 		}
+		
+		System.out.println();
+		// Get items by their string name
+		System.out.println(mif.getItem("Fries") != null);
 
 	}
 

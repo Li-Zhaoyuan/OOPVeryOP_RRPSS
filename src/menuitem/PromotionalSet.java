@@ -37,7 +37,13 @@ public class PromotionalSet extends MenuItem{
 	* @param quantity is the number of the MenuItem to be added
 	*/
 	public void addItems(MenuItem item, int quantity){
-		// TODO: Implement addition of KVp to Promotional Set
+		// Map does not have this item yet
+		if (items.get(item) == null) {
+			items.put(item, quantity);
+		}
+		else { // Map already has this item, increment quantity
+			items.put(item, items.get(item) + quantity);
+		}
 	}
 
 	/**
@@ -46,6 +52,6 @@ public class PromotionalSet extends MenuItem{
 	* @param item is a MenuItem object to be removed from the set
 	*/
 	public void removeItems(MenuItem item){
-		// TODO: Implement removal of KVp from Promotional Set
+		items.remove(item);
 	}
 }
