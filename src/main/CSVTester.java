@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
+import menuitem.MenuItem;
+import menuitem.MenuItemFactory;
 import miscellaneous.CSVLoader;
 
 public class CSVTester {
@@ -13,10 +15,22 @@ public class CSVTester {
 		
 		// Get the header
 		System.out.println(ldr.getCSVHeader());
+		
 		// Iterate the data
 		for (ArrayList<String> l : ldr.getCSVData()) {
 			// Do something with the list
 			System.out.println(l);
+		}
+		
+		System.out.println();
+		
+		// Use the menu factory to construct items
+		MenuItemFactory mif = new MenuItemFactory();
+		mif.constructFromCSV(ldr);
+		
+		// Check construction
+		for (MenuItem m : mif.getItemList()) {
+			System.out.println(m.getName() + " | " + m.getDescription() + " | $" + m.getPrice());
 		}
 
 	}

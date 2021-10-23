@@ -7,17 +7,75 @@
 
 package menuitem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import miscellaneous.CSVLoader;
+
 public class MenuItemFactory {
+	
+	/**
+	* Private list of all items constructed by the factory
+	*/
+	private ArrayList<MenuItem> ItemList;
 
 	/**
 	* Constructor for MenuItemFactory
 	*/
 	public MenuItemFactory() {
-		
+		ItemList = new ArrayList<MenuItem>();
 	}
 	
+	/**
+	* Public accessor function to get the ItemList
+	*/
+	public ArrayList<MenuItem> getItemList(){
+		return ItemList;
+	}
+	
+	public void constructFromCSV(CSVLoader ldr) {
+		// Iterate the data and construct an item for each row
+		for (ArrayList<String> l : ldr.getCSVData()) {
+			constructItem(l);
+		}
+	}
+	
+	/**
+	* Public void function to construct an item based on passed parameters
+	* Constructed item is put into the ItemList
+	* This function is hardcoded to abide by the formatting of the CSV file
+	* Not the best in terms of coding practices, but it works
+	* @param parameterList - A list of parameters pertaining to the item
+	*/
+	public void constructItem(ArrayList<String> parameterList){
+		// Switch based on MenuItem Type
+		switch(parameterList.get(0)) {
+		case "dessert": ItemList.add(createDessert(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3))));
+			break;
+		case "drink": ItemList.add(createDrink(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3))));
+			break;
+		case "maincourse": ItemList.add(createMainCourse(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3))));
+			break;
+		case "sidecourse": ItemList.add(createSideCourse(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3))));
+			break;
+		case "promotionalset": ItemList.add(createPromotionalSet(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3)), new ArrayList<String>(parameterList.subList(4, parameterList.size()-1))));
+			break;
+		default: System.out.println("MenuItemFactory: Unidentified Construction Parameter");
+		}
+	}
+	
+	/**
+	* Public accessor function to get an object from the ItemList
+	* Returns the object if found, else null
+	* @param name - The name of the item intended to be found
+	*/
+	public MenuItem getItem(String name){
+		for (MenuItem i : ItemList) {
+			if (i.getName().equals(name))
+				return i;
+		}
+		return null;
+	}
 	
 	/**
 	* Factory function that creates a new Dessert object
@@ -25,7 +83,7 @@ public class MenuItemFactory {
 	* @param description - description of the object
 	* @param price - price of the object
 	*/
-	public Dessert CreateDessert(String name, String description, double price) {
+	public Dessert createDessert(String name, String description, double price) {
 		Dessert obj = new Dessert();
 		obj.setName(name);
 		obj.setDescription(description);
@@ -39,7 +97,7 @@ public class MenuItemFactory {
 	* @param description - description of the object
 	* @param price - price of the object
 	*/
-	public Drink CreateDrink(String name, String description, double price) {
+	public Drink createDrink(String name, String description, double price) {
 		Drink obj = new Drink();
 		obj.setName(name);
 		obj.setDescription(description);
@@ -53,7 +111,7 @@ public class MenuItemFactory {
 	* @param description - description of the object
 	* @param price - price of the object
 	*/
-	public MainCourse CreateMainCourse(String name, String description, double price) {
+	public MainCourse createMainCourse(String name, String description, double price) {
 		MainCourse obj = new MainCourse();
 		obj.setName(name);
 		obj.setDescription(description);
@@ -67,7 +125,7 @@ public class MenuItemFactory {
 	* @param description - description of the object
 	* @param price - price of the object
 	*/
-	public SideCourse CreateSideCourse(String name, String description, double price) {
+	public SideCourse createSideCourse(String name, String description, double price) {
 		SideCourse obj = new SideCourse();
 		obj.setName(name);
 		obj.setDescription(description);
@@ -80,9 +138,9 @@ public class MenuItemFactory {
 	* @param name - name of the object
 	* @param description - description of the object
 	* @param price - price of the object
-	* @param items - Map of <MenuItem Name, Quantity> for each item in the PromotionalSet
+	* @param items - List of item names for each item in the PromotionalSet
 	*/
-	public PromotionalSet CreatePromotionalSet(String name, String description, double price, HashMap<String, Integer> items) {
+	public PromotionalSet createPromotionalSet(String name, String description, double price, ArrayList<String> items) {
 		PromotionalSet obj = new PromotionalSet();
 		obj.setName(name);
 		obj.setDescription(description);
