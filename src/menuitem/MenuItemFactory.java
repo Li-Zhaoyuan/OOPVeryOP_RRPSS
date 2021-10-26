@@ -33,6 +33,12 @@ public class MenuItemFactory {
 		return ItemList;
 	}
 	
+	/**
+	* Public void function to set up the ItemList
+	* For each row in the ldr, we perform some logic to construct our objects
+	* @param ldr is a CSVLoader object, this object should have already loaded 
+	* a CSV file prior to this function call.
+	*/
 	public void constructFromCSV(CSVLoader ldr) {
 		// Iterate the data and construct an item for each row
 		for (ArrayList<String> l : ldr.getCSVData()) {
