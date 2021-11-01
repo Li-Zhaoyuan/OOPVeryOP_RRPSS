@@ -9,6 +9,16 @@ package main;
 import java.util.Scanner;
 
 public class RRPSS {
+	public void init()
+	{
+		
+	}
+	
+	public void exit()
+	{
+		
+	}
+	
 	public void option1MenuItemManipulation()
 	{
 		
