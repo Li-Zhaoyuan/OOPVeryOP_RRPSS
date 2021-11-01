@@ -1,14 +1,12 @@
-MenuItems,Price,Year,Month
-Pasta, 4.50, 2021, 11
-Pasta, 4.50, 2021, 11
-Fries, 2.30, 2021, 7
-Fries, 2.30, 2021, 7
-Ice Cream, 1.30, 2021, 4
-Ice Cream, 1.30, 2021, 4
-Ice Cream, 1.30, 2021, 5
-Fried Rice, 1.30, 2021, 5
-Fried Rice, 1.30, 2021, 5
-Fried Rice, 1.30, 2021, 5
-Pasta, 1.30, 2021, 5
-Pasta, 2.30, 2021, 9
-Ice Cream, 5.30, 2021, 9
+Name,quantity,year,month,day
+Ice Cream,1,2021,9,26
+Ice Cream,1,2021,9,26
+Mountain Dew,1,2021,9,26
+Mountain Dew,1,2021,9,26
+Mountain Dew,1,2021,9,26
+Burger,1,2021,9,26
+Burger,1,2021,9,26
+Burger,1,2021,9,26
+Burger,1,2021,9,26
+Fries,5,2021,9,26
+Ice Cream,2,2021,9,26
