@@ -13,7 +13,7 @@ public class Staff {
 	/**
 	* Name of staff
 	*/
-    private String name;
+	private String name;
 
 	/**
 	* Gender of staff
