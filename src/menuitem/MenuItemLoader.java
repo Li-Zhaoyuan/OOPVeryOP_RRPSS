@@ -52,14 +52,14 @@ public class MenuItemLoader {
 	/**
 	* Public accessor function to get the normal item csv file
 	*/
-	CSVLoader getNormalCSV() {
+	public CSVLoader getNormalCSV() {
 		return normalItemsCSV;
 	}
 	
 	/**
 	* Public accessor function to get the promo item csv file
 	*/
-	CSVLoader getPromoCSV() {
+	public CSVLoader getPromoCSV() {
 		return promoItemsCSV;
 	}
 	
