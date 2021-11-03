@@ -1,3 +1,11 @@
+/**
+ Order - Order made by a staff.
+ Each order has an ID, table number, staff, date/time, ordered items.
+ @author Chua Yi Jie
+ @version 1.0
+ @since 2021-10-23
+*/
+
 package main;
 
 import java.util.HashMap;
@@ -43,7 +51,7 @@ public class Order extends MenuItem {
 	public Order(int orderId, int tableNumber, Staff CreatedBy, Calendar OrderDateTime, HashMap<MenuItem, Integer> ItemsInOrder) {
 		this.orderId = orderId;
 		this.tableNumber = tableNumber;
-        this.CreatedBy = CreatedBy;
+		this.CreatedBy = CreatedBy;
 		this.OrderDateTime = OrderDateTime;
 
 		if(ItemsInOrder.isEmpty())
@@ -99,14 +107,14 @@ public class Order extends MenuItem {
 	public int getTableNumber(){
 		return tableNumber;
 	}
-
-    /**
-	* Get the information of staff that created the order
+	
+	/**
+	* Get the information of the staff that created the order
 	* @return information of staff
 	*/
 	public Staff getCreatedBy(){
         return CreatedBy;
-    }
+	}
 
 	/**
 	* Get the datetime the order was created
@@ -115,20 +123,20 @@ public class Order extends MenuItem {
 	public Calendar getOrderDateTime(){
 		return OrderDateTime;
 	}
-
-    /**
+	
+	/**
 	* Display Order invoice
 	* Displayed information includes order ID, table number, staff information,
 	* date/time of order and summary of ordered items
 	*/
-    public void printOrderInvoice(){
+	public void printOrderInvoice(){
 		String printOrderString = "";
 
-		System.out.print(" Order Invoice ");
-		System.out.printf("Order ID: " + getOrderID());
-		System.out.printf("Table Number: " + getTableNumber());
-		System.out.printf("Staff: " + getCreatedBy());
-		System.out.printf("Order Date/Time: " + dateFormatter.format(OrderDateTime.getTime()));
+		System.out.print("-----Order Invoice-----\n");
+		System.out.printf("Order ID: " + getOrderID() + "\n");
+		System.out.printf("Table Number: " + getTableNumber() + "\n");
+		System.out.printf("-Staff Details-\n" + getCreatedBy() + "\n");
+		System.out.printf("Order Date/Time: " + dateFormatter.format(OrderDateTime.getTime()) + "\n");
 
 		for(MenuItem item : ItemsInOrder.keySet()){
 			String orderedItem = item.toString();

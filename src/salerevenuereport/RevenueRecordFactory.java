@@ -1,3 +1,10 @@
+/**
+ RevenueRecordFactory - create array of revenue record object from CSV
+ @author Heng Zheng Ping
+ @version 1.0
+ @since 2021-11-03
+*/
+
 package salerevenuereport;
 
 import java.util.ArrayList;
@@ -9,6 +16,8 @@ public class RevenueRecordFactory {
 
 	public RevenueRecordFactory() {
 		recordList = new ArrayList<RevenueRecord>();
+		CSVLoader Rldr = new CSVLoader("src/resource/revenue.csv", true);
+		constructFromCSV(Rldr);
 	}
 	
 	public ArrayList<RevenueRecord> getItemList(){
