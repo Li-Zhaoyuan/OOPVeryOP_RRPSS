@@ -16,7 +16,6 @@ public class RRPSS {
 	
 	MenuItemFactory  menuItemFactory;
 	Order order;
-	Scanner sc;
 	
 	int input;
 	/*
@@ -26,15 +25,15 @@ public class RRPSS {
 	{
 		menuItemFactory = new MenuItemFactory();
 		
-		sc = new Scanner(System.in);
+		
 	}
 	
 	/*
 	 * to clear or to save variables before exiting
 	 */
-	public static void exit()
+	public void exit()
 	{
-		
+		menuItemFactory.updateCSV();
 	}
 	
 	/*
@@ -42,23 +41,25 @@ public class RRPSS {
 	 */
 	public void option1MenuItemManipulation()
 	{
+		Scanner sc = new Scanner(System.in);
 		String inputName, inputDesc;
 		Double inputPrice;
 		MenuItem tempItem;
 		
 		System.out.println("Select Number Accordingly (1)Create/(2)Update/(3)Remove menu item/(0)Go Back");
 		input = sc.nextInt();
-		
+		sc.nextLine();
 		switch(input)
 		{
 		case 1:
 			System.out.println("Create according to number (1)maincourse/(2)sidecourse/(3)dessert/(4)drink");
 			input = sc.nextInt();
-			
+			sc.nextLine();
 			System.out.println("Enter Name of Dish: ");
-			inputName = sc.next();
+			inputName = sc.nextLine();
+			
 			System.out.println("Enter Description of Dish: ");
-			inputDesc = sc.next();
+			inputDesc = sc.nextLine();
 			System.out.println("Enter Price of Dish: ");
 			inputPrice = sc.nextDouble();
 			
@@ -76,13 +77,15 @@ public class RRPSS {
 			System.out.println("Enter Name of Dish to Update: ");
 			inputName = sc.nextLine();
 			tempItem = menuItemFactory.getItem(inputName);
+			menuItemFactory.getItemList().remove(tempItem);
 			if(tempItem == null)
 			{
 				System.out.println("No such dish");
 				return;
 			}
 			System.out.println("Select which information to update (1)name/(2)description/(3)price");
-			
+			input = sc.nextInt();
+			sc.nextLine();
 			if(input == 1)
 			{
 				System.out.println("Enter New Name: ");
@@ -110,7 +113,7 @@ public class RRPSS {
 			if(tempItem == null)
 			{
 				System.out.println("No such dish");
-				return;
+				break;
 			}
 			menuItemFactory.getItemList().remove(tempItem);
 			System.out.println("Dish Removed!");
@@ -118,8 +121,9 @@ public class RRPSS {
 		case 0:
 		default:
 			System.out.println("Back to Main Menu");
-			return;	
+			break;	
 		}
+		//sc.close();
 	}
 	
 	/*
@@ -127,6 +131,7 @@ public class RRPSS {
 	 */
 	public void option2PromotionManipulation()
 	{
+		Scanner sc = new Scanner(System.in);
 		String inputName, inputDesc, inputDishName, inputPromoSet;
 		Double inputPrice;
 		int inputQuantity;
@@ -136,20 +141,21 @@ public class RRPSS {
 		
 		System.out.println("Select Number Accordingly (1)Create/(2)Update/(3)Remove Promotion/(0)Go Back");
 		input = sc.nextInt();
+		sc.nextLine();
 		switch(input)
 		{
 		case 1:
 			System.out.println("Enter the Name of the Promotional Set: ");
-			inputName = sc.next();
+			inputName = sc.nextLine();
 			System.out.println("Enter the Description of the Promotional Set: ");
-			inputDesc = sc.next();
+			inputDesc = sc.nextLine();
 			System.out.println("Enter the Price of the Promotional Set: ");
 			inputPrice = sc.nextDouble();
 			
 			while(true)
 			{
 				System.out.println("Enter Name of Dish to add to this Promotional Set, Enter(0) to save and go back");
-				inputDishName = sc.next();
+				inputDishName = sc.nextLine();
 				
 				if(inputDishName.equals("0"))
 				{
@@ -171,7 +177,7 @@ public class RRPSS {
 			break;
 		case 2:
 			System.out.println("Enter Name of Promotional Set to Update, Enter(0) to save and go back");
-			inputPromoSet = sc.next();
+			inputPromoSet = sc.nextLine();
 			
 			tempItem = menuItemFactory.getItem(inputPromoSet);
 			
@@ -187,7 +193,7 @@ public class RRPSS {
 				System.out.println("Enter number to update (1)Promotional Set's name, (2)Promotional Set's Decription, (3)Promotional Set's Price, ");
 				System.out.println("(4)Add Dish, (5)Remove Dish, (0)to save and go back");
 				input = sc.nextInt();
-				
+				sc.nextLine();
 				if(input == 0)
 				{
 					System.out.println("Returning back to main menu...");
@@ -196,14 +202,14 @@ public class RRPSS {
 				else if(input == 1)
 				{
 					System.out.println("Enter new name for selected Promotional Set: ");
-					inputPromoSet = sc.next();
+					inputPromoSet = sc.nextLine();
 					tempItem.setName(inputPromoSet);
 					System.out.println("New name set!");
 				}
 				else if(input == 2)
 				{
 					System.out.println("Enter new Decription for selected Promotional Set: ");
-					inputDesc = sc.next();
+					inputDesc = sc.nextLine();
 					tempItem.setDescription(inputDesc);
 					System.out.println("New Decription set!");
 				}
@@ -217,7 +223,7 @@ public class RRPSS {
 				else if(input == 4)
 				{
 					System.out.println("Enter Name of existing Dish to be added to the Promotional Set: ");
-					inputName = sc.next();
+					inputName = sc.nextLine();
 					MenuItem tempItem2;
 					tempItem2 = menuItemFactory.getItem(inputName);
 					if(tempItem2 == null)
@@ -227,13 +233,14 @@ public class RRPSS {
 					}
 					System.out.println("Enter Quantity of existing Dish to be added to the Promotional Set: ");
 					inputQuantity = sc.nextInt();
+					sc.nextLine();
 					((PromotionalSet)tempItem).addItems(tempItem2,inputQuantity);
 					System.out.println("Dish Added!!");
 				}
 				else if(input == 5)
 				{
 					System.out.println("Enter Name of existing Dish to be removed from the Promotional Set: ");
-					inputName = sc.next();
+					inputName = sc.nextLine();
 					MenuItem tempItem2;
 					tempItem2 = menuItemFactory.getItem(inputName);
 					if(tempItem2 == null || ((PromotionalSet)tempItem).getItems().get(tempItem2) == null)
@@ -250,7 +257,7 @@ public class RRPSS {
 			break;
 		case 3:
 			System.out.println("Enter Name of Promotion to Delete: ");
-			inputName = sc.next();
+			inputName = sc.nextLine();
 			tempItem = menuItemFactory.getItem(inputName);
 			
 			if(tempItem == null || tempItem instanceof PromotionalSet)
@@ -264,8 +271,9 @@ public class RRPSS {
 		case 0:
 		default:
 			System.out.println("Back to Main Menu");
-			return;	
+			break;	
 		}
+		//sc.close();
 	}
 	
 	/*

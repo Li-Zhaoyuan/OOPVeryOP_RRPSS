@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[] args) {
 		//Scanner sc = new Scanner(System.in);
 		RRPSS rrpss = new RRPSS();
-		Scanner sc = new Scanner(System.in);
+		
 		int input;
 		
 		rrpss.init();
@@ -24,6 +24,7 @@ public class Main {
 	
 		while(true)
 		{
+			Scanner sc = new Scanner(System.in);
 			System.out.println("Enter the number corresponding to the choices below:");
 			System.out.println("1. Create/Update/Remove menu item");
 			System.out.println("2. Create/Update/Remove promotion");
@@ -38,10 +39,13 @@ public class Main {
 			System.out.println("11. Exit");
 			input = sc.nextInt();
 			
+			//sc.close();
+			
 			if(input >= 11)
 			{
 				System.out.println("Terminating Programming");
-					break;
+				sc.close();
+				break;
 			}
 				
 			switch(input)
@@ -78,6 +82,7 @@ public class Main {
 				break;
 			}
 		}
+		
 		rrpss.exit();
 	}
 }

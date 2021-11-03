@@ -72,7 +72,7 @@ public class MenuItemLoader {
 		ArrayList<String> promoData = new ArrayList<String>();
 		// Read the item list, generate content to be written into the csv
 		for (MenuItem i : itemList)
-			if (i.getClass().getSimpleName() == PromotionalSet.class.getSimpleName())
+			if (i.getClass().getSimpleName().equals(PromotionalSet.class.getSimpleName()))
 				promoData.add(itemToString(i));
 			else menuData.add(itemToString(i));
 		
