@@ -1,3 +1,11 @@
+/**
+ Staff - Staff of restaurant.
+ Each staff has a name, gender, job title and employee ID.
+ @author Chua Yi Jie
+ @version 1.0
+ @since 2021-10-23
+*/
+
 package main;
 
 public class Staff {
@@ -26,7 +34,7 @@ public class Staff {
 	* @return Staff's name, gender, job title and ID in a string
 	*/
 	public String toString(){
-		return " Name: " + this.name + "Gender: " + this.gender + " Job title: " + this.jobTitle + "Employee ID: " + this.employeeID;
+		return "Name: " + this.name + "\nGender: " + this.gender + "\nJob title: " + this.jobTitle + "\nEmployee ID: " + this.employeeID;
 	}
 
 	/**
