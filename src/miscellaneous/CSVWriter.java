@@ -10,6 +10,13 @@ public class CSVWriter {
 	BufferedWriter bw = null; 
 	PrintWriter pw = null;
 	
+	/**
+	* Constructor for CSVWriter
+	*/
+	public CSVWriter() {
+		
+	}
+	
 	public CSVWriter(String filePath, String data) {
 		writeFile(filePath, true, data);
 	}

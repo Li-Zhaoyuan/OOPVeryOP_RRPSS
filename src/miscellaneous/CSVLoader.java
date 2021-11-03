@@ -71,7 +71,7 @@ public class CSVLoader {
 				else csv.add(list);
 				iterCount++;
 			}
-			
+			br.close();
 		} catch (IOException e) {
 			System.out.println("Error opening CSV file: " + filePath);
 			e.printStackTrace();
