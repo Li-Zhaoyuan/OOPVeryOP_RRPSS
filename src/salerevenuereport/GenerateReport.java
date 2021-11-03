@@ -12,7 +12,7 @@ import menuitem.MenuItemFactory;
 import miscellaneous.CSVLoader;
 
 public class GenerateReport {
-	public static void main(String[] args) {
+	public GenerateReport() {
 		double totalSales, monthlySales, monthlyDiscount, totalRevenue = 0, totalDiscount = 0;
 		String monthStr[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		int countQuantity;

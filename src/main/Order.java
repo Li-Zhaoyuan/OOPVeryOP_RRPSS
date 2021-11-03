@@ -146,4 +146,27 @@ public class Order extends MenuItem {
 
 		System.out.println(printOrderString);
 	}
+	
+	/**
+	* Display Order invoice
+	* Displayed information includes order ID, table number, staff information,
+	* date/time of order and summary of ordered items
+	*/
+	public void printCurrOrderInvoice(){
+		String printOrderString = "";
+
+		System.out.print("-----Current Order-----\n");
+		System.out.printf("Order ID: " + getOrderID() + "\n");
+		System.out.printf("Table Number: " + getTableNumber() + "\n");
+		System.out.printf("-Staff Details-\n" + getCreatedBy() + "\n");
+		System.out.printf("Order Date/Time: " + dateFormatter.format(OrderDateTime.getTime()) + "\n");
+
+		for(MenuItem item : ItemsInOrder.keySet()){
+			String orderedItem = item.toString();
+			int quantity = ItemsInOrder.get(item);
+			printOrderString += orderedItem + " " + quantity + "\n";
+		}
+
+		System.out.println(printOrderString);
+	}
 }

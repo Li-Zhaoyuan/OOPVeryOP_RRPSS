@@ -1,5 +1,5 @@
 /**
- description of this class
+ This class holds the functions that will perform operations depending on the different options.
  @author 
  @version 1.0
  @since 2021-10-20
@@ -7,36 +7,66 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Calendar;
 import menuitem.MenuItemFactory;
 import menuitem.MenuItem;
 import menuitem.PromotionalSet;
+import salerevenuereport.GenerateReport;
 
 public class RRPSS {
 	
+	/**
+	 * variable holding the MenuItemFactory object
+	 */
 	MenuItemFactory  menuItemFactory;
+	/**
+	 * variable holding the Staff object
+	 */
+	Staff currStaff;
+	/**
+	 * variable holding the Order object
+	 */
 	Order order;
-	
+	/**
+	 * variable to hold the int input from the user
+	 */
 	int input;
-	/*
-	 * initialize all the necessary variables
+	
+	/**
+	 * Function to initialize all the necessary variables
 	 */
 	public void init()
 	{
+		Scanner sc = new Scanner(System.in);
+		String inputName, inputGender, inputJobTitle;
+		int inputEmployeeID;
+		
 		menuItemFactory = new MenuItemFactory();
+		System.out.println("Enter Staff Details");
+		System.out.println("Enter Staff Name: ");
+		inputName = sc.nextLine();
+		System.out.println("Enter Staff Gender: ");
+		inputGender = sc.nextLine();
+		System.out.println("Enter Staff Job Title: ");
+		inputJobTitle = sc.nextLine();
+		System.out.println("Enter Staff Employee ID: ");
+		inputEmployeeID = sc.nextInt();
 		
-		
+		currStaff = new Staff(inputName,inputGender,inputJobTitle,inputEmployeeID);
 	}
 	
-	/*
-	 * to clear or to save variables before exiting
+	/**
+	 * Function to clear or to save variables before exiting
 	 */
 	public void exit()
 	{
 		menuItemFactory.updateCSV();
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 1st option
 	 * Create/Update/Remove menu item
 	 */
 	public void option1MenuItemManipulation()
@@ -126,7 +156,8 @@ public class RRPSS {
 		//sc.close();
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 2nd option
 	 * Create/Update/Remove promotion
 	 */
 	public void option2PromotionManipulation()
@@ -181,7 +212,7 @@ public class RRPSS {
 			
 			tempItem = menuItemFactory.getItem(inputPromoSet);
 			
-			if(tempItem == null || tempItem instanceof PromotionalSet)
+			if(tempItem == null || !(tempItem instanceof PromotionalSet))
 			{
 				System.out.println("Promotional Set does not exist!");
 				break;
@@ -231,6 +262,7 @@ public class RRPSS {
 						System.out.println("Dish does not exist!");
 						break;
 					}
+					
 					System.out.println("Enter Quantity of existing Dish to be added to the Promotional Set: ");
 					inputQuantity = sc.nextInt();
 					sc.nextLine();
@@ -260,7 +292,7 @@ public class RRPSS {
 			inputName = sc.nextLine();
 			tempItem = menuItemFactory.getItem(inputName);
 			
-			if(tempItem == null || tempItem instanceof PromotionalSet)
+			if(tempItem == null || !(tempItem instanceof PromotionalSet))
 			{
 				System.out.println("Promotional Set does not exist!");
 				break;
@@ -276,31 +308,128 @@ public class RRPSS {
 		//sc.close();
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 3rd option
 	 * Create order
 	 */
 	public void option3OrderCreation()
 	{
+		Scanner sc = new Scanner(System.in);
+		String inputMenuItemName;
+		int inputOrderID, inputTableNumber, inputQuantity;
+		MenuItem tempItem;
+		HashMap<MenuItem, Integer> ItemsInOrder = new HashMap<MenuItem, Integer>();
+		//Calender 
+		System.out.println(">>>Creating new order<<<");
 		
+		System.out.println("Enter Order ID:");
+		inputOrderID = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Enter Table Number:");
+		inputTableNumber = sc.nextInt();
+		sc.nextLine();
+		
+		while(true)
+		{
+			System.out.println("Enter Menu Item/Promotional Set to be added: (Enter (0) to complete)");
+			inputMenuItemName = sc.nextLine();
+			
+			if(inputMenuItemName.equals("0"))
+			{
+				System.out.println("Returning back to Main Menu...");
+				break;
+			}
+			tempItem = menuItemFactory.getItem(inputMenuItemName);
+			
+			if(tempItem == null)
+			{
+				System.out.println("Item does not exist!");
+				continue;
+			}
+			System.out.println("Enter item Quantity: ");
+			inputQuantity = sc.nextInt();
+			sc.nextLine();
+			
+			ItemsInOrder.put(tempItem,inputQuantity);
+			System.out.println(tempItem.getName() + " Added! Quantity: " + inputQuantity);
+		}
+		
+		order = new Order(inputOrderID,inputTableNumber,currStaff,Calendar.getInstance(),ItemsInOrder);
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 4th option
 	 * View order
 	 */
 	public void option4ViewOrder()
 	{
-		
+		order.printCurrOrderInvoice();
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 5th option
 	 * Add/Remove order item/s to/from order
 	 */
 	public void option5UpdateItemsToOrder()
 	{
-		
+		if(order == null)
+		{
+			System.out.println("Order Not Created Yet!!");
+			return;
+		}
+		while(true)
+		{
+			Scanner sc = new Scanner(System.in);
+			String inputMenuItemName;
+			int input,inputOrderID, inputTableNumber, inputQuantity;
+			MenuItem tempItem;
+			System.out.println("Enter (1)Add Menu Items, (2)Remove Menu Items, (0)Return back to Menu");
+			input = sc.nextInt();
+			sc.nextLine();
+			
+			if(input == 0)
+			{
+				System.out.println("Returning to main menu...");
+				break;
+			}
+			else if(input == 1)
+			{
+				System.out.println("Enter Name of Item to add: ");
+				inputMenuItemName = sc.nextLine();
+				tempItem = menuItemFactory.getItem(inputMenuItemName);
+				if(tempItem == null)
+				{
+					System.out.println("Invalid Item to add!!!");
+					continue;
+				}
+				System.out.println("Enter item Quantity: ");
+				inputQuantity = sc.nextInt();
+				sc.nextLine();
+				order.addItem(tempItem,inputQuantity);
+				
+				System.out.println("Item added!!!");
+			}
+			else if(input == 2)
+			{
+				System.out.println("Enter Name of Item to remove: ");
+				inputMenuItemName = sc.nextLine();
+				tempItem = menuItemFactory.getItem(inputMenuItemName);
+				if(tempItem == null)
+				{
+					System.out.println("Invalid Item to remove!!!");
+					continue;
+				}
+				//System.out.println("Enter item Quantity: ");
+				//inputQuantity = sc.nextInt();
+				//sc.nextLine();
+				order.removeItem(tempItem);
+				System.out.println("Item removed!!!");
+			}
+		}
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 6th option
 	 * Create reservation booking
 	 */
 	public void option6ReservationBookingCreation()
@@ -308,7 +437,8 @@ public class RRPSS {
 		
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 7th option
 	 * Check/Remove reservation booking
 	 */
 	public void option7ReservationChecking()
@@ -316,7 +446,8 @@ public class RRPSS {
 		
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 8th option
 	 * Check table availability
 	 */
 	public void option8TableAvailability()
@@ -324,7 +455,8 @@ public class RRPSS {
 		
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 9th option
 	 * Print order invoice
 	 */
 	public void option9PrintOrderInvoice()
@@ -338,12 +470,13 @@ public class RRPSS {
 		order.printOrderInvoice();
 	}
 	
-	/*
+	/**
+	 * Function to perform operations regarding the 10 option
 	 * Print sale revenue report by period (eg day or month)
 	 */
 	public void option10PrintSaleRevenueReport()
 	{
-		
+		GenerateReport temp = new GenerateReport();
 	}
 	
 	

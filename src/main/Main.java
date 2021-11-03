@@ -9,8 +9,8 @@ package main;
 import java.util.Scanner;
 
 public class Main {
-	/*
-	 * 
+	/**
+	 * Main Function to run the main logic of the program
 	 */
 	public static void main(String[] args) {
 		//Scanner sc = new Scanner(System.in);

@@ -1,3 +1,3 @@
 type,name,description,price,Items in set
-PromotionalSet,Burger Set,A special value burger set containing a burger fries and a can of mountain dew,5.0,Mountain Dew,Fries,Burger
-PromotionalSet,Zhao Yuan,Set for some guy,1337.0,Fries,Burger
+PromotionalSet,Burger Set,A special value burger set containing a burger fries and a can of mountain dew,5.0,Fries,Mountain Dew,Burger
+PromotionalSet,Zhao Yuan Set,Set for some guy,1337.0,Fries,Burger
