@@ -1,36 +1,44 @@
 /**
  MenuItemFactory - Generates objects of the MenuItem class and extended sub-classes
  @author Lim Rui An, Ryan
- @version 1.0
+ @version 1.1
  @since 2021-10-23
 */
 
 package menuitem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import miscellaneous.CSVLoader;
 
 public class MenuItemFactory {
 	
 	/**
+	* Private MenuItemLoader used to load the csv files
+	*/
+	private MenuItemLoader mil;
+	
+	/**
 	* Private list of all items constructed by the factory
 	*/
-	private ArrayList<MenuItem> ItemList;
+	private ArrayList<MenuItem> itemList;
 
 	/**
 	* Constructor for MenuItemFactory
 	*/
 	public MenuItemFactory() {
-		ItemList = new ArrayList<MenuItem>();
+		itemList = new ArrayList<MenuItem>();
+		mil = new MenuItemLoader();
+		mil.initializeLoaders("src/resource/menuitems.csv", "src/resource/promoitems.csv");
+		constructFromCSV(mil.getNormalCSV());
+		constructFromCSV(mil.getPromoCSV());
 	}
 	
 	/**
 	* Public accessor function to get the ItemList
 	*/
 	public ArrayList<MenuItem> getItemList(){
-		return ItemList;
+		return itemList;
 	}
 	
 	/**
@@ -47,26 +55,34 @@ public class MenuItemFactory {
 	}
 	
 	/**
+	* Public void function to update the csv files used for the construction of menu items
+	*/
+	public void updateCSV() {
+		if (mil != null)
+			mil.updateCSV(itemList);
+	}
+	
+	/**
 	* Public void function to construct an item based on passed parameters
 	* Constructed item is put into the ItemList
-	* This function is hardcoded to abide by the formatting of the CSV file
-	* Not the best in terms of coding practices, but it works
+	* This function is hard-coded to abide by the formatting of the CSV file
 	* @param parameterList - A list of parameters pertaining to the item
 	*/
 	public void constructItem(ArrayList<String> parameterList){
-		// Switch based on MenuItem Type
-		switch(parameterList.get(0)) {
-		case "dessert": ItemList.add(createDessert(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3))));
-			break;
-		case "drink": ItemList.add(createDrink(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3))));
-			break;
-		case "maincourse": ItemList.add(createMainCourse(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3))));
-			break;
-		case "sidecourse": ItemList.add(createSideCourse(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3))));
-			break;
-		case "promotionalset": ItemList.add(createPromotionalSet(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3)), new ArrayList<String>(parameterList.subList(4, parameterList.size()-1))));
-			break;
-		default: System.out.println("MenuItemFactory: Unidentified Construction Parameter");
+		// Conditionals based on MenuItem Type, using the class name to reduce hard-coding
+		if (parameterList.get(0).equals(Dessert.class.getSimpleName()))
+			createDessert(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3)));
+		else if (parameterList.get(0).equals(Drink.class.getSimpleName()))
+			createDrink(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3)));
+		else if (parameterList.get(0).equals(MainCourse.class.getSimpleName()))
+			createMainCourse(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3)));
+		else if (parameterList.get(0).equals(SideCourse.class.getSimpleName()))
+			createSideCourse(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3)));
+		else if (parameterList.get(0).equals(PromotionalSet.class.getSimpleName()))
+			createPromotionalSet(parameterList.get(1), parameterList.get(2), Double.parseDouble(parameterList.get(3)), new ArrayList<String>(parameterList.subList(4, parameterList.size())));
+		else {
+			System.out.println("MenuItemFactory: Unidentified Construction Parameter");
+			System.out.println(parameterList.get(0));
 		}
 	}
 	
@@ -76,7 +92,7 @@ public class MenuItemFactory {
 	* @param name - The name of the item intended to be found
 	*/
 	public MenuItem getItem(String name){
-		for (MenuItem i : ItemList) {
+		for (MenuItem i : itemList) {
 			if (i.getName().equals(name))
 				return i;
 		}
@@ -94,6 +110,7 @@ public class MenuItemFactory {
 		obj.setName(name);
 		obj.setDescription(description);
 		obj.setPrice(price);
+		itemList.add(obj);
 		return obj;
 	}
 	
@@ -108,6 +125,7 @@ public class MenuItemFactory {
 		obj.setName(name);
 		obj.setDescription(description);
 		obj.setPrice(price);
+		itemList.add(obj);
 		return obj;
 	}
 	
@@ -122,6 +140,7 @@ public class MenuItemFactory {
 		obj.setName(name);
 		obj.setDescription(description);
 		obj.setPrice(price);
+		itemList.add(obj);
 		return obj;
 	}
 	
@@ -136,6 +155,7 @@ public class MenuItemFactory {
 		obj.setName(name);
 		obj.setDescription(description);
 		obj.setPrice(price);
+		itemList.add(obj);
 		return obj;
 	}
 
@@ -159,7 +179,7 @@ public class MenuItemFactory {
 				obj.addItems(m, 1);
 			else System.out.println("MenuItemFactory: Cannot find item of id: " + id + " for PromoSet item " + name);
 		}
-		
+		itemList.add(obj);
 		return obj;
 	}
 }
