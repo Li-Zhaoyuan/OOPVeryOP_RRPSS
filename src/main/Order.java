@@ -107,14 +107,14 @@ public class Order extends MenuItem {
 	public int getTableNumber(){
 		return tableNumber;
 	}
-
-    /**
+	
+	/**
 	* Get the information of the staff that created the order
 	* @return information of staff
 	*/
 	public Staff getCreatedBy(){
         return CreatedBy;
-    }
+	}
 
 	/**
 	* Get the datetime the order was created
@@ -123,13 +123,13 @@ public class Order extends MenuItem {
 	public Calendar getOrderDateTime(){
 		return OrderDateTime;
 	}
-
-    /**
+	
+	/**
 	* Display Order invoice
 	* Displayed information includes order ID, table number, staff information,
 	* date/time of order and summary of ordered items
 	*/
-    public void printOrderInvoice(){
+	public void printOrderInvoice(){
 		String printOrderString = "";
 
 		System.out.print("-----Order Invoice-----\n");
