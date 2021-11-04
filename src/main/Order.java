@@ -1,7 +1,7 @@
 /**
  Order - Order made by a staff.
  Each order has an ID, table number, staff, date/time, ordered items.
- @author Chua Yi Jie
+ @author Yi Jie
  @version 1.0
  @since 2021-10-23
 */
@@ -48,16 +48,12 @@ public class Order extends MenuItem {
 	/**
 	* Constructor of Order object
 	*/
-	public Order(int orderId, int tableNumber, Staff CreatedBy, Calendar OrderDateTime, HashMap<MenuItem, Integer> ItemsInOrder) {
+	public Order(int orderId, int tableNumber, Staff CreatedBy, Calendar OrderDateTime) {
 		this.orderId = orderId;
 		this.tableNumber = tableNumber;
 		this.CreatedBy = CreatedBy;
 		this.OrderDateTime = OrderDateTime;
-
-		if(ItemsInOrder.isEmpty())
-			ItemsInOrder = new HashMap<MenuItem, Integer>();
-		else
-			this.ItemsInOrder = ItemsInOrder;;
+		this.ItemsInOrder = new HashMap<MenuItem, Integer>();
 	}
 
 	/**
@@ -130,29 +126,38 @@ public class Order extends MenuItem {
 	* date/time of order and summary of ordered items
 	*/
 	public void printOrderInvoice(){
-		String printOrderString = "";
 
-		System.out.print("-----Order Invoice-----\n");
-		System.out.printf("Order ID: " + getOrderID() + "\n");
-		System.out.printf("Table Number: " + getTableNumber() + "\n");
-		System.out.printf("-Staff Details-\n" + getCreatedBy() + "\n");
+		System.out.print("========================================\n");
+		System.out.print("-------------Order Invoice--------------\n");
+		System.out.print("========================================\n");
+		System.out.printf("Order ID: %30s%n", getOrderID());
+		System.out.printf("Table Number: %26s%n", getTableNumber());
 		System.out.printf("Order Date/Time: " + dateFormatter.format(OrderDateTime.getTime()) + "\n");
+		System.out.print("========================================\n");
+		System.out.print("-----------------Staff------------------\n");
+		System.out.print("========================================\n");
+		System.out.printf("Name: %34s%n", CreatedBy.getName());
+		System.out.printf("Gender: %32s%n", CreatedBy.getGender());
+		System.out.printf("Job Title: %29s%n", CreatedBy.getJobTitle());
+		System.out.printf("Employee ID: %27s%n", CreatedBy.getEmployeeID());
+		System.out.print("========================================\n");
 
 		for(MenuItem item : ItemsInOrder.keySet()){
-			String orderedItem = item.toString();
+			String orderedItem = item.getName();
 			int quantity = ItemsInOrder.get(item);
-			printOrderString += orderedItem + " " + quantity + "\n";
+			double price = item.getPrice();
+			System.out.printf("%-5s%-32s%s%n", quantity, orderedItem, price);
 		}
 
-		System.out.println(printOrderString);
+		System.out.print("========================================\n");
 	}
-	
+
 	/**
 	* Display Order invoice
 	* Displayed information includes order ID, table number, staff information,
 	* date/time of order and summary of ordered items
 	*/
-	public void printCurrOrderInvoice(){
+	public void printCurrOrderInvoice() {
 		String printOrderString = "";
 
 		System.out.print("-----Current Order-----\n");
@@ -169,4 +174,5 @@ public class Order extends MenuItem {
 
 		System.out.println(printOrderString);
 	}
+
 }
