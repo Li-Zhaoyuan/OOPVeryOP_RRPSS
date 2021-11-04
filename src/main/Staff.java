@@ -1,7 +1,7 @@
 /**
  Staff - Staff of restaurant.
  Each staff has a name, gender, job title and employee ID.
- @author Chua Yi Jie
+ @author Yi Jie
  @version 1.0
  @since 2021-10-23
 */

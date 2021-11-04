@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import menuitem.MenuItem;
+import main.Discount.discountType;
 
 public class Order extends MenuItem {
 
@@ -66,16 +67,27 @@ public class Order extends MenuItem {
 	private double nettPrice;
 
 	/**
-	* Constructor of Order object
+	* Discount of respective membership tier of customer
 	*/
-	public Order(int orderId, int tableNumber, Staff CreatedBy, Calendar OrderDateTime, double originalPrice, double nettPrice) {
+	private discountType discount;
+
+	/**
+	* Constructor of Order object
+	* Creates a new order with the given information
+	* @param orderId is the order ID of the order
+	* @param tableNumber is the table number of the order
+	* @param CreatedBy is the staff that took the order
+	* @param OrderDateTime is the date/time when order was made
+	*/
+	public Order(int orderId, int tableNumber, Staff CreatedBy, Calendar OrderDateTime, discountType discount) {
 		this.orderId = orderId;
 		this.tableNumber = tableNumber;
 		this.CreatedBy = CreatedBy;
 		this.OrderDateTime = OrderDateTime;
-		this.originalPrice = originalPrice;
-		this.nettPrice = nettPrice;
+		this.originalPrice = 0;
+		this.nettPrice = 0;
 		this.ItemsInOrder = new HashMap<MenuItem, Integer>();
+		this.discount = discount;
 	}
 
 	/**
@@ -127,9 +139,8 @@ public class Order extends MenuItem {
 		}
 		setOriginalPrice(originalPrice);
 
-		nettPrice = originalPrice * SERVICE_CHARGE * GOODS_SERVICES_TAX;
+		nettPrice = (originalPrice * SERVICE_CHARGE * GOODS_SERVICES_TAX) - (getDiscount() * originalPrice);
 		setNettPrice(nettPrice);
-
 	}
 
 	/**
@@ -162,6 +173,15 @@ public class Order extends MenuItem {
 	*/
 	public Calendar getOrderDateTime() {
 		return OrderDateTime;
+	}
+
+	/**
+	* Get the discount of respective membership tier of customer
+	* @return discount
+	*/
+	public double getDiscount() {
+		double discountGiven = discount.getDiscount() / 100;
+		return discountGiven;
 	}
 
 	/**
@@ -198,42 +218,44 @@ public class Order extends MenuItem {
 	
 	/**
 	* Display Order invoice
-	* Displayed information includes order ID, table number, staff information,
-	* date/time of order and summary of ordered items
+	* Displayed information includes order ID, table number, date/time of order,
+	* staff details, list of ordered items, subtotal, 
+	* service charge, gst, discount and nett total
 	*/
 	public void printOrderInvoice() {
 
-		System.out.print("========================================\n");
-		System.out.print("-------------Order Invoice--------------\n");
-		System.out.print("========================================\n");
-		System.out.printf("Order ID: %30s%n", getOrderID());
-		System.out.printf("Table Number: %26s%n", getTableNumber());
+		System.out.print("=========================================\n");
+		System.out.print("--------------Order Invoice--------------\n");
+		System.out.print("=========================================\n");
+		System.out.printf("Order ID: %31s%n", getOrderID());
+		System.out.printf("Table Number: %27s%n", getTableNumber());
 		System.out.printf("Order Date/Time: " + dateFormatter.format(OrderDateTime.getTime()) + "\n");
-		System.out.print("========================================\n");
-		System.out.print("-----------------Staff------------------\n");
-		System.out.print("========================================\n");
-		System.out.printf("Name: %34s%n", CreatedBy.getName());
-		System.out.printf("Gender: %32s%n", CreatedBy.getGender());
-		System.out.printf("Job Title: %29s%n", CreatedBy.getJobTitle());
-		System.out.printf("Employee ID: %27s%n", CreatedBy.getEmployeeID());
-		System.out.print("========================================\n");
+		System.out.print("=========================================\n");
+		System.out.print("------------------Staff------------------\n");
+		System.out.print("=========================================\n");
+		System.out.printf("Name: %35s%n", CreatedBy.getName());
+		System.out.printf("Gender: %33s%n", CreatedBy.getGender());
+		System.out.printf("Job Title: %30s%n", CreatedBy.getJobTitle());
+		System.out.printf("Employee ID: %28s%n", CreatedBy.getEmployeeID());
+		System.out.print("=========================================\n");
 
 		for(MenuItem item : ItemsInOrder.keySet()) {
 			String orderedItem = item.getName();
 			int quantity = ItemsInOrder.get(item);
 			double price = item.getPrice();
-			System.out.printf("%-3s%-33s%.2f%n", quantity, orderedItem, price);
+			System.out.printf("%-3s%-34s%.2f%n", quantity, orderedItem, price);
 		}
 
 		calculateTotalPrices();
-		System.out.print("========================================\n");
-		System.out.printf("SUBTOTAL: %30.2f%n", getOriginalPrice());
-		System.out.printf("SERVICE CHARGE: %24.2f%n", 0.10 * originalPrice);
-		System.out.printf("GST: %35.2f%n", 0.07 * 1.10 * originalPrice);
-		System.out.printf("TOTAL: %33.2f%n", getNettPrice());
-		System.out.print("========================================\n");
-		System.out.print("-----Thank you for dining with us!------\n");
-		System.out.print("========================================\n");
+		System.out.print("=========================================\n");
+		System.out.printf("SUBTOTAL: %31.2f%n", getOriginalPrice());
+		System.out.printf("SERVICE CHARGE: %25.2f%n", 0.10 * originalPrice);
+		System.out.printf("GST: %36.2f%n", 0.07 * 1.10 * originalPrice);
+		System.out.printf("DISCOUNT: %26s%.2f%s%n", "(", getDiscount() * originalPrice, ")");
+		System.out.printf("TOTAL: %34.2f%n", getNettPrice());
+		System.out.print("=========================================\n");
+		System.out.print("------Thank you for dining with us!------\n");
+		System.out.print("=========================================\n");
 	}
 
 	/**
