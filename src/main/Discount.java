@@ -8,6 +8,11 @@
 package main;
 public class Discount {
     public enum discountType {
+
+        /**
+        * NONMEMBER - No discount
+        */
+        NONMEMBER(0),
         
         /**
         * MEMBER - 10 percent discount
