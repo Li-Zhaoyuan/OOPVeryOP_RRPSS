@@ -9,6 +9,9 @@ package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import main.Discount.discountType;
+
 import java.util.Calendar;
 import menuitem.MenuItemFactory;
 import menuitem.MenuItem;
@@ -316,10 +319,11 @@ public class RRPSS {
 	{
 		Scanner sc = new Scanner(System.in);
 		String inputMenuItemName;
-		int inputOrderID, inputTableNumber, inputQuantity;
+		int inputOrderID, inputTableNumber, inputQuantity, inputDiscountType;
 		MenuItem tempItem;
-		HashMap<MenuItem, Integer> ItemsInOrder = new HashMap<MenuItem, Integer>();
-		//Calender 
+		discountType disType;
+		
+		//Calendar 
 		System.out.println(">>>Creating new order<<<");
 		
 		System.out.println("Enter Order ID:");
@@ -328,6 +332,18 @@ public class RRPSS {
 		System.out.println("Enter Table Number:");
 		inputTableNumber = sc.nextInt();
 		sc.nextLine();
+		
+		System.out.println("Enter Discount type (0)NON MEMBER, (1)MEMBER, (2)SILVER, (3)GOLD:");
+		inputDiscountType = sc.nextInt();
+		sc.nextLine();
+		
+		if(inputDiscountType < 0 && inputDiscountType > 3)
+		{
+			inputDiscountType = 0;
+			System.out.println("INVALID Discount type, set to (0)NON MEMBER by default.");
+		}
+		disType = discountType.values()[inputDiscountType];
+		order = new Order(inputOrderID,inputTableNumber,currStaff,Calendar.getInstance(),disType);
 		
 		while(true)
 		{
@@ -350,11 +366,11 @@ public class RRPSS {
 			inputQuantity = sc.nextInt();
 			sc.nextLine();
 			
-			ItemsInOrder.put(tempItem,inputQuantity);
+			order.addItem(tempItem,inputQuantity);
 			System.out.println(tempItem.getName() + " Added! Quantity: " + inputQuantity);
 		}
 		
-		order = new Order(inputOrderID,inputTableNumber,currStaff,Calendar.getInstance(),ItemsInOrder);
+		
 	}
 	
 	/**
@@ -381,7 +397,7 @@ public class RRPSS {
 		{
 			Scanner sc = new Scanner(System.in);
 			String inputMenuItemName;
-			int input,inputOrderID, inputTableNumber, inputQuantity;
+			int input,inputQuantity;
 			MenuItem tempItem;
 			System.out.println("Enter (1)Add Menu Items, (2)Remove Menu Items, (0)Return back to Menu");
 			input = sc.nextInt();
