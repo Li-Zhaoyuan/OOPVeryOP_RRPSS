@@ -37,7 +37,7 @@ public class GenerateReport {
 				countQuantity = 0;
 				
 				// split line row of name, quantity, year, month, day
-				for (RevenueRecord rr : rrf.getItemList())
+				for (RevenueRecord rr : rrf.getRecordList())
 				{
 					// if name = item
 					if (rr.getName().compareTo(m.getName()) == 0 && Integer.valueOf(rr.getMonth()) == month) {
@@ -55,7 +55,7 @@ public class GenerateReport {
 			}
 			
 			// split line row of discount, year, month, day
-			for (DiscountRecord dr : drf.getItemList())
+			for (DiscountRecord dr : drf.getRecordList())
 			{
 				// if name = item
 				if (Integer.valueOf(dr.getMonth()) == month) {

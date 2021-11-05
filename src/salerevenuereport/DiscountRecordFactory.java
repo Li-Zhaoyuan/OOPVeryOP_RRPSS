@@ -20,7 +20,7 @@ public class DiscountRecordFactory {
 		constructFromCSV(Dldr);
 	}
 	
-	public ArrayList<DiscountRecord> getItemList(){
+	public ArrayList<DiscountRecord> getRecordList(){
 		return recordList;
 	}
 	

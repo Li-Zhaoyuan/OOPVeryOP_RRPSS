@@ -20,7 +20,7 @@ public class RevenueRecordFactory {
 		constructFromCSV(Rldr);
 	}
 	
-	public ArrayList<RevenueRecord> getItemList(){
+	public ArrayList<RevenueRecord> getRecordList(){
 		return recordList;
 	}
 	
