@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class CSVWriter {
-	FileWriter fw = null; 
-	BufferedWriter bw = null; 
-	PrintWriter pw = null;
+	private FileWriter fw = null; 
+	private BufferedWriter bw = null; 
+	private PrintWriter pw = null;
 	
 	/**
 	* Constructor for CSVWriter
