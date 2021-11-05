@@ -78,6 +78,7 @@ public class Order extends MenuItem {
 	* @param tableNumber is the table number of the order
 	* @param CreatedBy is the staff that took the order
 	* @param OrderDateTime is the date/time when order was made
+	* @param discount is the membership tier of the customer 
 	*/
 	public Order(int orderId, int tableNumber, Staff CreatedBy, Calendar OrderDateTime, discountType discount) {
 		this.orderId = orderId;
