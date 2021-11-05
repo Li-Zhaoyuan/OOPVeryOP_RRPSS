@@ -12,12 +12,11 @@ import menuitem.MenuItemFactory;
 import miscellaneous.CSVLoader;
 
 public class GenerateReport {
+	private double totalSales, monthlySales, monthlyDiscount, totalRevenue = 0, totalDiscount = 0;
+	private String monthStr[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	private int countQuantity;
+	
 	public GenerateReport() {
-		double totalSales, monthlySales, monthlyDiscount, totalRevenue = 0, totalDiscount = 0;
-		String monthStr[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-		int countQuantity;
-		String line = "";
-		
 		RevenueRecordFactory rrf = new RevenueRecordFactory();
 		DiscountRecordFactory drf = new DiscountRecordFactory();
 		MenuItemFactory mif = new MenuItemFactory();
