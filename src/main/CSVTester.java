@@ -11,26 +11,26 @@ public class CSVTester {
 	public static void main(String[] args) {
 		// How 2 use the csv loader 101
 		// Load the file
-		CSVLoader ldr = new CSVLoader("src/resource/menuitems.csv", true);
+		//CSVLoader ldr = new CSVLoader("src/resource/menuitems.csv", true);
 		
 		// Get the header
-		System.out.println(ldr.getCSVHeader());
+		//System.out.println(ldr.getCSVHeader());
 		
 		// Iterate the data
-		for (ArrayList<String> l : ldr.getCSVData()) {
-			// Do something with the list
-			System.out.println(l);
-		}
+		//for (ArrayList<String> l : ldr.getCSVData()) {
+		//	// Do something with the list
+		//	System.out.println(l);
+		//}
 		
-		System.out.println();
+		//System.out.println();
 		
 		// Use the menu factory to construct items
 		MenuItemFactory mif = new MenuItemFactory();
-		mif.constructFromCSV(ldr);
+		//mif.constructFromCSV(ldr);
 		
 		// NOTE: ALWAYS CONSTRUCT NORMAL MENU ITEMS BEFORE PROMOTIONAL ITEMS
-		ldr = new CSVLoader("src/resource/promoitems.csv", true);
-		mif.constructFromCSV(ldr);
+		//ldr = new CSVLoader("src/resource/promoitems.csv", true);
+		//mif.constructFromCSV(ldr);
 		
 		// Check construction
 		for (MenuItem m : mif.getItemList()) {
@@ -40,7 +40,21 @@ public class CSVTester {
 		System.out.println();
 		// Get items by their string name
 		System.out.println(mif.getItem("Fries") != null);
-
+		
+		// How to add items that will be saved to menu
+		//mif.createMainCourse("Zhao Yuan", "Some guy", 420.69);
+		
+		// How to insert set that will be saved
+		/*
+		ArrayList<String> items = new ArrayList<String>();
+		items.add("Burger");
+		items.add("Fries");
+		mif.createPromotionalSet("Zhao Yuan", "Set for some guy", 1337, items);
+		*/
+		
+		// Saving the menu item list
+		System.out.println("Test Update");
+		mif.updateCSV();
 	}
 
 }

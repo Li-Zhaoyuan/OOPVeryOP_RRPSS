@@ -1,3 +1,10 @@
+/**
+ CSVWriter - Write String data into .csv file
+ @author Heng Zheng Ping
+ @version 1.0
+ @since 2021-11-03
+*/
+
 package miscellaneous;
 
 import java.io.BufferedWriter;
@@ -6,14 +13,24 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class CSVWriter {
-	FileWriter fw = null; 
-	BufferedWriter bw = null; 
-	PrintWriter pw = null;
+	private FileWriter fw = null; 
+	private BufferedWriter bw = null; 
+	private PrintWriter pw = null;
+	
+	/**
+	* Constructor for CSVWriter
+	*/
+	public CSVWriter() {
+		
+	}
 	
 	public CSVWriter(String filePath, String data) {
 		writeFile(filePath, true, data);
 	}
 	
+	/**
+	* Write string data into CSV file
+	*/
 	public void writeFile(String filePath, boolean append, String data) {
 			try { 
 					fw = new FileWriter(filePath, append);
