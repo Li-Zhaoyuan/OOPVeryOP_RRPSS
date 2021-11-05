@@ -22,6 +22,7 @@ public class GenerateReport {
 		DiscountRecordFactory drf = new DiscountRecordFactory();
 		MenuItemFactory mif = new MenuItemFactory();
 		
+		System.out.printf("\n---------------SALE REVENUE REPORT---------------\n");
 		// for every month
 		for(int month=0; month<=11; month++)
 		{
@@ -76,6 +77,6 @@ public class GenerateReport {
 		// To add in Total Discount and display after discount revenue
 		System.out.printf("*******************************"
 				+ "\nTotal Discount Applied: $%.2f"
-				+ "\nTotal Revenue After Discount: $%.2f\n", totalDiscount, totalRevenue);
+				+ "\nTotal Revenue After Discount: $%.2f\n\n", totalDiscount, totalRevenue);
 	}
 }

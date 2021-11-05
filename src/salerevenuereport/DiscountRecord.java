@@ -8,10 +8,10 @@
 package salerevenuereport;
 
 public class DiscountRecord {
-	protected double discount;
-	protected int year;
-	protected int month;
-	protected int day;
+	private double discount;
+	private int year;
+	private int month;
+	private int day;
 	
 	/**
 	* Constructor for DiscountRecord

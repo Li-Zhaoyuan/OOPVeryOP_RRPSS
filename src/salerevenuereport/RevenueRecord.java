@@ -8,11 +8,11 @@
 package salerevenuereport;
 
 public class RevenueRecord {
-	protected String name;
-	protected int quantity;
-	protected int year;
-	protected int month;
-	protected int day;
+	private String name;
+	private int quantity;
+	private int year;
+	private int month;
+	private int day;
 	
 	public void RevenueRecord(String name, int quantity, int year, int month, int day) {
 		this.name = name;
