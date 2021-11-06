@@ -37,49 +37,56 @@ public class Main {
 			System.out.println("9. Print order invoice");
 			System.out.println("10. Print sale revenue report by period (eg day or month)");
 			System.out.println("11. Exit");
-			input = sc.nextInt();
-			
-			//sc.close();
-			
-			if(input >= 11)
+			try
 			{
-				System.out.println("Terminating Programming");
-				sc.close();
-				break;
-			}
+				input = sc.nextInt();
 				
-			switch(input)
+				//sc.close();
+				
+				if(input >= 11)
+				{
+					System.out.println("Terminating Programming");
+					sc.close();
+					break;
+				}
+					
+				switch(input)
+				{
+				case 1:
+					rrpss.option1MenuItemManipulation();
+					break;
+				case 2:
+					rrpss.option2PromotionManipulation();
+					break;
+				case 3:
+					rrpss.option3OrderCreation();
+					break;
+				case 4:
+					rrpss.option4ViewOrder();
+					break;
+				case 5:
+					rrpss.option5UpdateItemsToOrder();
+					break;
+				case 6:
+					rrpss.option6ReservationBookingCreation();
+					break;
+				case 7:
+					rrpss.option7ReservationChecking();
+					break;
+				case 8:
+					rrpss.option8TableAvailability();
+					break;
+				case 9:
+					rrpss.option9PrintOrderInvoice();
+					break;
+				case 10:
+					rrpss.option10PrintSaleRevenueReport();
+					break;
+				}
+			}
+			catch(Exception e)
 			{
-			case 1:
-				rrpss.option1MenuItemManipulation();
-				break;
-			case 2:
-				rrpss.option2PromotionManipulation();
-				break;
-			case 3:
-				rrpss.option3OrderCreation();
-				break;
-			case 4:
-				rrpss.option4ViewOrder();
-				break;
-			case 5:
-				rrpss.option5UpdateItemsToOrder();
-				break;
-			case 6:
-				rrpss.option6ReservationBookingCreation();
-				break;
-			case 7:
-				rrpss.option7ReservationChecking();
-				break;
-			case 8:
-				rrpss.option8TableAvailability();
-				break;
-			case 9:
-				rrpss.option9PrintOrderInvoice();
-				break;
-			case 10:
-				rrpss.option10PrintSaleRevenueReport();
-				break;
+				System.out.println("\nInvalid Input Detected, Error Occurred. Returning to Main Menu...\n");
 			}
 		}
 		
