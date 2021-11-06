@@ -33,7 +33,7 @@ public class RRPSS {
 	 */
 	Order order;
 	/**
-	 * variable to hold the int input from the user
+	 * variable to hold the integer input from the user
 	 */
 	int input;
 	
@@ -47,7 +47,7 @@ public class RRPSS {
 		int inputEmployeeID;
 		
 		menuItemFactory = new MenuItemFactory();
-		System.out.println("Enter Staff Details");
+		System.out.println(">>>Enter Staff Details<<<\n");
 		System.out.println("Enter Staff Name: ");
 		inputName = sc.nextLine();
 		System.out.println("Enter Staff Gender: ");
@@ -69,53 +69,102 @@ public class RRPSS {
 	}
 	
 	/**
+	 * Function to Print all available A La Carte Menu Items
+	 */
+	public void PrintAllALaCarteMenuItems()
+	{
+		System.out.println("\n**********List of A La Carte Menu Items**********");
+		for (MenuItem i : menuItemFactory.getItemList()) 
+		{
+			if(i instanceof PromotionalSet)
+				continue;
+			System.out.println("\nName Of Menu Item: " + i.getName());
+			System.out.println("Description Of Menu Item: " + i.getDescription());
+			System.out.println("Price Of Menu Item: $" + i.getPrice());
+			
+		}
+		System.out.println("\n**********End of list**********\n");
+	}
+	
+	/**
+	 * Function to Print all available Promotional Set Menu Items
+	 */
+	public void PrintAllPromotionalSet()
+	{
+		System.out.println("\n**********List of Promotional Sets**********");
+		for (MenuItem i : menuItemFactory.getItemList()) 
+		{
+			if(!(i instanceof PromotionalSet))
+				continue;
+			System.out.println("\nName Of Promotional Set: " + i.getName());
+			System.out.println("Description Of Promotional Set: " + i.getDescription());
+			System.out.println("Price Of Promotional Set: $" + i.getPrice());
+			
+			System.out.println("\n	**********List of Menu Items in Promotional Set**********");
+			for(MenuItem item : ((PromotionalSet)i).getItems().keySet()) {
+				System.out.println("\n	Name Of Menu Item: " + item.getName());
+				System.out.println("	Description Of Menu Item: " + item.getDescription());
+				//System.out.println("Price Of Promotional Set: $" + i.getPrice());
+			}
+			System.out.println("\n	**********End of list**********\n");
+		}
+		System.out.println("\n**********End of list**********\n");
+	}
+	
+	/**
 	 * Function to perform operations regarding the 1st option
 	 * Create/Update/Remove menu item
 	 */
 	public void option1MenuItemManipulation()
 	{
+		System.out.println("\n>>>Create/Update/Remove menu item<<<\n");
+		PrintAllALaCarteMenuItems();
 		Scanner sc = new Scanner(System.in);
 		String inputName, inputDesc;
 		Double inputPrice;
 		MenuItem tempItem;
 		
-		System.out.println("Select Number Accordingly (1)Create/(2)Update/(3)Remove menu item/(0)Go Back");
+		System.out.println("\nSelect Number Accordingly (1)Create/(2)Update/(3)Remove menu item/(0)Go Back");
 		input = sc.nextInt();
 		sc.nextLine();
 		switch(input)
 		{
 		case 1:
-			System.out.println("Create according to number (1)maincourse/(2)sidecourse/(3)dessert/(4)drink");
+			System.out.println("\nCreate according to number (1)maincourse/(2)sidecourse/(3)dessert/(4)drink");
 			input = sc.nextInt();
 			sc.nextLine();
-			System.out.println("Enter Name of Dish: ");
+			System.out.println("\nEnter Name of Menu Item: ");
 			inputName = sc.nextLine();
 			
-			System.out.println("Enter Description of Dish: ");
+			System.out.println("\nEnter Description of Menu Item: ");
 			inputDesc = sc.nextLine();
-			System.out.println("Enter Price of Dish: ");
+			System.out.println("\nEnter Price of Menu Item: ");
 			inputPrice = sc.nextDouble();
 			
 			if(input == 1)
-				menuItemFactory.getItemList().add(menuItemFactory.createMainCourse(inputName,inputDesc,inputPrice));
+				menuItemFactory.createMainCourse(inputName,inputDesc,inputPrice);
 			else if(input == 2)
-				menuItemFactory.getItemList().add(menuItemFactory.createSideCourse(inputName,inputDesc,inputPrice));
+				menuItemFactory.createSideCourse(inputName,inputDesc,inputPrice);
 			else if(input == 3)
-				menuItemFactory.getItemList().add(menuItemFactory.createDessert(inputName,inputDesc,inputPrice));
+				menuItemFactory.createDessert(inputName,inputDesc,inputPrice);
 			else if(input == 4)
-				menuItemFactory.getItemList().add(menuItemFactory.createDrink(inputName,inputDesc,inputPrice));
-				
+				menuItemFactory.createDrink(inputName,inputDesc,inputPrice);
+			
+			System.out.println("Menu Item added! Back to Main Menu...\n");	
 			break;
 		case 2:
-			System.out.println("Enter Name of Dish to Update: ");
+			System.out.println("Enter Name of Menu Item to Update: ");
 			inputName = sc.nextLine();
 			tempItem = menuItemFactory.getItem(inputName);
-			menuItemFactory.getItemList().remove(tempItem);
+			
 			if(tempItem == null)
 			{
-				System.out.println("No such dish");
+				System.out.println("No such Menu Item, Back to Main Menu...\n");
 				return;
 			}
+			
+			//menuItemFactory.getItemList().remove(tempItem);
+			
 			System.out.println("Select which information to update (1)name/(2)description/(3)price");
 			input = sc.nextInt();
 			sc.nextLine();
@@ -137,23 +186,23 @@ public class RRPSS {
 				inputPrice = sc.nextDouble();
 				tempItem.setPrice(inputPrice);
 			}
-			
+			System.out.println("Menu Item updated! Back to Main Menu...\n");	
 			break;
 		case 3:
-			System.out.println("Enter Name of Dish to Delete: ");
+			System.out.println("Enter Name of Menu Item to Delete: ");
 			inputName = sc.nextLine();
 			tempItem = menuItemFactory.getItem(inputName);
 			if(tempItem == null)
 			{
-				System.out.println("No such dish");
+				System.out.println("No such Menu Item, Back to Main Menu...\n");
 				break;
 			}
 			menuItemFactory.getItemList().remove(tempItem);
-			System.out.println("Dish Removed!");
+			System.out.println("Menu Item Removed! Back to Main Menu...\n");
 			break;
 		case 0:
 		default:
-			System.out.println("Back to Main Menu");
+			System.out.println("Back to Main Menu...\n");
 			break;	
 		}
 		//sc.close();
@@ -165,6 +214,8 @@ public class RRPSS {
 	 */
 	public void option2PromotionManipulation()
 	{
+		System.out.println("\n>>>Create/Update/Remove promotion<<<\n");
+		PrintAllPromotionalSet();
 		Scanner sc = new Scanner(System.in);
 		String inputName, inputDesc, inputDishName, inputPromoSet;
 		Double inputPrice;
@@ -185,16 +236,16 @@ public class RRPSS {
 			inputDesc = sc.nextLine();
 			System.out.println("Enter the Price of the Promotional Set: ");
 			inputPrice = sc.nextDouble();
-			
+			sc.nextLine();
 			while(true)
 			{
-				System.out.println("Enter Name of Dish to add to this Promotional Set, Enter(0) to save and go back");
+				System.out.println("Enter Name of Menu Item to add to this Promotional Set, Enter(0) to save and go back");
 				inputDishName = sc.nextLine();
 				
 				if(inputDishName.equals("0"))
 				{
-					menuItemFactory.getItemList().add(menuItemFactory.createPromotionalSet(inputName,inputDesc,inputPrice,listOfDishName));
-					System.out.println("Promotional Set Created! Returning to Main Menu ");
+					menuItemFactory.createPromotionalSet(inputName,inputDesc,inputPrice,listOfDishName);
+					System.out.println("Promotional Set Created! Back to Main Menu...\n");
 					break;
 				}
 				
@@ -217,7 +268,7 @@ public class RRPSS {
 			
 			if(tempItem == null || !(tempItem instanceof PromotionalSet))
 			{
-				System.out.println("Promotional Set does not exist!");
+				System.out.println("Promotional Set does not exist! Back to Main Menu...\n");
 				break;
 			}
 			
@@ -225,12 +276,12 @@ public class RRPSS {
 			{
 				System.out.println("Current Promotional Set = " + tempItem.getName());
 				System.out.println("Enter number to update (1)Promotional Set's name, (2)Promotional Set's Decription, (3)Promotional Set's Price, ");
-				System.out.println("(4)Add Dish, (5)Remove Dish, (0)to save and go back");
+				System.out.println("(4)Add Menu Item, (5)Remove Menu Item, (0)to save and go back");
 				input = sc.nextInt();
 				sc.nextLine();
 				if(input == 0)
 				{
-					System.out.println("Returning back to main menu...");
+					System.out.println("Back to Main Menu...\n");
 					break;
 				}
 				else if(input == 1)
@@ -238,54 +289,54 @@ public class RRPSS {
 					System.out.println("Enter new name for selected Promotional Set: ");
 					inputPromoSet = sc.nextLine();
 					tempItem.setName(inputPromoSet);
-					System.out.println("New name set!");
+					System.out.println("New name set! Back to Main Menu...\n");
 				}
 				else if(input == 2)
 				{
 					System.out.println("Enter new Decription for selected Promotional Set: ");
 					inputDesc = sc.nextLine();
 					tempItem.setDescription(inputDesc);
-					System.out.println("New Decription set!");
+					System.out.println("New Decription set! Back to Main Menu...\n");
 				}
 				else if(input == 3)
 				{
 					System.out.println("Enter new Price for selected Promotional Set: ");
 					inputPrice = sc.nextDouble();
 					tempItem.setPrice(inputPrice);
-					System.out.println("New Price set!");
+					System.out.println("New Price set! Back to Main Menu...\n");
 				}
 				else if(input == 4)
 				{
-					System.out.println("Enter Name of existing Dish to be added to the Promotional Set: ");
+					System.out.println("Enter Name of existing Menu Item to be added to the Promotional Set: ");
 					inputName = sc.nextLine();
 					MenuItem tempItem2;
 					tempItem2 = menuItemFactory.getItem(inputName);
 					if(tempItem2 == null)
 					{
-						System.out.println("Dish does not exist!");
+						System.out.println("Menu Item does not exist! Back to Main Menu...\n");
 						break;
 					}
 					
-					System.out.println("Enter Quantity of existing Dish to be added to the Promotional Set: ");
+					System.out.println("Enter Quantity of existing Menu Item to be added to the Promotional Set: ");
 					inputQuantity = sc.nextInt();
 					sc.nextLine();
 					((PromotionalSet)tempItem).addItems(tempItem2,inputQuantity);
-					System.out.println("Dish Added!!");
+					System.out.println("Menu Item Added!! Back to Main Menu...\n");
 				}
 				else if(input == 5)
 				{
-					System.out.println("Enter Name of existing Dish to be removed from the Promotional Set: ");
+					System.out.println("Enter Name of existing Menu Item to be removed from the Promotional Set: ");
 					inputName = sc.nextLine();
 					MenuItem tempItem2;
 					tempItem2 = menuItemFactory.getItem(inputName);
 					if(tempItem2 == null || ((PromotionalSet)tempItem).getItems().get(tempItem2) == null)
 					{
-						System.out.println("Dish does not exist!");
+						System.out.println("Menu Item does not exist! Back to Main Menu...\n");
 						break;
 					}
 					
 					((PromotionalSet)tempItem).removeItems(tempItem2);
-					System.out.println("Dish Removed!!");
+					System.out.println("Menu Item Removed!! Back to Main Menu...\\n");
 				}
 			}
 			
@@ -297,15 +348,15 @@ public class RRPSS {
 			
 			if(tempItem == null || !(tempItem instanceof PromotionalSet))
 			{
-				System.out.println("Promotional Set does not exist!");
+				System.out.println("Promotional Set does not exist! Back to Main Menu...\n");
 				break;
 			}
 			menuItemFactory.getItemList().remove(tempItem);
-			System.out.println("Promotion Set Removed!!");
+			System.out.println("Promotion Set Removed!! Back to Main Menu...\n");
 			break;
 		case 0:
 		default:
-			System.out.println("Back to Main Menu");
+			System.out.println("Back to Main Menu...\n");
 			break;	
 		}
 		//sc.close();
@@ -317,14 +368,13 @@ public class RRPSS {
 	 */
 	public void option3OrderCreation()
 	{
+		System.out.println("\n>>>Create new order<<<\n");
 		Scanner sc = new Scanner(System.in);
 		String inputMenuItemName;
 		int inputOrderID, inputTableNumber, inputQuantity, inputDiscountType;
 		MenuItem tempItem;
-		discountType disType;
+		discountType disType; 
 		
-		//Calendar 
-		System.out.println(">>>Creating new order<<<");
 		
 		System.out.println("Enter Order ID:");
 		inputOrderID = sc.nextInt();
@@ -345,6 +395,9 @@ public class RRPSS {
 		disType = discountType.values()[inputDiscountType];
 		order = new Order(inputOrderID,inputTableNumber,currStaff,Calendar.getInstance(),disType);
 		
+		PrintAllALaCarteMenuItems();
+		PrintAllPromotionalSet();
+		
 		while(true)
 		{
 			System.out.println("Enter Menu Item/Promotional Set to be added: (Enter (0) to complete)");
@@ -352,7 +405,7 @@ public class RRPSS {
 			
 			if(inputMenuItemName.equals("0"))
 			{
-				System.out.println("Returning back to Main Menu...");
+				System.out.println("Back to Main Menu...\n");
 				break;
 			}
 			tempItem = menuItemFactory.getItem(inputMenuItemName);
@@ -379,7 +432,11 @@ public class RRPSS {
 	 */
 	public void option4ViewOrder()
 	{
+		System.out.println("\n>>>View order<<<\n");
+		
 		order.printCurrOrderInvoice();
+		
+		System.out.println("\nBack to Main Menu...\n");
 	}
 	
 	/**
@@ -388,6 +445,7 @@ public class RRPSS {
 	 */
 	public void option5UpdateItemsToOrder()
 	{
+		System.out.println("\n>>>Add/Remove order item/s to/from order<<<\n");
 		if(order == null)
 		{
 			System.out.println("Order Not Created Yet!!");
@@ -405,7 +463,7 @@ public class RRPSS {
 			
 			if(input == 0)
 			{
-				System.out.println("Returning to main menu...");
+				System.out.println("Back to Main Menu...\n");
 				break;
 			}
 			else if(input == 1)
@@ -423,7 +481,7 @@ public class RRPSS {
 				sc.nextLine();
 				order.addItem(tempItem,inputQuantity);
 				
-				System.out.println("Item added!!!");
+				System.out.println("Item added!!!Back to Main Menu...\n");
 			}
 			else if(input == 2)
 			{
@@ -432,14 +490,14 @@ public class RRPSS {
 				tempItem = menuItemFactory.getItem(inputMenuItemName);
 				if(tempItem == null)
 				{
-					System.out.println("Invalid Item to remove!!!");
+					System.out.println("Invalid Item to remove!!!Back to Main Menu...\n");
 					continue;
 				}
 				//System.out.println("Enter item Quantity: ");
 				//inputQuantity = sc.nextInt();
 				//sc.nextLine();
 				order.removeItem(tempItem);
-				System.out.println("Item removed!!!");
+				System.out.println("Item removed!!!Back to Main Menu...\n");
 			}
 		}
 	}
@@ -450,7 +508,9 @@ public class RRPSS {
 	 */
 	public void option6ReservationBookingCreation()
 	{
+		System.out.println("\n>>>Create reservation booking<<<\n");
 		
+		System.out.println("\nBack to Main Menu...\n");
 	}
 	
 	/**
@@ -459,7 +519,9 @@ public class RRPSS {
 	 */
 	public void option7ReservationChecking()
 	{
+		System.out.println("\n>>>Check/Remove reservation booking<<<\n");
 		
+		System.out.println("\nBack to Main Menu...\n");
 	}
 	
 	/**
@@ -468,7 +530,9 @@ public class RRPSS {
 	 */
 	public void option8TableAvailability()
 	{
+		System.out.println("\n>>>Check table availability<<<\n");
 		
+		System.out.println("\nBack to Main Menu...\n");
 	}
 	
 	/**
@@ -477,13 +541,15 @@ public class RRPSS {
 	 */
 	public void option9PrintOrderInvoice()
 	{
+		System.out.println("\n>>>Print order invoice<<<\n");
 		if(order == null)
 		{
-			System.out.println("Please Create an order first before printing the invoice!");
+			System.out.println("Please Create an order first before printing the invoice! Back to Main Menu...\n");
 			return;
 		}
 		System.out.println("Printing current order's invoice! \n");
 		order.printOrderInvoice();
+		System.out.println("\nBack to Main Menu...\n");
 	}
 	
 	/**
@@ -492,7 +558,9 @@ public class RRPSS {
 	 */
 	public void option10PrintSaleRevenueReport()
 	{
+		System.out.println("\n>>>Print sale revenue report by period (eg day or month)<<<\n");
 		GenerateReport temp = new GenerateReport();
+		System.out.println("\nBack to Main Menu...\n");
 	}
 	
 	
