@@ -434,7 +434,7 @@ public class RRPSS {
 	{
 		System.out.println("\n>>>View order<<<\n");
 		
-		order.printCurrOrderInvoice();
+		order.viewCurrentOrder();
 		
 		System.out.println("\nBack to Main Menu...\n");
 	}

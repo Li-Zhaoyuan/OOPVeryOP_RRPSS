@@ -221,65 +221,71 @@ public class Order extends MenuItem {
 	* Display Order invoice
 	* Displayed information includes order ID, table number, date/time of order,
 	* staff details, list of ordered items, subtotal, 
-	* service charge, gst, discount and nett total
+	* service charge, gst, discount granted and nett total
 	*/
 	public void printOrderInvoice() {
 
-		System.out.print("=========================================\n");
-		System.out.print("--------------Order Invoice--------------\n");
-		System.out.print("=========================================\n");
-		System.out.printf("Order ID: %31s%n", getOrderID());
-		System.out.printf("Table Number: %27s%n", getTableNumber());
-		System.out.printf("Order Date/Time: " + dateFormatter.format(OrderDateTime.getTime()) + "\n");
-		System.out.print("=========================================\n");
-		System.out.print("------------------Staff------------------\n");
-		System.out.print("=========================================\n");
-		System.out.printf("Name: %35s%n", CreatedBy.getName());
-		System.out.printf("Gender: %33s%n", CreatedBy.getGender());
-		System.out.printf("Job Title: %30s%n", CreatedBy.getJobTitle());
-		System.out.printf("Employee ID: %28s%n", CreatedBy.getEmployeeID());
-		System.out.print("=========================================\n");
+		System.out.print("=============================================================\n");
+		System.out.print("------------------------Order Invoice------------------------\n");
+		System.out.print("=============================================================\n");
+		System.out.printf("Order ID: %51d%n", getOrderID());
+		System.out.printf("Table Number: %47d%n", getTableNumber());
+		System.out.printf("Order Date/Time: %44s%n", dateFormatter.format(OrderDateTime.getTime()));
+		System.out.print("=============================================================\n");
+		System.out.print("----------------------------Staff----------------------------\n");
+		System.out.print("=============================================================\n");
+		System.out.printf("Name: %55s%n", CreatedBy.getName());
+		System.out.printf("Gender: %53s%n", CreatedBy.getGender());
+		System.out.printf("Job Title: %50s%n", CreatedBy.getJobTitle());
+		System.out.printf("Employee ID: %48d%n", CreatedBy.getEmployeeID());
+		System.out.print("=============================================================\n");
 
 		for(MenuItem item : ItemsInOrder.keySet()) {
 			String orderedItem = item.getName();
 			int quantity = ItemsInOrder.get(item);
 			double price = item.getPrice();
-			System.out.printf("%-3s%-34s%.2f%n", quantity, orderedItem, price);
+			System.out.printf("%-3d%-44s%14.2f%n", quantity, orderedItem, price);
 		}
 
 		calculateTotalPrices();
-		System.out.print("=========================================\n");
-		System.out.printf("SUBTOTAL: %31.2f%n", getOriginalPrice());
-		System.out.printf("SERVICE CHARGE: %25.2f%n", 0.10 * originalPrice);
-		System.out.printf("GST: %36.2f%n", 0.07 * 1.10 * originalPrice);
-		System.out.printf("DISCOUNT: %26s%.2f%s%n", "(", getDiscount() * originalPrice, ")");
-		System.out.printf("TOTAL: %34.2f%n", getNettPrice());
-		System.out.print("=========================================\n");
-		System.out.print("------Thank you for dining with us!------\n");
-		System.out.print("=========================================\n");
+		System.out.print("=============================================================\n");
+		System.out.printf("SUBTOTAL: %51.2f%n", getOriginalPrice());
+		System.out.printf("SERVICE CHARGE: %45.2f%n", 0.10 * originalPrice);
+		System.out.printf("GST: %56.2f%n", 0.07 * 1.10 * originalPrice);
+		System.out.printf("DISCOUNT(%s): %37s%.2f%s%n", discount, "(", getDiscount() * originalPrice, ")");
+		System.out.printf("TOTAL: %54.2f%n", getNettPrice());
+		System.out.print("=============================================================\n");
+		System.out.print("----------------Thank you for dining with us!----------------\n");
+		System.out.print("=============================================================\n");
 	}
 
 	/**
-	* Display Order invoice
-	* Displayed information includes order ID, table number, staff information,
-	* date/time of order and summary of ordered items
+	* Display Current Order
+	* Displayed information includes order ID, table number, date/time of order,
+	* staff details and list of ordered items
 	*/
-	public void printCurrOrderInvoice() {
-		String printOrderString = "";
+	public void viewCurrentOrder() {
 
-		System.out.print("-----Current Order-----\n");
-		System.out.printf("Order ID: " + getOrderID() + "\n");
-		System.out.printf("Table Number: " + getTableNumber() + "\n");
-		System.out.printf("-Staff Details-\n" + getCreatedBy() + "\n");
-		System.out.printf("Order Date/Time: " + dateFormatter.format(OrderDateTime.getTime()) + "\n");
+		System.out.print("=============================================================\n");
+		System.out.print("------------------------Current Order------------------------\n");
+		System.out.print("=============================================================\n");
+		System.out.printf("Order ID: %51d%n", getOrderID());
+		System.out.printf("Table Number: %47d%n", getTableNumber());
+		System.out.printf("Order Date/Time: %44s%n", dateFormatter.format(OrderDateTime.getTime()));
+		System.out.print("=============================================================\n");
+		System.out.printf("Name: %55s%n", CreatedBy.getName());
+		System.out.printf("Gender: %53s%n", CreatedBy.getGender());
+		System.out.printf("Job Title: %50s%n", CreatedBy.getJobTitle());
+		System.out.printf("Employee ID: %48d%n", CreatedBy.getEmployeeID());
+		System.out.print("=============================================================\n");
 
 		for(MenuItem item : ItemsInOrder.keySet()) {
-			String orderedItem = item.toString();
+			String orderedItem = item.getName();
 			int quantity = ItemsInOrder.get(item);
-			printOrderString += orderedItem + " " + quantity + "\n";
+			double price = item.getPrice();
+			System.out.printf("%-3d%-44s%14.2f%n", quantity, orderedItem, price);
 		}
-
-		System.out.println(printOrderString);
+		System.out.print("=============================================================\n");
 	}
 
 }
