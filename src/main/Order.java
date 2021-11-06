@@ -271,7 +271,10 @@ public class Order extends MenuItem {
 		System.out.print("=============================================================\n");
 		System.out.printf("Order ID: %51d%n", getOrderID());
 		System.out.printf("Table Number: %47d%n", getTableNumber());
-		System.out.printf("Order Date/Time: %44s%n", dateFormatter.format(OrderDateTime.getTime()));
+		System.out.printf("Membership Level: %43s%n", discount);
+		System.out.printf("Order Date/Time: %44s%n", dateFormatter.format(OrderDateTime.getTime()));	
+		System.out.print("=============================================================\n");
+		System.out.print("----------------------------Staff----------------------------\n");
 		System.out.print("=============================================================\n");
 		System.out.printf("Name: %55s%n", CreatedBy.getName());
 		System.out.printf("Gender: %53s%n", CreatedBy.getGender());
