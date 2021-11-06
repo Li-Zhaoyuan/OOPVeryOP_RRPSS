@@ -1,6 +1,6 @@
 type,name,description,price
 Dessert,Ice Cream,Ice cream of a certain flavor,1.6
-Drink,Mountain Dew,A can of Mountain Dew,1
-MainCourse,Burger,A standard burger,3
+Drink,Mountain Dew,A can of Mountain Dew,1.0
+MainCourse,Burger,A standard burger,3.0
 SideCourse,Fries,Some fries,1.5
-MainCourse,Chicken Rice,Chicken on Rice,100
+MainCourse,Chicken Rice,Chicken on Rice,100.0

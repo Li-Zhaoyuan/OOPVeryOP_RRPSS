@@ -104,6 +104,7 @@ public class RRPSS {
 			for(MenuItem item : ((PromotionalSet)i).getItems().keySet()) {
 				System.out.println("\n	Name Of Menu Item: " + item.getName());
 				System.out.println("	Description Of Menu Item: " + item.getDescription());
+				System.out.println("	Quantity Of Menu Item: " + ((PromotionalSet)i).getItems().get(item));
 				//System.out.println("Price Of Promotional Set: $" + i.getPrice());
 			}
 			System.out.println("\n	**********End of list**********\n");
@@ -289,24 +290,36 @@ public class RRPSS {
 					System.out.println("Enter new name for selected Promotional Set: ");
 					inputPromoSet = sc.nextLine();
 					tempItem.setName(inputPromoSet);
-					System.out.println("New name set! Back to Main Menu...\n");
+					System.out.println("New name set!\n");
 				}
 				else if(input == 2)
 				{
 					System.out.println("Enter new Decription for selected Promotional Set: ");
 					inputDesc = sc.nextLine();
 					tempItem.setDescription(inputDesc);
-					System.out.println("New Decription set! Back to Main Menu...\n");
+					System.out.println("New Decription set!\n");
 				}
 				else if(input == 3)
 				{
 					System.out.println("Enter new Price for selected Promotional Set: ");
 					inputPrice = sc.nextDouble();
 					tempItem.setPrice(inputPrice);
-					System.out.println("New Price set! Back to Main Menu...\n");
+					System.out.println("New Price set!\n");
 				}
 				else if(input == 4)
 				{
+					PrintAllALaCarteMenuItems();
+					
+					System.out.println("\n**********List of Menu Items in SELECTED Promotional Set**********");
+					for(MenuItem item : ((PromotionalSet)tempItem).getItems().keySet()) {
+						System.out.println("\n	Name Of Menu Item: " + item.getName());
+						System.out.println("	Description Of Menu Item: " + item.getDescription());
+						System.out.println("	Quantity Of Menu Item: " + ((PromotionalSet)tempItem).getItems().get(item));
+						//System.out.println("Price Of Promotional Set: $" + i.getPrice());
+					}
+					System.out.println("\n**********End of list**********\n");
+					
+					
 					System.out.println("Enter Name of existing Menu Item to be added to the Promotional Set: ");
 					inputName = sc.nextLine();
 					MenuItem tempItem2;
@@ -325,6 +338,13 @@ public class RRPSS {
 				}
 				else if(input == 5)
 				{
+					System.out.println("\n**********List of Menu Items in SELECTED Promotional Set**********");
+					for(MenuItem item : ((PromotionalSet)tempItem).getItems().keySet()) {
+						System.out.println("\n	Name Of Menu Item: " + item.getName());
+						System.out.println("	Description Of Menu Item: " + item.getDescription());
+						System.out.println("	Quantity Of Menu Item: " + ((PromotionalSet)tempItem).getItems().get(item));
+					}
+					System.out.println("\n**********End of list**********\n");
 					System.out.println("Enter Name of existing Menu Item to be removed from the Promotional Set: ");
 					inputName = sc.nextLine();
 					MenuItem tempItem2;
@@ -457,6 +477,10 @@ public class RRPSS {
 			String inputMenuItemName;
 			int input,inputQuantity;
 			MenuItem tempItem;
+			
+			PrintAllALaCarteMenuItems();
+			PrintAllPromotionalSet();
+			
 			System.out.println("Enter (1)Add Menu Items, (2)Remove Menu Items, (0)Return back to Menu");
 			input = sc.nextInt();
 			sc.nextLine();
