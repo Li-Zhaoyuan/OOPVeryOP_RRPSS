@@ -379,7 +379,7 @@ public class RRPSS {
 	 */
 	public void option4ViewOrder()
 	{
-		order.printCurrOrderInvoice();
+		order.viewCurrentOrder();
 	}
 	
 	/**
