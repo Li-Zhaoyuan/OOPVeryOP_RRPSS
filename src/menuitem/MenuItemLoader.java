@@ -8,6 +8,9 @@
 package menuitem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import miscellaneous.CSVLoader;
 import miscellaneous.CSVWriter;
@@ -106,8 +109,9 @@ public class MenuItemLoader {
 		
 		// If this is a promotional item, append each other item in set
 		if (m.getClass().getSimpleName().equals(PromotionalSet.class.getSimpleName())) {
-			for (MenuItem i : ((PromotionalSet)m).getItems().keySet())
-				s += ',' + i.getName();
+			HashMap<MenuItem, Integer> itemsMap = ((PromotionalSet)m).getItems();
+			for (Entry<MenuItem, Integer> i : itemsMap.entrySet())
+				s += ',' + i.getKey().getName() + ',' + i.getValue();
 		}
 		return s;
 	}
