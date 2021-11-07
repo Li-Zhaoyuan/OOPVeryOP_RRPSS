@@ -7,28 +7,33 @@
 
 package salerevenuereport;
 
+import java.util.Calendar;
+
 import menuitem.MenuItem;
 import menuitem.MenuItemFactory;
 import miscellaneous.CSVLoader;
 
 public class GenerateReport {
-	private double totalSales, monthlySales, monthlyDiscount, totalRevenue = 0, totalDiscount = 0;
+	private double totalSales, monthlySales, totalRevenue = 0;
 	private String monthStr[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 	private int countQuantity;
+	private static int year;
 	
 	public GenerateReport() {
+		Calendar cal = Calendar.getInstance();
+		year = cal.get(Calendar.YEAR);
+		
 		RevenueRecordFactory rrf = new RevenueRecordFactory();
-		DiscountRecordFactory drf = new DiscountRecordFactory();
+		IndividualSaleRecordFactory isrf = new IndividualSaleRecordFactory();
 		MenuItemFactory mif = new MenuItemFactory();
 		
-		System.out.printf("\n---------------SALE REVENUE REPORT---------------\n");
+		System.out.printf("\n---------------SALE REVENUE REPORT FOR %d---------------\n", year);
 		// for every month
 		for(int month=0; month<=11; month++)
 		{
 			monthlySales = 0;
-			monthlyDiscount = 0;
 			
-			System.out.printf("\n\n\t%s\n----------------------------\n", monthStr[month]);
+			System.out.printf("\n\n\t%s\n-------------------------------\n", monthStr[month]);
 			
 			// for item in menuItems
 			for (MenuItem m : mif.getItemList()) {
@@ -36,46 +41,43 @@ public class GenerateReport {
 				countQuantity = 0;
 				
 				// split line row of name, quantity, year, month, day
-				for (RevenueRecord rr : rrf.getRecordList())
+				for (IndividualSaleRecord isr : isrf.getRecordList())
 				{
 					// if name = item
-					if (rr.getName().compareTo(m.getName()) == 0 && Integer.valueOf(rr.getMonth()) == month) {
+					if (isr.getName().compareTo(m.getName()) == 0 && Integer.valueOf(isr.getMonth()) == month && Integer.valueOf(isr.getYear()) == year) {
 						// Add to totalSales and count quantity of each item
-						countQuantity += Integer.valueOf(rr.getQuantity());
-						totalSales += Integer.valueOf(rr.getQuantity()) * Double.valueOf(m.getPrice());
+						countQuantity += Integer.valueOf(isr.getQuantity());
+						totalSales += Integer.valueOf(isr.getQuantity()) * Double.valueOf(m.getPrice());
 					}
 				}
 				
 				if (countQuantity != 0)
 				{
-					monthlySales += totalSales;
-					System.out.printf("%d x %s, $%.2f\n", countQuantity, m.getName(), totalSales);
+					System.out.printf("%d x %-20s $%.2f\n", countQuantity, m.getName(), totalSales);
 				}
 			}
 			
 			// split line row of discount, year, month, day
-			for (DiscountRecord dr : drf.getRecordList())
+			for (RevenueRecord rr : rrf.getRecordList())
 			{
 				// if name = item
-				if (Integer.valueOf(dr.getMonth()) == month) {
-					// Add to discount of each month
-					monthlyDiscount += Double.valueOf(dr.getDiscount());
+				if (Integer.valueOf(rr.getMonth()) == month && Integer.valueOf(rr.getYear()) == year) {
+					// Add to net sales of each month
+					monthlySales += Double.valueOf(rr.getNetSales());
 				}		
 			}
 			
-			
 			if (monthlySales != 0)
 			{
-				monthlySales -= monthlyDiscount;
-				System.out.printf("\nTotal Discount Applied in %s: $%.2f", monthStr[month], monthlyDiscount);
-				System.out.printf("\nTotal Sales After Discount in %s: $%.2f\n", monthStr[month], monthlySales);
+				System.out.printf("\nTotal Net Sales in %s: $%.2f\n", monthStr[month], monthlySales);
 				totalRevenue += monthlySales;
-				totalDiscount += monthlyDiscount;
+			}
+			else {
+				System.out.println("No Record");
 			}
 		}
 		// To add in Total Discount and display after discount revenue
 		System.out.printf("*******************************"
-				+ "\nTotal Discount Applied: $%.2f"
-				+ "\nTotal Revenue After Discount: $%.2f\n\n", totalDiscount, totalRevenue);
+				+ "\nTotal Revenue in %d: $%.2f\n\n", year, totalRevenue);
 	}
 }

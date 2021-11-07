@@ -10,9 +10,11 @@ package main;
 
 import java.util.HashMap;
 import java.util.Calendar;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import menuitem.MenuItem;
 import main.Discount.discountType;
+import salerevenuereport.WriteRecord;
 
 public class Order extends MenuItem {
 
@@ -245,6 +247,14 @@ public class Order extends MenuItem {
 			int quantity = ItemsInOrder.get(item);
 			double price = item.getPrice();
 			System.out.printf("%-3d%-44s%14.2f%n", quantity, orderedItem, price);
+			
+			//Write OrderItem and quantity into CSV
+			try {
+				WriteRecord.appendIndividualSaleRecord(orderedItem, quantity);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		calculateTotalPrices();
@@ -257,6 +267,14 @@ public class Order extends MenuItem {
 		System.out.print("=============================================================\n");
 		System.out.print("----------------Thank you for dining with us!----------------\n");
 		System.out.print("=============================================================\n");
+		
+		//Write Discount into CSV
+		try {
+			WriteRecord.appendRevenueRecord(getNettPrice());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

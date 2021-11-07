@@ -1,31 +1,28 @@
-/**
- DiscountRecord - Entity of Discount Record
- @author Heng Zheng Ping
- @version 1.0
- @since 2021-11-03
-*/
-
 package salerevenuereport;
 
-public class DiscountRecord {
-	private double discount;
+public class IndividualSaleRecord {
+	private String name;
+	private int quantity;
 	private int year;
 	private int month;
 	private int day;
 	
-	/**
-	* Constructor for DiscountRecord
-	*/
-	public void DiscountRecord(double discount, int year, int month, int day) {
-		this.discount = discount;
+	public void IndividualSaleRecord(String name, int quantity, int year, int month, int day) {
+		this.name = name;
+		this.quantity = quantity;
 		this.year = year;
 		this.month = month;
 		this.day = day;
 	}
 	
-	public double getDiscount()
+	public String getName()
 	{
-		return discount;
+		return name;
+	}
+	
+	public int getQuantity()
+	{
+		return quantity;
 	}
 	
 	public int getYear()
@@ -44,9 +41,15 @@ public class DiscountRecord {
 		return day;
 	}
 	
-	public void setDiscount(double discount)
+	
+	public void setName(String name)
 	{
-		this.discount = discount;
+		this.name = name;
+	}
+	
+	public void setQuantity(int quantity)
+	{
+		this.quantity = quantity;
 	}
 	
 	public void setYear(int year)

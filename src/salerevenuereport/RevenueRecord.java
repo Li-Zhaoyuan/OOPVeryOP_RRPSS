@@ -8,28 +8,25 @@
 package salerevenuereport;
 
 public class RevenueRecord {
-	private String name;
-	private int quantity;
+	private double netSales;
+	private double discount;
 	private int year;
 	private int month;
 	private int day;
 	
-	public void RevenueRecord(String name, int quantity, int year, int month, int day) {
-		this.name = name;
-		this.quantity = quantity;
+	/**
+	* Constructor for RevenueRecord
+	*/
+	public void RevenueRecord(double netSales, int year, int month, int day) {
+		this.netSales = netSales;
 		this.year = year;
 		this.month = month;
 		this.day = day;
 	}
 	
-	public String getName()
+	public double getNetSales()
 	{
-		return name;
-	}
-	
-	public int getQuantity()
-	{
-		return quantity;
+		return netSales;
 	}
 	
 	public int getYear()
@@ -48,15 +45,9 @@ public class RevenueRecord {
 		return day;
 	}
 	
-	
-	public void setName(String name)
+	public void setNetSales(double netSales)
 	{
-		this.name = name;
-	}
-	
-	public void setQuantity(int quantity)
-	{
-		this.quantity = quantity;
+		this.netSales = netSales;
 	}
 	
 	public void setYear(int year)

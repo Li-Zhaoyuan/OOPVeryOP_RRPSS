@@ -11,13 +11,12 @@ import java.util.ArrayList;
 import miscellaneous.CSVLoader;
 
 public class RevenueRecordFactory {
-	
 	private ArrayList<RevenueRecord> recordList;
 
 	public RevenueRecordFactory() {
 		recordList = new ArrayList<RevenueRecord>();
-		CSVLoader Rldr = new CSVLoader("src/resource/revenue.csv", true);
-		constructFromCSV(Rldr);
+		CSVLoader Dldr = new CSVLoader("src/resource/revenuerecord.csv", true);
+		constructFromCSV(Dldr);
 	}
 	
 	public ArrayList<RevenueRecord> getRecordList(){
@@ -33,11 +32,10 @@ public class RevenueRecordFactory {
 	
 	public void constructRecord(ArrayList<String> parameterList){
 		RevenueRecord record = new RevenueRecord();
-		record.setName(parameterList.get(0));
-		record.setQuantity(Integer.valueOf(parameterList.get(1)));
-		record.setYear(Integer.valueOf(parameterList.get(2)));
-		record.setMonth(Integer.valueOf(parameterList.get(3)));
-		record.setDay(Integer.valueOf(parameterList.get(4)));
+		record.setNetSales(Double.valueOf(parameterList.get(0)));
+		record.setYear(Integer.valueOf(parameterList.get(1)));
+		record.setMonth(Integer.valueOf(parameterList.get(2)));
+		record.setDay(Integer.valueOf(parameterList.get(3)));
 		recordList.add(record);
 	}
 }

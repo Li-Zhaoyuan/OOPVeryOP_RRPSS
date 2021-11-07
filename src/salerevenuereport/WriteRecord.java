@@ -40,25 +40,25 @@ public class WriteRecord {
 	    return year + "," + month + "," + day;
 	}
 	
-	public static void appendRevenue(String menuItem, int quantity) throws IOException
+	public static void appendIndividualSaleRecord(String menuItem, int quantity) throws IOException
 	{   
 	    data = menuItem + "," + quantity + "," + getDate();
-	    CSVWriter write = new CSVWriter("src/resource/revenue.csv", data);
+	    CSVWriter write = new CSVWriter("src/resource/individualsalerecord.csv", data);
 	}
 	
-	public static void appendDiscount(double discount) throws IOException
+	public static void appendRevenueRecord(double netSales) throws IOException
 	{   
-	    data = discount + "," + getDate();
-	    CSVWriter write = new CSVWriter("src/resource/discount.csv", data);
+	    data = netSales + "," + getDate();
+	    CSVWriter write = new CSVWriter("src/resource/revenuerecord.csv", data);
 	}
 	
-	// FOR TEST ONLY
-	public static void main(String args[]) {
+	
+	/*public static void main(String args[]) {
 		try {
 			appendDiscount(3.05);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
