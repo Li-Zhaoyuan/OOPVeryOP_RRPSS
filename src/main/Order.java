@@ -268,7 +268,7 @@ public class Order extends MenuItem {
 		System.out.print("----------------Thank you for dining with us!----------------\n");
 		System.out.print("=============================================================\n");
 		
-		//Write Discount into CSV
+		//Write NetSales into CSV
 		try {
 			WriteRecord.appendRevenueRecord(getNettPrice());
 		} catch (IOException e) {

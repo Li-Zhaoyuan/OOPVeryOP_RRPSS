@@ -583,7 +583,7 @@ public class RRPSS {
 	public void option10PrintSaleRevenueReport()
 	{
 		System.out.println("\n>>>Print sale revenue report by period (eg day or month)<<<\n");
-		GenerateReport temp = new GenerateReport();
+		GenerateReport temp = new GenerateReport(false);
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
