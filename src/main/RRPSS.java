@@ -573,6 +573,7 @@ public class RRPSS {
 		}
 		System.out.println("Printing current order's invoice! \n");
 		order.printOrderInvoice();
+		order = null;
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
@@ -582,8 +583,27 @@ public class RRPSS {
 	 */
 	public void option10PrintSaleRevenueReport()
 	{
-		System.out.println("\n>>>Print sale revenue report by period (eg day or month)<<<\n");
-		GenerateReport temp = new GenerateReport(false);
+		System.out.println("\n>>>Print sale revenue report by period (day or month)<<<\n");
+		Scanner sc = new Scanner(System.in);
+		
+		int input;
+		
+		System.out.println("Select Number Accordingly (1)Day/(2)Month/(0)Go Back");
+		input = sc.nextInt();
+		sc.nextLine();
+		
+		switch(input)
+		{
+		case 1:
+			GenerateReport temp1 = new GenerateReport(true);
+			break;
+		case 2:
+			GenerateReport temp2 = new GenerateReport(false);
+			break;
+		default:
+			break;
+		}
+		//GenerateReport temp = new GenerateReport(false);
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
