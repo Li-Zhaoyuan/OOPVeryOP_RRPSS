@@ -8,58 +8,96 @@
 package salerevenuereport;
 
 public class RevenueRecord {
+	/**
+	* double variable that stores the netSales of order in the revenue record
+	*/
 	private double netSales;
-	private double discount;
+	
+	/**
+	* integer variable that stores the year of the revenue record
+	*/
 	private int year;
+	
+	/**
+	* integer variable that stores the month of the revenue record
+	*/
 	private int month;
+	
+	/**
+	* integer variable that stores the day of the revenue record
+	*/
 	private int day;
 	
 	/**
 	* Constructor for RevenueRecord
 	*/
-	public void RevenueRecord(double netSales, int year, int month, int day) {
-		this.netSales = netSales;
-		this.year = year;
-		this.month = month;
-		this.day = day;
+	public RevenueRecord() {
+		
 	}
 	
+	/**
+	* Accessor of the order's net sales
+	* @return netSales
+	*/
 	public double getNetSales()
 	{
 		return netSales;
 	}
 	
+	/**
+	* Accessor of the year for each record
+	* @return year
+	*/
 	public int getYear()
 	{
 		return year;
 	}
 	
+	/**
+	* Accessor of the month for each record
+	* @return month
+	*/
 	public int getMonth()
 	{
 		return month;
 	}
 	
-	
+	/**
+	* Accessor of the day for each record
+	* @return day
+	*/
 	public int getDay()
 	{
 		return day;
 	}
 	
+	/**
+	* Mutator of the order's netSales
+	*/
 	public void setNetSales(double netSales)
 	{
 		this.netSales = netSales;
 	}
 	
+	/**
+	* Mutator of the year for each record
+	*/
 	public void setYear(int year)
 	{
 		this.year = year;
 	}
 	
+	/**
+	* Mutator of the month for each record
+	*/
 	public void setMonth(int month)
 	{
 		this.month = month;
 	}
 	
+	/**
+	* Mutator of the day for each record
+	*/
 	public void setDay(int day)
 	{
 		this.day = day;

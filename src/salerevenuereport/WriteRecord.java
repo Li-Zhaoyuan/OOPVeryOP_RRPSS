@@ -1,5 +1,5 @@
 /**
- WriteRecord - contains public methods for discounts and revenue records  
+ WriteRecord - contains public methods for writing the individual sale and revenue records into CSV  
  @author Heng Zheng Ping
  @version 1.0
  @since 2021-11-03
@@ -15,50 +15,62 @@ import java.util.Date;
 import miscellaneous.CSVWriter;
 
 public class WriteRecord {
+	
+	/**
+	* String variable that stores record's data
+	*/
 	private static String data;
+	
+	/**
+	* integer variable that stores the year of record
+	*/
 	private static int year;
+	
+	/**
+	* integer variable that stores the month of record
+	*/
 	private static int month;
+	
+	/**
+	* integer variable that stores the day of record
+	*/
 	private static int day;
 	
+	/**
+	* Accessor of the date (year, month and day) for the append method to save into CSV
+	* @return String of year, month, day
+	*/
 	private static String getDate() {
-		// example formating - for more, refer to Java API for SimpleDateFormat class
 	    SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE, MMMM d, yyyy");
-	    
-	    // Using Calendar class
 	    Calendar cal = Calendar.getInstance();
-	    
-        // get Date from calendar
-	    Date dateNow = cal.getTime();
-	    
-	    System.out.println(dateFormatter.format(dateNow));
-	    
-	    // extract individual fields from calendar
 	    year = cal.get(Calendar.YEAR);
-	    month = cal.get(Calendar.MONTH); // NOTE!!! : Month from 0 to 11
+	    month = cal.get(Calendar.MONTH);
 	    day = cal.get(Calendar.DAY_OF_MONTH);
 	    
 	    return year + "," + month + "," + day;
 	}
 	
+	/**
+	* public method for printInvoice method in the order class 
+	* to append new individual sale record in the CSV for the sale revenue report
+	* @param menuItem is the name of menu item in the invoice, quantity the quantity of each menu item in the invoice
+	* the method append the menuItem, quantity, date and uses the CSVWriter class to save data into the individualsalerecord CSV
+	*/
 	public static void appendIndividualSaleRecord(String menuItem, int quantity) throws IOException
 	{   
 	    data = menuItem + "," + quantity + "," + getDate();
 	    CSVWriter write = new CSVWriter("src/resource/individualsalerecord.csv", data);
 	}
 	
+	/**
+	* public method for printInvoice method in the order class 
+	* to append new revenue record in the CSV for the sale revenue report
+	* @param netSales is the net price of each invoice printed
+	* the method append the netSale, date and uses the CSVWriter class to save data into the revenuerecord CSV
+	*/
 	public static void appendRevenueRecord(double netSales) throws IOException
 	{   
 	    data = netSales + "," + getDate();
 	    CSVWriter write = new CSVWriter("src/resource/revenuerecord.csv", data);
 	}
-	
-	
-	/*public static void main(String args[]) {
-		try {
-			appendDiscount(3.05);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
 }
