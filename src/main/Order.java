@@ -10,9 +10,11 @@ package main;
 
 import java.util.HashMap;
 import java.util.Calendar;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import menuitem.MenuItem;
 import main.Discount.discountType;
+import salerevenuereport.WriteRecord;
 
 public class Order extends MenuItem {
 
@@ -244,7 +246,15 @@ public class Order extends MenuItem {
 			String orderedItem = item.getName();
 			int quantity = ItemsInOrder.get(item);
 			double price = item.getPrice();
-			System.out.printf("%-3d%-44s%14.2f%n", quantity, orderedItem, price);
+			System.out.printf("%-7d%-40s%14.2f%n", quantity, orderedItem, price * quantity);
+			
+			//Write OrderItem and quantity into CSV
+			try {
+				WriteRecord.appendIndividualSaleRecord(orderedItem, quantity);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		calculateTotalPrices();
@@ -252,11 +262,28 @@ public class Order extends MenuItem {
 		System.out.printf("SUBTOTAL: %51.2f%n", getOriginalPrice());
 		System.out.printf("SERVICE CHARGE: %45.2f%n", 0.10 * originalPrice);
 		System.out.printf("GST: %56.2f%n", 0.07 * 1.10 * originalPrice);
-		System.out.printf("DISCOUNT(%s): %37s%.2f%s%n", discount, "(", getDiscount() * originalPrice, ")");
+		System.out.printf("---%s---%n", discount);
+		if (getDiscount() * originalPrice < 10) {
+			System.out.printf("DISCOUNT: %46s%.2f%s%n", "(", getDiscount() * originalPrice, ")");
+		} else if (getDiscount() * originalPrice < 100){
+			System.out.printf("DISCOUNT: %45s%.2f%s%n", "(", getDiscount() * originalPrice, ")");
+		} else if (getDiscount() * originalPrice < 1000){
+			System.out.printf("DISCOUNT: %44s%.2f%s%n", "(", getDiscount() * originalPrice, ")");
+		} else {
+			System.out.printf("DISCOUNT: %43s%.2f%s%n", "(", getDiscount() * originalPrice, ")");
+		}
 		System.out.printf("TOTAL: %54.2f%n", getNettPrice());
 		System.out.print("=============================================================\n");
 		System.out.print("----------------Thank you for dining with us!----------------\n");
 		System.out.print("=============================================================\n");
+		
+		//Write NetSales into CSV
+		try {
+			WriteRecord.appendRevenueRecord(getNettPrice());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -286,7 +313,7 @@ public class Order extends MenuItem {
 			String orderedItem = item.getName();
 			int quantity = ItemsInOrder.get(item);
 			double price = item.getPrice();
-			System.out.printf("%-3d%-44s%14.2f%n", quantity, orderedItem, price);
+			System.out.printf("%-7d%-40s%14.2f%n", quantity, orderedItem, price * quantity);
 		}
 		System.out.print("=============================================================\n");
 	}

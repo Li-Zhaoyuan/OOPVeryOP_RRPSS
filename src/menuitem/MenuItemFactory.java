@@ -172,13 +172,15 @@ public class MenuItemFactory {
 		obj.setDescription(description);
 		obj.setPrice(price);
 		
-		// For each item in list, get the MenuItem and add it to the map of promo set
-		for (String id : items) {
+		// For each item in list, get the MenuItem and add it to the map of promo set, with the quantity
+		for (int i = 0; i < items.size() - 1; i+=2) {
+			String id = items.get(i);
 			MenuItem m = this.getItem(id);
 			if (m != null) 
-				obj.addItems(m, 1);
+				obj.addItems(m, Integer.parseInt(items.get(i+1)));
 			else System.out.println("MenuItemFactory: Cannot find item of id: " + id + " for PromoSet item " + name);
 		}
+		
 		itemList.add(obj);
 		return obj;
 	}

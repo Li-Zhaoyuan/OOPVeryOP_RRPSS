@@ -8,67 +8,96 @@
 package salerevenuereport;
 
 public class RevenueRecord {
-	private String name;
-	private int quantity;
+	/**
+	* double variable that stores the netSales of order in the revenue record
+	*/
+	private double netSales;
+	
+	/**
+	* integer variable that stores the year of the revenue record
+	*/
 	private int year;
+	
+	/**
+	* integer variable that stores the month of the revenue record
+	*/
 	private int month;
+	
+	/**
+	* integer variable that stores the day of the revenue record
+	*/
 	private int day;
 	
-	public void RevenueRecord(String name, int quantity, int year, int month, int day) {
-		this.name = name;
-		this.quantity = quantity;
-		this.year = year;
-		this.month = month;
-		this.day = day;
+	/**
+	* Constructor for RevenueRecord
+	*/
+	public RevenueRecord() {
+		
 	}
 	
-	public String getName()
+	/**
+	* Accessor of the order's net sales
+	* @return netSales
+	*/
+	public double getNetSales()
 	{
-		return name;
+		return netSales;
 	}
 	
-	public int getQuantity()
-	{
-		return quantity;
-	}
-	
+	/**
+	* Accessor of the year for each record
+	* @return year
+	*/
 	public int getYear()
 	{
 		return year;
 	}
 	
+	/**
+	* Accessor of the month for each record
+	* @return month
+	*/
 	public int getMonth()
 	{
 		return month;
 	}
 	
-	
+	/**
+	* Accessor of the day for each record
+	* @return day
+	*/
 	public int getDay()
 	{
 		return day;
 	}
 	
-	
-	public void setName(String name)
+	/**
+	* Mutator of the order's netSales
+	*/
+	public void setNetSales(double netSales)
 	{
-		this.name = name;
+		this.netSales = netSales;
 	}
 	
-	public void setQuantity(int quantity)
-	{
-		this.quantity = quantity;
-	}
-	
+	/**
+	* Mutator of the year for each record
+	*/
 	public void setYear(int year)
 	{
 		this.year = year;
 	}
 	
+	/**
+	* Mutator of the month for each record
+	*/
 	public void setMonth(int month)
 	{
 		this.month = month;
 	}
 	
+	/**
+	* Mutator of the day for each record
+	*/
 	public void setDay(int day)
 	{
 		this.day = day;

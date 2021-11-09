@@ -24,6 +24,9 @@ public class CSVWriter {
 		
 	}
 	
+	/**
+	* Constructor for CSVWriter
+	*/
 	public CSVWriter(String filePath, String data) {
 		writeFile(filePath, true, data);
 	}

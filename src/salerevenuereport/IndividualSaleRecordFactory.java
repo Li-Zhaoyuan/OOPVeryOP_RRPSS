@@ -1,38 +1,40 @@
 /**
- RevenueRecordFactory - create array of revenue record object from CSV
+ IndividualSaleRecordFactory - create array of individual sale record object from CSV
  @author Heng Zheng Ping
  @version 1.0
- @since 2021-11-03
+ @since 2021-11-05
 */
 
 package salerevenuereport;
 
 import java.util.ArrayList;
+
 import miscellaneous.CSVLoader;
 
-public class RevenueRecordFactory {
+public class IndividualSaleRecordFactory {
 	/**
-	* array variable that stores multiple revenue record
+	* array variable that stores multiple individual sale record
 	*/
-	private ArrayList<RevenueRecord> recordList;
+	private ArrayList<IndividualSaleRecord> recordList;
 	
 	/**
-	* Constructor for RevenueRecordFactory
+	* Constructor for IndividualSaleRecordFactory
 	*/
-	public RevenueRecordFactory() {
-		recordList = new ArrayList<RevenueRecord>();
-		CSVLoader Dldr = new CSVLoader("src/resource/revenuerecord.csv", true);
-		constructFromCSV(Dldr);
+	public IndividualSaleRecordFactory() {
+		recordList = new ArrayList<IndividualSaleRecord>();
+		CSVLoader ISRldr = new CSVLoader("src/resource/individualsalerecord.csv", true);
+		constructFromCSV(ISRldr);
 	}
 	
 	/**
-	* Accessor of the array list of revenue record
+	* Accessor of the array list of individual sale record
 	* @return recordList
 	*/
-	public ArrayList<RevenueRecord> getRecordList(){
+	public ArrayList<IndividualSaleRecord> getRecordList(){
 		return recordList;
 	}
 	
+
 	/**
 	* Public method that call the constructRecord method for each row loaded from the CSV
 	* @param ldr is a CSVLoader object, this object should have already loaded 
@@ -52,11 +54,12 @@ public class RevenueRecordFactory {
 	* @param parameterList - A list of parameters pertaining to the record
 	*/
 	public void constructRecord(ArrayList<String> parameterList){
-		RevenueRecord record = new RevenueRecord();
-		record.setNetSales(Double.valueOf(parameterList.get(0)));
-		record.setYear(Integer.valueOf(parameterList.get(1)));
-		record.setMonth(Integer.valueOf(parameterList.get(2)));
-		record.setDay(Integer.valueOf(parameterList.get(3)));
+		IndividualSaleRecord record = new IndividualSaleRecord();
+		record.setName(parameterList.get(0));
+		record.setQuantity(Integer.valueOf(parameterList.get(1)));
+		record.setYear(Integer.valueOf(parameterList.get(2)));
+		record.setMonth(Integer.valueOf(parameterList.get(3)));
+		record.setDay(Integer.valueOf(parameterList.get(4)));
 		recordList.add(record);
 	}
 }
