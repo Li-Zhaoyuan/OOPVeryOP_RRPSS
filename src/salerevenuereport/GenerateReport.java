@@ -17,37 +17,32 @@ public class GenerateReport {
 	/**
 	* double variable that stores sales of each individual menu items
 	*/
-	private double totalSales;
+	private static double totalSales;
 	
 	/**
 	* double variable that stores sales in each month
 	*/
-	private double monthlySales;
+	private static double monthlySales;
 	
 	/**
 	* double variable that stores sales of the day
 	*/
-	private double daySales;
+	private static double daySales;
 	
 	/**
 	* double variable that stores revenue of the year
 	*/
-	private double totalRevenue;
+	private static double totalRevenue;
 	
 	/**
 	*  String variable that stores Month for displays
 	*/
-	private String monthStr[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	private static String monthStr[] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 	
 	/**
 	*  integer variable that stores quantity of each menu item for each month or day
 	*/
-	private int countQuantity;
-	
-	/**
-	*  Calendar variable to get instance
-	*/
-	private Calendar cal;
+	private static int countQuantity;
 	
 	/**
 	*  integer variable that stores year
@@ -67,38 +62,18 @@ public class GenerateReport {
 	/**
 	*  RevenueRecordFactory class to load revenue record from CSV
 	*/
-	private RevenueRecordFactory rrf;
+	private static RevenueRecordFactory rrf;
 	
 	/**
 	*  IndividualSaleRecordFactory class to load individual sale record from CSV
 	*/
-	private IndividualSaleRecordFactory isrf;
+	private static IndividualSaleRecordFactory isrf;
 	
 	/**
 	*  MenuItemFactory class to load menu item from CSV
 	*/
-	private MenuItemFactory mif;
+	private static MenuItemFactory mif;
 	
-	/**
-	* Constructor of GenerateReport object
-	* Creates a new GenerateReport either to displays for the day or monthly
-	* @param dayOrMonth is the boolean for the report format
-	*/
-	public GenerateReport(Boolean dayOrMonth) {
-		cal = Calendar.getInstance();
-		year = cal.get(Calendar.YEAR);
-		month = cal.get(Calendar.MONTH);
-	    day = cal.get(Calendar.DAY_OF_MONTH);
-		
-		rrf = new RevenueRecordFactory();
-		isrf = new IndividualSaleRecordFactory();
-		mif = new MenuItemFactory();
-		
-		if(dayOrMonth)
-			GenerateReportForTheDay();
-		else
-			GenerateMonthlyReport();
-	}
 	
 	/**
 	* Generate Revenue Report for the day
@@ -108,7 +83,15 @@ public class GenerateReport {
 	* 
 	* The daySales will be add up together if the day, month and year in the revenuerecord CSV matches the current day, month and year
 	*/
-	public void GenerateReportForTheDay() {
+	public static void GenerateReportForTheDay() {
+		year = Calendar.getInstance().get(Calendar.YEAR);
+		month = Calendar.getInstance().get(Calendar.MONTH);
+	    day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		
+		rrf = new RevenueRecordFactory();
+		isrf = new IndividualSaleRecordFactory();
+		mif = new MenuItemFactory();
+		
 		System.out.printf("\n---------------SALE REVENUE REPORT FOR %d %s %d---------------\n", day, monthStr[month], year);
 	    
 		for (MenuItem m : mif.getItemList()) {
@@ -150,7 +133,15 @@ public class GenerateReport {
 	* Total monthlySales will be add up together if the month and year in the revenuerecord CSV matches the current month and year
 	* The monthlySales will be add up to calculate the total revenue of the year
 	*/
-	public void GenerateMonthlyReport() {
+	public static void GenerateMonthlyReport() {
+		year = Calendar.getInstance().get(Calendar.YEAR);
+		month = Calendar.getInstance().get(Calendar.MONTH);
+	    day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		
+		rrf = new RevenueRecordFactory();
+		isrf = new IndividualSaleRecordFactory();
+		mif = new MenuItemFactory();
+		
 		System.out.printf("\n---------------SALE REVENUE REPORT FOR %d---------------\n", year);
 
 		for(int monthly=0; monthly<=11; monthly++){
