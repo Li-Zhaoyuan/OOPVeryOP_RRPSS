@@ -1,10 +1,3 @@
-/** 
- MenuItemLoader - An object that handles IO operations for the MenuItemFactory
- @author Lim Rui An, Ryan 
- @version 1.0 
- @since 2021-11-3 
-*/ 
-
 package menuitem;
 
 import java.util.ArrayList;
@@ -15,6 +8,12 @@ import java.util.Map.Entry;
 import miscellaneous.CSVLoader;
 import miscellaneous.CSVWriter;
 
+/** 
+MenuItemLoader - An object that handles IO operations for the MenuItemFactory
+@author Lim Rui An, Ryan 
+@version 1.0 
+@since 2021-11-3 
+*/ 
 public class MenuItemLoader {
 	
 	/**

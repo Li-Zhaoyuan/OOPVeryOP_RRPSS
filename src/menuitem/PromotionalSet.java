@@ -1,14 +1,13 @@
-/**
- PromotionalSet - A type of menu item that contains a map of other items
- @author Lim Rui An, Ryan
- @version 1.0
- @since 2021-10-23
-*/
-
 package menuitem;
 
 import java.util.HashMap;
 
+/**
+PromotionalSet - A type of menu item that contains a map of other items
+@author Lim Rui An, Ryan
+@version 1.0
+@since 2021-10-23
+*/
 public class PromotionalSet extends MenuItem{
 	
 	/**
