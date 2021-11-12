@@ -1,15 +1,14 @@
-/**
- CSVLoader - Loads .csv files into a 2D arraylist
- @author Lim Rui An, Ryan
- @version 1.0
- @since 2021-10-23
-*/
-
 package miscellaneous;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+CSVLoader - Loads .csv files into a 2D arraylist
+@author Lim Rui An, Ryan
+@version 1.0
+@since 2021-10-23
+*/
 public class CSVLoader {
 	/**
 	* Delimiter of the values within the csv file

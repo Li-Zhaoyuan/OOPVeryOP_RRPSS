@@ -1,16 +1,15 @@
-/**
- MenuItemFactory - Generates objects of the MenuItem class and extended sub-classes
- @author Lim Rui An, Ryan
- @version 1.1
- @since 2021-10-23
-*/
-
 package menuitem;
 
 import java.util.ArrayList;
 
 import miscellaneous.CSVLoader;
 
+/**
+MenuItemFactory - Generates objects of the MenuItem class and extended sub-classes
+@author Lim Rui An, Ryan
+@version 1.1
+@since 2021-10-23
+*/
 public class MenuItemFactory {
 	
 	/**

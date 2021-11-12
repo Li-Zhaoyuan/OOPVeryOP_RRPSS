@@ -54,6 +54,17 @@ public class ReservationList {
 	}
 	
 	/**
+	* Public void function to be used in tandem with csv loading
+	* Generates a Reservation object and inserts it into the list based on a csv entry
+	* @param entry represents a singular row entry of the csv file, parameters of a Reservation
+	*/
+	public void createReservationFromArray(ArrayList<String> entry) {
+		// The csv data should be curated beforehand, hence we need no error check here
+		// Instantiate and add the new Reservation
+		listOfReservation.add(new Reservation(LocalDate.parse(entry.get(0), formatterDate), LocalTime.parse(entry.get(1), formatterTime), Integer.parseInt(entry.get(5)), entry.get(2), Integer.parseInt(entry.get(3)), Integer.parseInt(entry.get(4))));
+	}
+	
+	/**
 	 * Check if Date entered is Valid
 	 * @param date - date of reservation
 	 * @return valid or not (true or false)
@@ -231,5 +242,12 @@ public class ReservationList {
 			System.out.println(String.valueOf(i+1) + ". Date:" + date + " Time:" + time + " Name:" + customerName + " Contact:" + sContact
 					+ " Table Number:" + sTableNum);
 		}
+	}
+	
+	/**
+	* Public ArrayList<Reservation> function that returns a copy of the internal list
+	*/
+	public ArrayList<Reservation> getlistOfReservation(){
+		return this.listOfReservation;
 	}
 }

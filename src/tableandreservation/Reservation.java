@@ -51,6 +51,22 @@ public class Reservation {
 	}
 	
 	/**
+	 * Get Date of Reservation as a String
+	 * @return Date of Reservation as a String
+	 */
+	public String getStringDate() {
+		return date.format(DateTimeFormatter.ofPattern("d/MM/yyyy"));
+	}
+	
+	/**
+	 * Get Time of Reservation as a String
+	 * @return Time of Reservation as a String
+	 */
+	public String getStringTime() {
+		return time.format(DateTimeFormatter.ofPattern("H:mm"));
+	}
+	
+	/**
 	 * Get Name of Customer that made reservation
 	 * @return Customer Name
 	 */
