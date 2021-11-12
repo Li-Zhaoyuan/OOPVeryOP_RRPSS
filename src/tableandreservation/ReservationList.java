@@ -1,6 +1,7 @@
 package tableandreservation;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,8 @@ public class ReservationList {
 	
 	private LocalDate parsedDate;
 	private LocalTime parsedTime;
+	
+	private static final String LastReservationTime = "22:00";
 	
 	DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("d/MM/yyyy");
 	DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("H:mm");
@@ -40,6 +43,7 @@ public class ReservationList {
 		//If tableNum == -1 means no table available for this reservation
 		if (tableNum == -1) {
 			System.out.println("No table available");
+			return success;
 		}
 		
 		//Add Reservation into Reservation
@@ -63,7 +67,8 @@ public class ReservationList {
             valid = true;
 
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+        	System.out.println("Invalid Date");
             valid = false;
         }
 
@@ -84,7 +89,8 @@ public class ReservationList {
             valid = true;
 
         } catch (DateTimeParseException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+        	System.out.println("Invalid Time");
             valid = false;
         }
 		
@@ -102,13 +108,16 @@ public class ReservationList {
 		
 		//Check if format of date entered is valid
 		if (!isValidDate(date)) {
-			System.out.println("Invalid Date");
 			return false;
 		}
 		
 		//Check if format of time entered is valid
 		else if (!isValidTime(time)) {
-			System.out.println("Invalid Time");
+			return false;
+		}
+		
+		if (parsedTime.isAfter(LocalTime.parse(LastReservationTime, formatterTime))) {
+			System.out.println("Reservation Time cannot be later than 22:00hrs");
 			return false;
 		}
 		
@@ -149,17 +158,50 @@ public class ReservationList {
 			//Check if date is same date in reservation
 			if (listOfReservation.get(i).getDate().equals(date)) {
 				//Check if time is between 2hrs of reservation
-				if (time.equals(listOfReservation.get(i).getTime()) && time.isAfter(listOfReservation.get(i).getTime()) && time.isBefore(listOfReservation.get(i).getTime().plusHours(2))) {
-					System.out.println("A");
+				if (time.equals(listOfReservation.get(i).getTime()) || (time.isAfter(listOfReservation.get(i).getTime()) && time.isBefore(listOfReservation.get(i).getTime().plusHours(2)))) {
 					//Set that table to unavailable
 					listOfTables.setUnavailable(listOfReservation.get(i).getTableNum());
-					System.out.println("B");
-					System.out.println(listOfTables.getListOfTables().get);
 				}
 			}
 		}
 		
 		return listOfTables.getAvailableTable(noOfPax);
+		
+	}
+	
+	public void getInputs() {
+		
+		String date;
+		String time;
+		int noOfPax = 0;
+		String customerName;
+		int contact;
+		int tableNum;
+		
+		Scanner sc = new Scanner(System.in);
+		
+		do {
+			System.out.print("Please enter Reservation Date in this format dd/mm/yyyy (eg. 20/10/2021): ");
+			date = sc.nextLine();
+		} while (!isValidDate(date));
+		
+		do {
+			System.out.print("Please enter Reservation Time in this format hh:mm (eg. 20:10): ");
+			time = sc.nextLine();
+		} while (!isValidTime(time));
+		
+		do {
+			System.out.print("Please enter the number of people you are reserving for (max 10): ");
+			if(sc.hasNextInt()){
+				noOfPax = sc.nextInt();
+				if (noOfPax > 10) {
+					System.out.println("Number of people cannot exceed 10.");
+				}
+			}
+			else{
+				System.out.println("Please only enter number.");
+			}
+		} while (!sc.hasNextInt() || noOfPax > 10);	
 		
 	}
 	
