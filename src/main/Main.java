@@ -1,13 +1,14 @@
-/**
- Main class which is holding the main function to execute the program
- @author Zhaoyuan
- @version 1.0
- @since 2021-11-03
-*/
 package main;
 
 import java.util.Scanner;
 
+/**
+Main class which is holding the main function to execute the program, 
+includes the implements the functions from the RRPS class for this application.
+@author Li Zhaoyuan
+@version 1.0
+@since 2021-11-03
+*/
 public class Main {
 	/**
 	 * Main Function to run the main logic of the program

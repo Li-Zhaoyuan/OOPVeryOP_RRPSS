@@ -1,11 +1,11 @@
-/**
- description of this class
- @author Zhaoyuan
- @version 1.0
- @since 2021-10-20
-*/
 package menuitem;
 
+/**
+MenuItem - parent class that defines all the shared features needed for a menu item.
+@author Li Zhaoyuan
+@version 1.0
+@since 2021-10-20
+*/
 public class MenuItem {
 	/**
 	* Protected String variable that stores the name of this object

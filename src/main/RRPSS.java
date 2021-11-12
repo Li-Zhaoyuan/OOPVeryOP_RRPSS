@@ -18,9 +18,10 @@ import menuitem.PromotionalSet;
 import salerevenuereport.GenerateReport;
 import tableandreservation.Reservation;
 import tableandreservation.ReservationList;
+import tableandreservation.ReservationApp;
 
 /**
-This class holds the functions that will perform operations depending on the different options.
+RRPSS - This class acts as the hub that holds the functions that will perform operations depending on the different options.
 @author Li Zhaoyuan
 @version 1.0
 @since 2021-10-20
@@ -42,9 +43,9 @@ public class RRPSS {
 	Order order;
 	
 	/**
-	 * variable holding the ReservationList object
+	 * variable holding the ReservationApp object
 	 */
-	ReservationList reservationList;
+	ReservationApp reservationApp;
 	
 	/**
 	 * variable to hold the integer input from the user
@@ -68,11 +69,24 @@ public class RRPSS {
 		inputGender = sc.nextLine();
 		System.out.println("Enter Staff Job Title: ");
 		inputJobTitle = sc.nextLine();
-		System.out.println("Enter Staff Employee ID: ");
-		inputEmployeeID = sc.nextInt();
+		while(true)
+		{
+			System.out.println("Enter Staff Employee ID: ");
+			if(!sc.hasNextInt())
+			{
+				sc.nextLine();
+				System.out.println("Please Enter Staff Employee ID that only consist of numbers\n");
+			}
+			else
+			{
+				inputEmployeeID = sc.nextInt();
+				break;
+			}
+		}
+		
 		
 		currStaff = new Staff(inputName,inputGender,inputJobTitle,inputEmployeeID);
-		reservationList = new ReservationList();
+		reservationApp = new ReservationApp();
 	}
 	
 	/**
@@ -81,6 +95,7 @@ public class RRPSS {
 	public void exit()
 	{
 		menuItemFactory.updateCSV();
+		reservationApp.saveReservations();
 	}
 	
 	/**
@@ -566,7 +581,7 @@ public class RRPSS {
 				System.out.println("Please enter Reservation Date in this format dd/mm/yyyy (eg. 20/10/2021): ");
 				inputDate = sc.nextLine();
 				
-				if(reservationList.isValidDate(inputDate))
+				if(reservationApp.getReservationList().isValidDate(inputDate))
 				{
 					parsedDate = LocalDate.parse(inputDate, formatterDate);
 					break;
@@ -581,7 +596,7 @@ public class RRPSS {
 				System.out.println("Please enter Reservation Time in this format hh:mm (eg. 20:10): ");
 				inputTime = sc.nextLine();
 				
-				if(reservationList.isValidTime(inputTime))
+				if(reservationApp.getReservationList().isValidTime(inputTime))
 				{
 					parsedTime = LocalTime.parse(inputTime, formatterTime);
 					break;
@@ -607,7 +622,7 @@ public class RRPSS {
 				}
 			} 
 			
-			if(reservationList.getTableNum(parsedDate, parsedTime, inputPax) == -1)
+			if(reservationApp.getReservationList().getTableNum(parsedDate, parsedTime, inputPax) == -1)
 			{
 				System.out.println("No table available for this date and time!!! Enter (1) to try again, (0) to return to main menu: ");
 				input = sc.nextInt();
@@ -643,7 +658,7 @@ public class RRPSS {
 			break;
 		}
 			
-		reservationList.addReservation(inputDate, inputTime, inputPax, inputName, inputContact);
+		reservationApp.getReservationList().addReservation(inputDate, inputTime, inputPax, inputName, inputContact);
 		System.out.println("Reservations Added!!!");
 		System.out.println("\nBack to Main Menu...\n");
 	}
@@ -729,7 +744,7 @@ public class RRPSS {
 					System.out.println("Please enter Date in this format dd/mm/yyyy (eg. 20/10/2021): ");
 					inputDate = sc.nextLine();
 					
-					if(reservationList.isValidDate(inputDate))
+					if(reservationApp.getReservationList().isValidDate(inputDate))
 					{
 						parsedDate = LocalDate.parse(inputDate, formatterDate);
 						break;
@@ -744,7 +759,7 @@ public class RRPSS {
 					System.out.println("Please enter Time in this format hh:mm (eg. 20:10): ");
 					inputTime = sc.nextLine();
 					
-					if(reservationList.isValidTime(inputTime))
+					if(reservationApp.getReservationList().isValidTime(inputTime))
 					{
 						parsedTime = LocalTime.parse(inputTime, formatterTime);
 						break;
@@ -778,7 +793,7 @@ public class RRPSS {
 				}
 			} 
 			
-			if(reservationList.getTableNum(parsedDate, parsedTime, inputPax) == -1)
+			if(reservationApp.getReservationList().getTableNum(parsedDate, parsedTime, inputPax) == -1)
 			{
 				System.out.println("No table available for this date and time!!! Enter (1) to try again, (0) to return to main menu: ");
 				input = sc.nextInt();
