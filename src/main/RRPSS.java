@@ -6,6 +6,7 @@
 */
 package main;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -595,10 +596,10 @@ public class RRPSS {
 		switch(input)
 		{
 		case 1:
-			GenerateReport temp1 = new GenerateReport(true);
+			GenerateReport.GenerateReportForTheDay();
 			break;
 		case 2:
-			GenerateReport temp2 = new GenerateReport(false);
+			GenerateReport.GenerateMonthlyReport();
 			break;
 		default:
 			break;

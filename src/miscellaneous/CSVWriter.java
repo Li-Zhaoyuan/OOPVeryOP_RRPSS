@@ -42,7 +42,6 @@ public class CSVWriter {
 					
 					pw.printf(data+"\n");
 					
-					System.out.println("Data Successfully appended into file"); 
 					pw.flush(); 
 				} 
 			catch (IOException io) {
