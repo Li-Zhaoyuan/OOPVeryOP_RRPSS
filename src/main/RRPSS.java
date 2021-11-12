@@ -1,12 +1,10 @@
-/**
- This class holds the functions that will perform operations depending on the different options.
- @author 
- @version 1.0
- @since 2021-10-20
-*/
+
 package main;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -18,6 +16,15 @@ import menuitem.MenuItemFactory;
 import menuitem.MenuItem;
 import menuitem.PromotionalSet;
 import salerevenuereport.GenerateReport;
+import tableandreservation.Reservation;
+import tableandreservation.ReservationList;
+
+/**
+This class holds the functions that will perform operations depending on the different options.
+@author Li Zhaoyuan
+@version 1.0
+@since 2021-10-20
+*/
 
 public class RRPSS {
 	
@@ -33,6 +40,12 @@ public class RRPSS {
 	 * variable holding the Order object
 	 */
 	Order order;
+	
+	/**
+	 * variable holding the ReservationList object
+	 */
+	ReservationList reservationList;
+	
 	/**
 	 * variable to hold the integer input from the user
 	 */
@@ -59,6 +72,7 @@ public class RRPSS {
 		inputEmployeeID = sc.nextInt();
 		
 		currStaff = new Staff(inputName,inputGender,inputJobTitle,inputEmployeeID);
+		reservationList = new ReservationList();
 	}
 	
 	/**
@@ -384,8 +398,8 @@ public class RRPSS {
 	}
 	
 	/**
-	 * Function to perform operations regarding the 3rd option
-	 * Create order
+	 * Function to perform operations regarding the 3rd option.
+	 * Creates the order
 	 */
 	public void option3OrderCreation()
 	{
@@ -448,8 +462,8 @@ public class RRPSS {
 	}
 	
 	/**
-	 * Function to perform operations regarding the 4th option
-	 * View order
+	 * Function to perform operations regarding the 4th option.
+	 * View current order.
 	 */
 	public void option4ViewOrder()
 	{
@@ -461,8 +475,8 @@ public class RRPSS {
 	}
 	
 	/**
-	 * Function to perform operations regarding the 5th option
-	 * Add/Remove order item/s to/from order
+	 * Function to perform operations regarding the 5th option.
+	 * Add/Remove order item/s to/from order.
 	 */
 	public void option5UpdateItemsToOrder()
 	{
@@ -528,24 +542,151 @@ public class RRPSS {
 	}
 	
 	/**
-	 * Function to perform operations regarding the 6th option
-	 * Create reservation booking
+	 * Function to perform operations regarding the 6th option.
+	 * Creates a reservation booking.
 	 */
 	public void option6ReservationBookingCreation()
 	{
 		System.out.println("\n>>>Create reservation booking<<<\n");
 		
+		Scanner sc = new Scanner(System.in);
+		String inputDate, inputTime, inputName;
+		int inputPax, inputContact, input;
+		
+		LocalDate parsedDate;
+		LocalTime parsedTime;
+		
+		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("H:mm");
+		
+		while(true)
+		{
+			while(true)
+			{
+				System.out.println("Please enter Reservation Date in this format dd/mm/yyyy (eg. 20/10/2021): ");
+				inputDate = sc.nextLine();
+				
+				if(reservationList.isValidDate(inputDate))
+				{
+					parsedDate = LocalDate.parse(inputDate, formatterDate);
+					break;
+				}
+				else
+				{
+					System.out.println("Please try to enter a valid Date again!");
+				}
+			}
+			while(true)
+			{
+				System.out.println("Please enter Reservation Time in this format hh:mm (eg. 20:10): ");
+				inputTime = sc.nextLine();
+				
+				if(reservationList.isValidTime(inputTime))
+				{
+					parsedTime = LocalTime.parse(inputTime, formatterTime);
+					break;
+				}
+				else
+				{
+					System.out.println("Please try to enter a valid Time again!");
+				}
+			}
+			while(true)
+			{
+				System.out.println("Please enter the number of people you are reserving for (max 10): ");
+				inputPax = sc.nextInt();
+				sc.nextLine();
+				
+				if(inputPax < 1 && inputPax > 10)
+				{
+					System.out.println("Please enter a number from 1 to 10 !!");
+				}
+				else
+				{
+					break;
+				}
+			} 
+			
+			if(reservationList.getTableNum(parsedDate, parsedTime, inputPax) == -1)
+			{
+				System.out.println("No table available for this date and time!!! Enter (1) to try again, (0) to return to main menu: ");
+				input = sc.nextInt();
+				sc.nextLine();
+				
+				if(input != 1)
+				{
+					System.out.println("\nBack to Main Menu...\n");
+					return;
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+		
+		System.out.println("Please enter Name who made this Reservation: ");
+		inputName = sc.nextLine();
+		while(true)
+		{
+			System.out.println("Please enter your Contact Number for this Reservation: ");
+			if(!sc.hasNextInt())
+			{
+				System.out.println("Please enter only numbers for your contact number!!!");
+				sc.nextLine();
+				continue;
+			}
+				
+			inputContact = sc.nextInt();
+			sc.nextLine();
+			break;
+		}
+			
+		reservationList.addReservation(inputDate, inputTime, inputPax, inputName, inputContact);
+		System.out.println("Reservations Added!!!");
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
 	/**
-	 * Function to perform operations regarding the 7th option
+	 * Function to perform operations regarding the 7th option.  
 	 * Check/Remove reservation booking
 	 */
 	public void option7ReservationChecking()
 	{
 		System.out.println("\n>>>Check/Remove reservation booking<<<\n");
+		Scanner sc = new Scanner(System.in);
+		int input, inputContact;
 		
+		while(true)
+		{
+			System.out.println("Enter (1) Check Reservation, (2) Remove Reservation, (0) To Return: ");
+			input = sc.nextInt();
+			
+			System.out.println("Please enter your Contact Number for this Reservation: ");
+			if(!sc.hasNextInt())
+			{
+				System.out.println("Please enter only numbers for your contact number!!!");
+				sc.nextLine();
+				continue;
+			}
+				
+			inputContact = sc.nextInt();
+			sc.nextLine();
+			
+			if(input == 1)
+			{
+				
+			}
+			else if(input == 2)
+			{
+				
+			}
+			else
+			{
+				break;
+			}
+		}
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
@@ -555,7 +696,106 @@ public class RRPSS {
 	 */
 	public void option8TableAvailability()
 	{
-		System.out.println("\n>>>Check table availability<<<\n");
+		System.out.println("\n>>>Table availability<<<\n");
+		
+		Scanner sc = new Scanner(System.in);
+		String inputDate, inputTime;
+		int inputPax, input;
+		
+		LocalDate parsedDate;
+		LocalTime parsedTime;
+		
+		DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("d/MM/yyyy");
+		DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("H:mm");
+		
+		
+		while(true)
+		{
+			System.out.println("Enter (1)Check For Current Time, (2)Check based on a Given Time, (0)To Return: ");
+			input = sc.nextInt();
+			sc.nextLine();
+			
+			if(input == 1) // current PC time
+			{
+				parsedDate = LocalDate.now();
+				parsedTime = LocalTime.now();
+				
+				System.out.println("Current Date: " + parsedDate + " Current Time: " + parsedTime);
+			}
+			else if(input == 2) // given time
+			{
+				while(true)
+				{
+					System.out.println("Please enter Date in this format dd/mm/yyyy (eg. 20/10/2021): ");
+					inputDate = sc.nextLine();
+					
+					if(reservationList.isValidDate(inputDate))
+					{
+						parsedDate = LocalDate.parse(inputDate, formatterDate);
+						break;
+					}
+					else
+					{
+						System.out.println("Please try to enter a valid Date again!");
+					}
+				}
+				while(true)
+				{
+					System.out.println("Please enter Time in this format hh:mm (eg. 20:10): ");
+					inputTime = sc.nextLine();
+					
+					if(reservationList.isValidTime(inputTime))
+					{
+						parsedTime = LocalTime.parse(inputTime, formatterTime);
+						break;
+					}
+					else
+					{
+						System.out.println("Please try to enter a valid Time again!");
+					}
+				}
+			}
+			else
+			{
+				System.out.println("\nBack to Main Menu...\n");
+				return;
+			}
+			
+			
+			while(true)
+			{
+				System.out.println("Please enter the number of people you are reserving for (max 10): ");
+				inputPax = sc.nextInt();
+				sc.nextLine();
+				
+				if(inputPax < 1 && inputPax > 10)
+				{
+					System.out.println("Please enter a number from 1 to 10 !!");
+				}
+				else
+				{
+					break;
+				}
+			} 
+			
+			if(reservationList.getTableNum(parsedDate, parsedTime, inputPax) == -1)
+			{
+				System.out.println("No table available for this date and time!!! Enter (1) to try again, (0) to return to main menu: ");
+				input = sc.nextInt();
+				sc.nextLine();
+				
+				if(input != 1)
+				{
+					System.out.println("\nBack to Main Menu...\n");
+					return;
+				}
+			}
+			else
+			{
+				System.out.println("There exist a table for Date: " + parsedDate + ", Time: " + parsedTime + ", For " + inputPax + " pax!");
+				break;
+			}
+		}
 		
 		System.out.println("\nBack to Main Menu...\n");
 	}
