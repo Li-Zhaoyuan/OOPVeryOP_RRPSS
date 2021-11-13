@@ -434,6 +434,7 @@ public class RRPSS {
 	 */
 	public void option3OrderCreation()
 	{
+		reservationApp.getReservationList().removeExpiredReservation();
 		System.out.println("\n>>>Create new order<<<\n");
 		Scanner sc = new Scanner(System.in);
 		String inputMenuItemName;
