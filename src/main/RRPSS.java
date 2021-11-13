@@ -701,6 +701,7 @@ public class RRPSS {
 		{
 			System.out.println("Enter (1) Check Reservation, (2) Remove Reservation, (0) To Return: ");
 			input = sc.nextInt();
+			sc.nextLine();
 			if(input > 2 || input < 1)
 			{
 				break;
