@@ -145,7 +145,6 @@ public class GenerateReport {
 
 		for(int monthly=0; monthly<=11; monthly++){
 			monthlySales = 0;
-			totalRevenue = 0;
 		
 			System.out.printf("\n\n\t%s\n-------------------------------\n", monthStr[monthly]);
 			
@@ -172,8 +171,8 @@ public class GenerateReport {
 			}
 			
 			if (monthlySales != 0){
-				System.out.printf("\nTotal Net Sales in %s: $%.2f\n", monthStr[monthly], monthlySales);
 				totalRevenue += monthlySales;
+				System.out.printf("\nTotal Net Sales in %s: $%.2f\n", monthStr[monthly], monthlySales);
 			}
 			else {
 				System.out.println("No Record");

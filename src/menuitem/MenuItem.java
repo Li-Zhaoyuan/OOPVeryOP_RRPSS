@@ -23,18 +23,6 @@ public abstract class MenuItem {
 	protected double price;
 	
 	/**
-	* Constructor that initializes a MenuItem object
-	* @param name - name of the object
-	* @param description - description of the object
-	* @param price - price of the object
-	*/
-	public void MenuItem(String name, String description, double price) {
-		this.name = name;
-		this.description = description;
-		this.price = price;
-	}
-	
-	/**
 	* Accessor function to get the name (String) of the object
 	*/
 	public String getName()
