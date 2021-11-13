@@ -584,11 +584,17 @@ public class RRPSS {
 				if(reservationApp.getReservationList().isValidDate(inputDate))
 				{
 					parsedDate = LocalDate.parse(inputDate, formatterDate);
+					if(parsedDate.compareTo(LocalDate.now()) < 0)
+					{
+						System.out.println("Reservation can only be made in advance");
+						continue;
+					}
 					break;
 				}
 				else
 				{
 					System.out.println("Please try to enter a valid Date again!");
+					continue;
 				}
 			}
 			while(true)
@@ -599,11 +605,17 @@ public class RRPSS {
 				if(reservationApp.getReservationList().isValidTime(inputTime))
 				{
 					parsedTime = LocalTime.parse(inputTime, formatterTime);
+					if(parsedDate.compareTo(LocalDate.now()) == 0 && parsedTime.isBefore(LocalTime.now()))
+					{
+						System.out.println("Reservation can only be made in advance");
+						continue;
+					}
 					break;
 				}
 				else
 				{
 					System.out.println("Please try to enter a valid Time again!");
+					continue;
 				}
 			}
 			while(true)
@@ -612,7 +624,7 @@ public class RRPSS {
 				inputPax = sc.nextInt();
 				sc.nextLine();
 				
-				if(inputPax < 1 && inputPax > 10)
+				if(inputPax < 1 || inputPax > 10)
 				{
 					System.out.println("Please enter a number from 1 to 10 !!");
 				}
@@ -658,8 +670,11 @@ public class RRPSS {
 			break;
 		}
 			
-		reservationApp.getReservationList().addReservation(inputDate, inputTime, inputPax, inputName, inputContact);
-		System.out.println("Reservations Added!!!");
+		if(reservationApp.getReservationList().addReservation(inputDate, inputTime, inputPax, inputName, inputContact))
+		{
+			System.out.println("Reservations Added!!!");
+		}
+		
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
@@ -747,6 +762,11 @@ public class RRPSS {
 					if(reservationApp.getReservationList().isValidDate(inputDate))
 					{
 						parsedDate = LocalDate.parse(inputDate, formatterDate);
+						if(parsedDate.compareTo(LocalDate.now()) < 0)
+						{
+							System.out.println("You can only check Table availablity from today onwards!!!");
+							continue;
+						}
 						break;
 					}
 					else
@@ -762,6 +782,16 @@ public class RRPSS {
 					if(reservationApp.getReservationList().isValidTime(inputTime))
 					{
 						parsedTime = LocalTime.parse(inputTime, formatterTime);
+						if(parsedDate.compareTo(LocalDate.now()) == 0 && parsedTime.isBefore(LocalTime.now()))
+						{
+							System.out.println("You can only check Table availablity from " + LocalTime.now() + " onwards!!!");
+							continue;
+						}
+						else if(parsedTime.isAfter(LocalTime.parse("22:00", formatterTime)))
+						{
+							System.out.println("You can only check Table availablity before 22:00!!!");
+							continue;
+						}
 						break;
 					}
 					else
@@ -783,7 +813,7 @@ public class RRPSS {
 				inputPax = sc.nextInt();
 				sc.nextLine();
 				
-				if(inputPax < 1 && inputPax > 10)
+				if(inputPax < 1 || inputPax > 10)
 				{
 					System.out.println("Please enter a number from 1 to 10 !!");
 				}
