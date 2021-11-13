@@ -686,7 +686,7 @@ public class RRPSS {
 	{
 		System.out.println("\n>>>Check/Remove reservation booking<<<\n");
 		Scanner sc = new Scanner(System.in);
-		int input, inputContact;
+		int input, inputContact, index;
 		
 		while(true)
 		{
@@ -706,11 +706,22 @@ public class RRPSS {
 			
 			if(input == 1)
 			{
-				
+				index = reservationApp.getReservationList().checkReservation(inputContact);
+				if (index == -1) {
+					System.out.println("There is no reservation made with this contact number!");
+				}
+				else {
+					reservationApp.getReservationList().printReservationWithIndex(index);
+				}
 			}
 			else if(input == 2)
 			{
-				
+				if (reservationApp.getReservationList().removeReservation(inputContact)) {
+					System.out.println("Reservations Removed!!!");
+				}
+				else {
+					System.out.println("There is no reservation made with this contact number!");
+				}
 			}
 			else
 			{

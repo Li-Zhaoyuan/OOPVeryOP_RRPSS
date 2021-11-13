@@ -19,6 +19,15 @@ public class ReservationList {
 	DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("d/MM/yyyy");
 	DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("H:mm");
 
+	/**
+	 * Add reservation into Reservation List
+	 * @param date - Date of Reservation
+	 * @param time - Time of Reservation
+	 * @param noOfPax - Number of people
+	 * @param customerName - Name of customer
+	 * @param contact - Contact number of customer
+	 * @return True or False (Success or not)
+	 */
 	public boolean addReservation(String date, String time, int noOfPax, String customerName, int contact) {
 		
 		int tableNum;
@@ -54,6 +63,67 @@ public class ReservationList {
 	}
 	
 	/**
+	 * Remove Reservation from List
+	 * @param contact - contact number used to make reservation
+	 * @return true or false (removed or not exist)
+	 */
+	public boolean removeReservation(int contact) {
+		
+		boolean removed = false;
+		int index;
+		
+		//Get index of reservation that matches this contact number
+		index = checkReservation(contact);
+		if (index == -1) {
+			return removed;
+		}
+		
+		//Remove reservation from Reservation list
+		removed = removeReservationWithIndex(index);
+		
+		return removed;
+	}
+	
+	/**
+	 * Check if there is reservation under this contact number
+	 * @param contact - contact number to check for in Reservation list
+	 * @return index of contact number or -1 (if does not exist)
+	 */
+	public int checkReservation(int contact) {
+		
+		int index = -1;
+		
+		//Check if contact number exist in Reservation, if it does, get the index number
+		for (int i = 0; i < listOfReservation.size(); i++) {
+			if (listOfReservation.get(i).getContact() == contact) {
+				index = i;
+				break;
+			}
+		}
+		
+		return index;
+	}
+	
+	/**
+	 * Remove reservation from Reservation list with Index
+	 * @param index - index of reservation in Reservation list
+	 * @return true or false (removed or invalid index)
+	 */
+	public boolean removeReservationWithIndex (int index) {
+		
+		//Check if index is valid
+		if (index < 0 || index >= listOfReservation.size()) {
+			return false;
+		}
+		
+		//Remove reservation from list
+		else {
+			listOfReservation.remove(index);
+			return true;
+		}
+	}
+	
+	/**
 	* Public void function to be used in tandem with csv loading
 	* Generates a Reservation object and inserts it into the list based on a csv entry
 	* @param entry represents a singular row entry of the csv file, parameters of a Reservation
@@ -73,6 +143,7 @@ public class ReservationList {
 
         boolean valid = false;
 
+        //Parse date
         try {
         	parsedDate = LocalDate.parse(date, formatterDate);
             valid = true;
@@ -180,42 +251,30 @@ public class ReservationList {
 		
 	}
 	
-	public void getInputs() {
+	/**
+	 * Print reservation with given index
+	 * @param index - index of reservation in reservation list
+	 */
+	public void printReservationWithIndex(int index) {
 		
-		String date;
-		String time;
-		int noOfPax = 0;
-		String customerName;
-		int contact;
-		int tableNum;
+		String date, time, sNumOfPax, customerName, sTableNum;
+		int numOfPax, tableNum;
 		
-		Scanner sc = new Scanner(System.in);
+		date = listOfReservation.get(index).getDate().toString();
+		time = listOfReservation.get(index).getTime().toString();
+		numOfPax = listOfReservation.get(index).getNoOfPax();
+		sNumOfPax = String.valueOf(numOfPax);
+		customerName = listOfReservation.get(index).getCustomerName();
+		tableNum = listOfReservation.get(index).getTableNum();
+		sTableNum = String.valueOf(tableNum);
 		
-		do {
-			System.out.print("Please enter Reservation Date in this format dd/mm/yyyy (eg. 20/10/2021): ");
-			date = sc.nextLine();
-		} while (!isValidDate(date));
-		
-		do {
-			System.out.print("Please enter Reservation Time in this format hh:mm (eg. 20:10): ");
-			time = sc.nextLine();
-		} while (!isValidTime(time));
-		
-		do {
-			System.out.print("Please enter the number of people you are reserving for (max 10): ");
-			if(sc.hasNextInt()){
-				noOfPax = sc.nextInt();
-				if (noOfPax > 10) {
-					System.out.println("Number of people cannot exceed 10.");
-				}
-			}
-			else{
-				System.out.println("Please only enter number.");
-			}
-		} while (!sc.hasNextInt() || noOfPax > 10);	
+		System.out.println("Reservation for " + customerName + " is on " + date + " at " + time + " for " + sNumOfPax + " peoples \nTable Number: " + sTableNum );
 		
 	}
 	
+	/**
+	 * Print Reservation List
+	 */
 	public void printReservationList() {
 	
 		String date;
