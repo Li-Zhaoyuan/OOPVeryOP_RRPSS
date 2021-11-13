@@ -1,8 +1,18 @@
 package tableandreservation;
 import java.util.ArrayList;
 
+/**
+TableList - List of Tables
+@author Lim Yuh Horng
+@version 1.0
+@since 2021-10-20
+*/
+
 public class TableList {
 	
+	/**
+	 * ArrayList of Table to store tables in system
+	 */
 	private ArrayList<Table> listOfTables;
 	
 	/**
@@ -11,12 +21,13 @@ public class TableList {
 	 * With a running table number
 	 */
 	public TableList() {
-		
+		//Initialize required variables
 		listOfTables = new ArrayList<Table>();
 		
 		int tableNum = 1;
 		int seatingCapacity;
 		
+		//Create 5 tables for each seating capacity (2,4,6,8,10) with running table number
 		for (int i = 0; i < 5; i++) {
 			
 			seatingCapacity = (i+1)*2;
@@ -36,7 +47,7 @@ public class TableList {
 	 * @return Table Number or -1 (if no table available)
 	 */
 	public int getAvailableTable(int numOfPax) {
-		
+	
 		for (int i = 0; i < listOfTables.size(); i++) {
 			if (listOfTables.get(i).getAvailable() == true && listOfTables.get(i).getSeatingCapacity() >= numOfPax) {
 				return listOfTables.get(i).getTableNum();

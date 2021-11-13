@@ -5,13 +5,42 @@ import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+Reservation - Reservation Object
+@author Lim Yuh Horng
+@version 1.0
+@since 2021-10-20
+*/
 public class Reservation {
 	
+	/**
+	 * LocalDate to store date of reservation
+	 */
 	private LocalDate date;
+	
+	/**
+	 * LocalTime to store time of reservation
+	 */
 	private LocalTime time;
+	
+	/**
+	 * int to store the number of people for this reservation
+	 */
 	private int noOfPax;
+	
+	/**
+	 * String to store name of customer making reservation
+	 */
 	private String customerName;
+	
+	/**
+	 * int to store contact number of customer making reservation
+	 */
 	private int contact;
+	
+	/**
+	 * int to store the table number assigned to this reservation
+	 */
 	private int tableNum;
 
 	/**

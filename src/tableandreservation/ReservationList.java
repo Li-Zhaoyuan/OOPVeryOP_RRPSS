@@ -1,22 +1,48 @@
 package tableandreservation;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ReservationList - List Of Reservations
+@author Lim Yuh Horng, Lim Rui An, Ryan
+@version 1.0
+@since 2021-10-20
+*/
+
 public class ReservationList {
 	
+	/**
+	 * ArrayList of Reservation to store active reservations in the system
+	 */
 	private ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
 	
+	/**
+	 * LocalDate to store the formatted date of reservation
+	 */
 	private LocalDate parsedDate;
+	
+	/**
+	 * LocalTime to store the formatted time of reservation
+	 */
 	private LocalTime parsedTime;
 	
+	/**
+	 * String to store the latest time for reservation
+	 */
 	private static final String LastReservationTime = "22:00";
 	
+	/**
+	 * DateTimeFormatter to store the format for date of reservation
+	 */
 	DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("d/MM/yyyy");
+	
+	/**
+	 * DateTimeFormatter to store the format for time of reservation
+	 */
 	DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("H:mm");
 
 	/**
@@ -143,12 +169,13 @@ public class ReservationList {
 
         boolean valid = false;
 
-        //Parse date
+		//Try to parse date in d/MM/yyyy format and catch any parse exception
         try {
         	parsedDate = LocalDate.parse(date, formatterDate);
             valid = true;
 
         } catch (DateTimeParseException e) {
+        	//FOR DEBUGGING
             //e.printStackTrace();
         	System.out.println("Invalid Date");
             valid = false;
@@ -166,11 +193,13 @@ public class ReservationList {
 		
 		boolean valid = false;
 		
+		//Try to parse time in H:mm format and catch any parse exception
         try {
     		parsedTime = LocalTime.parse(time, formatterTime);
             valid = true;
 
         } catch (DateTimeParseException e) {
+        	//FOR DEBUGGING
             //e.printStackTrace();
         	System.out.println("Invalid Time");
             valid = false;
@@ -198,6 +227,7 @@ public class ReservationList {
 			return false;
 		}
 		
+		//Check if time is after 22:00
 		if (parsedTime.isAfter(LocalTime.parse(LastReservationTime, formatterTime))) {
 			System.out.println("Reservation Time cannot be later than 22:00hrs");
 			return false;

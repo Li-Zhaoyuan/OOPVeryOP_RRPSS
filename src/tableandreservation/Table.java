@@ -1,9 +1,27 @@
 package tableandreservation;
 
-public class Table {
+/**
+Table - Table Object
+@author Lim Yuh Horng
+@version 1.0
+@since 2021-10-20
+*/
 
+public class Table {
+	
+	/**
+	 * int to store table num
+	 */
 	private int tableNum;
+	
+	/**
+	 * int to store seating capacity of table
+	 */
 	private int seatingCapacity;
+	
+	/**
+	 * boolean to store if table is available or unavailable
+	 */
 	private boolean available;
 	
 	/**
