@@ -284,6 +284,10 @@ public class RRPSS {
 				if(tempItem != null)
 				{
 					listOfDishName.add(inputDishName);
+					System.out.println("Enter Quantity of Menu Item to be added to the Promotional Set: ");
+					inputQuantity = sc.nextInt();
+					sc.nextLine();
+					listOfDishName.add(Integer.toString(inputQuantity));
 				}
 				else
 				{
