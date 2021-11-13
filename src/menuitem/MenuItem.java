@@ -6,7 +6,7 @@ MenuItem - parent class that defines all the shared features needed for a menu i
 @version 1.0
 @since 2021-10-20
 */
-public class MenuItem {
+public abstract class MenuItem {
 	/**
 	* Protected String variable that stores the name of this object
 	*/
@@ -21,18 +21,6 @@ public class MenuItem {
 	* Protected double variable that stores the price of this object
 	*/
 	protected double price;
-	
-	/**
-	* Constructor that initializes a MenuItem object
-	* @param name - name of the object
-	* @param description - description of the object
-	* @param price - price of the object
-	*/
-	public void MenuItem(String name, String description, double price) {
-		this.name = name;
-		this.description = description;
-		this.price = price;
-	}
 	
 	/**
 	* Accessor function to get the name (String) of the object
