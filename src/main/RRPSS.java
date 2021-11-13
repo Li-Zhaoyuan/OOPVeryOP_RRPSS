@@ -38,10 +38,13 @@ public class RRPSS {
 	 */
 	Staff currStaff;
 	/**
-	 * variable holding the Order object
+	 * ArrayList of Order objects for multiple different orders.
 	 */
-	Order order;
-	
+	ArrayList<Order> orderList;
+	/**
+	 * variable to hold the contact number of order
+	 */
+	ArrayList<Integer> contactList;
 	/**
 	 * variable holding the ReservationApp object
 	 */
@@ -51,6 +54,8 @@ public class RRPSS {
 	 * variable to hold the integer input from the user
 	 */
 	int input;
+	
+	
 	
 	/**
 	 * Function to initialize all the necessary variables
@@ -87,6 +92,13 @@ public class RRPSS {
 		
 		currStaff = new Staff(inputName,inputGender,inputJobTitle,inputEmployeeID);
 		reservationApp = new ReservationApp();
+		orderList = new ArrayList<Order>();
+		contactList = new ArrayList<Integer>();
+		for(int i = 0; i <= 25; ++i)
+		{
+			orderList.add(null);
+			contactList.add(-1);
+		}
 	}
 	
 	/**
@@ -425,17 +437,36 @@ public class RRPSS {
 		System.out.println("\n>>>Create new order<<<\n");
 		Scanner sc = new Scanner(System.in);
 		String inputMenuItemName;
-		int inputOrderID, inputTableNumber, inputQuantity, inputDiscountType;
+		int inputOrderID, inputTableNumber, inputQuantity, inputDiscountType, inputContact,index;
 		MenuItem tempItem;
+		Order tempOrder;
 		discountType disType; 
 		
 		
 		System.out.println("Enter Order ID:");
 		inputOrderID = sc.nextInt();
 		sc.nextLine();
-		System.out.println("Enter Table Number:");
-		inputTableNumber = sc.nextInt();
+		//System.out.println("Enter Table Number:");
+		
+		System.out.println("Enter Contact Number registered with Reservation: ");
+		inputContact = sc.nextInt();
 		sc.nextLine();
+		
+		index = reservationApp.getReservationList().checkReservation(inputContact);
+		if(index == -1)
+		{
+			System.out.println("Please make a reservation!");
+			return;
+		}
+		if(!reservationApp.getReservationList().checkNow(index))
+		{
+			System.out.println("This is not your allocated time slot!!! ");
+			return;
+		}
+		inputTableNumber = reservationApp.getReservationList().getlistOfReservation().get(index).getTableNum();
+		System.out.println("Your assigned table is: " + inputTableNumber);
+		contactList.set(inputTableNumber,inputContact);
+		//sc.nextLine();
 		
 		System.out.println("Enter Discount type (0)NON MEMBER, (1)MEMBER, (2)SILVER, (3)GOLD:");
 		inputDiscountType = sc.nextInt();
@@ -447,7 +478,7 @@ public class RRPSS {
 			System.out.println("INVALID Discount type, set to (0)NON MEMBER by default.");
 		}
 		disType = discountType.values()[inputDiscountType];
-		order = new Order(inputOrderID,inputTableNumber,currStaff,Calendar.getInstance(),disType);
+		tempOrder = new Order(inputOrderID,inputTableNumber,currStaff,Calendar.getInstance(),disType);
 		
 		PrintAllALaCarteMenuItems();
 		PrintAllPromotionalSet();
@@ -459,6 +490,7 @@ public class RRPSS {
 			
 			if(inputMenuItemName.equals("0"))
 			{
+				orderList.set(inputTableNumber,tempOrder);
 				System.out.println("Back to Main Menu...\n");
 				break;
 			}
@@ -473,7 +505,7 @@ public class RRPSS {
 			inputQuantity = sc.nextInt();
 			sc.nextLine();
 			
-			order.addItem(tempItem,inputQuantity);
+			tempOrder.addItem(tempItem,inputQuantity);
 			System.out.println(tempItem.getName() + " Added! Quantity: " + inputQuantity);
 		}
 		
@@ -488,8 +520,16 @@ public class RRPSS {
 	{
 		System.out.println("\n>>>View order<<<\n");
 		
-		order.viewCurrentOrder();
+		int inputTableNumber;
+		inputTableNumber = getInputForTableNumber();
 		
+		if(inputTableNumber == -1)
+		{
+			System.out.println("\nBack to Main Menu...\n");
+			return;
+		}
+		
+		orderList.get(inputTableNumber).viewCurrentOrder();
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
@@ -500,16 +540,21 @@ public class RRPSS {
 	public void option5UpdateItemsToOrder()
 	{
 		System.out.println("\n>>>Add/Remove order item/s to/from order<<<\n");
-		if(order == null)
+		
+		Scanner sc = new Scanner(System.in);
+		int inputTableNumber;
+		inputTableNumber = getInputForTableNumber();
+		
+		if(inputTableNumber == -1)
 		{
-			System.out.println("Order Not Created Yet!!");
+			System.out.println("\nBack to Main Menu...\n");
 			return;
 		}
+		
 		while(true)
 		{
-			Scanner sc = new Scanner(System.in);
 			String inputMenuItemName;
-			int input,inputQuantity;
+			int inputQuantity;
 			MenuItem tempItem;
 			
 			PrintAllALaCarteMenuItems();
@@ -537,7 +582,7 @@ public class RRPSS {
 				System.out.println("Enter item Quantity: ");
 				inputQuantity = sc.nextInt();
 				sc.nextLine();
-				order.addItem(tempItem,inputQuantity);
+				orderList.get(inputTableNumber).addItem(tempItem,inputQuantity);
 				
 				System.out.println("Item added!!!Back to Main Menu...\n");
 			}
@@ -554,7 +599,7 @@ public class RRPSS {
 				//System.out.println("Enter item Quantity: ");
 				//inputQuantity = sc.nextInt();
 				//sc.nextLine();
-				order.removeItem(tempItem);
+				orderList.get(inputTableNumber).removeItem(tempItem);
 				System.out.println("Item removed!!!Back to Main Menu...\n");
 			}
 		}
@@ -580,6 +625,7 @@ public class RRPSS {
 		
 		while(true)
 		{
+			reservationApp.getReservationList().removeExpiredReservation();
 			while(true)
 			{
 				System.out.println("Please enter Reservation Date in this format dd/mm/yyyy (eg. 20/10/2021): ");
@@ -694,11 +740,13 @@ public class RRPSS {
 	public void option7ReservationChecking()
 	{
 		System.out.println("\n>>>Check/Remove reservation booking<<<\n");
+		
 		Scanner sc = new Scanner(System.in);
-		int input, inputContact, index;
+		int inputContact, index;
 		
 		while(true)
 		{
+			reservationApp.getReservationList().removeExpiredReservation();
 			System.out.println("Enter (1) Check Reservation, (2) Remove Reservation, (0) To Return: ");
 			input = sc.nextInt();
 			sc.nextLine();
@@ -763,6 +811,7 @@ public class RRPSS {
 		
 		while(true)
 		{
+			reservationApp.getReservationList().removeExpiredReservation();
 			System.out.println("Enter (1)Check For Current Time, (2)Check based on a Given Time, (0)To Return: ");
 			input = sc.nextInt();
 			sc.nextLine();
@@ -874,14 +923,21 @@ public class RRPSS {
 	public void option9PrintOrderInvoice()
 	{
 		System.out.println("\n>>>Print order invoice<<<\n");
-		if(order == null)
+		
+		int inputTableNumber;
+		inputTableNumber = getInputForTableNumber();
+		
+		if(inputTableNumber == -1)
 		{
-			System.out.println("Please Create an order first before printing the invoice! Back to Main Menu...\n");
+			System.out.println("\nBack to Main Menu...\n");
 			return;
 		}
+		
 		System.out.println("Printing current order's invoice! \n");
-		order.printOrderInvoice();
-		order = null;
+		orderList.get(inputTableNumber).printOrderInvoice();
+		reservationApp.getReservationList().removeReservation(contactList.get(inputTableNumber));
+		//reservationApp.getReservationList().removeReservationWithIndex(order.getTableNumber());
+		orderList.set(inputTableNumber, null);
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
@@ -944,4 +1000,6 @@ public class RRPSS {
 		return inputTableNumber;
 	}
 	
+	
 }
+

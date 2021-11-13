@@ -298,4 +298,23 @@ public class ReservationList {
 	public ArrayList<Reservation> getlistOfReservation(){
 		return this.listOfReservation;
 	}
+	
+	/**
+	   * Check if current date and time is within 2 hours of reservation
+	   * @param index - index of the reservation in Reservation list
+	   * @return True or False
+	   */
+	  public boolean checkNow(int index) {
+	    
+	    LocalDate currentDate = LocalDate.now();
+	    LocalTime currentTime = LocalTime.now();
+	    
+	    if (listOfReservation.get(index).getDate().equals(currentDate)) {
+	      //Check if current time is between 2hrs of reservation
+	      if (currentTime.equals(listOfReservation.get(index).getTime()) || (currentTime.isAfter(listOfReservation.get(index).getTime()) && currentTime.isBefore(listOfReservation.get(index).getTime().plusHours(2)))) {
+	        return true;
+	      }
+	    }
+	    return false;  
+	  }
 }
