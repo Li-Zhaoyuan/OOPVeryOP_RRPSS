@@ -580,6 +580,7 @@ public class RRPSS {
 		
 		while(true)
 		{
+			reservationApp.getReservationList().removeExpiredReservation();
 			while(true)
 			{
 				System.out.println("Please enter Reservation Date in this format dd/mm/yyyy (eg. 20/10/2021): ");
@@ -694,11 +695,13 @@ public class RRPSS {
 	public void option7ReservationChecking()
 	{
 		System.out.println("\n>>>Check/Remove reservation booking<<<\n");
+		
 		Scanner sc = new Scanner(System.in);
 		int input, inputContact, index;
 		
 		while(true)
 		{
+			reservationApp.getReservationList().removeExpiredReservation();
 			System.out.println("Enter (1) Check Reservation, (2) Remove Reservation, (0) To Return: ");
 			input = sc.nextInt();
 			sc.nextLine();
@@ -763,6 +766,7 @@ public class RRPSS {
 		
 		while(true)
 		{
+			reservationApp.getReservationList().removeExpiredReservation();
 			System.out.println("Enter (1)Check For Current Time, (2)Check based on a Given Time, (0)To Return: ");
 			input = sc.nextInt();
 			sc.nextLine();
