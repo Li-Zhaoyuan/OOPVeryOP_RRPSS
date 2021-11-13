@@ -34,20 +34,6 @@ public class ReservationApp {
 	*/
 	private CSVWriter wtr;
 	
-	/**
-	* Temporary main function for testing
-	*/
-	public static void main(String[] args) {
-		ReservationApp ra = new ReservationApp();
-		
-		// Perform some input testing
-		ra.testMain();
-		
-		ra.printReservations();
-		
-		// Save the reservations to csv when done
-		ra.saveReservations();
-	}
 	
 	/**
 	* Constructor of the ReservationApp class
@@ -113,70 +99,11 @@ public class ReservationApp {
 	
 	/**
 	* Public ReservationList function that returns the internal ReservationList object
+	* @return the reservationList object
 	*/
 	public ReservationList getReservationList() {
 		return mainReservation;
 	}
 	
-	/**
-	* Testing function that used to be the original static main
-	*/
-	public void testMain() {
-		
-		//mainReservation = new ReservationList();
-		
-		//mainReservation.getInputs();
-		
-		LocalDate date = LocalDate.parse("21/11/2021", DateTimeFormatter.ofPattern("d/MM/yyyy"));
-		LocalTime time = LocalTime.parse("21:11", DateTimeFormatter.ofPattern("H:mm"));
-		int noOfPax = 7;
-		String name = "Yuh Horng";
-		int contact = 96735940;
-		
-		mainReservation.addReservation(date, time, noOfPax, name, contact);
-		
-		LocalDate date1 = LocalDate.parse("20/11/2021", DateTimeFormatter.ofPattern("d/MM/yyyy"));
-		LocalTime time1 = LocalTime.parse("21:11", DateTimeFormatter.ofPattern("H:mm"));
-		int noOfPax1 = 7;
-		String name1 = "Yuh Horng";
-		int contact1 = 96735941;
-		
-		mainReservation.addReservation(date1, time1, noOfPax1, name1, contact1);
-		
-		LocalDate date2 = LocalDate.parse("20/11/2021", DateTimeFormatter.ofPattern("d/MM/yyyy"));
-		LocalTime time2 = LocalTime.parse("21:13", DateTimeFormatter.ofPattern("H:mm"));
-		int noOfPax2 = 7;
-		String name2 = "Yuh Horng";
-		int contact2 = 96735942;
-		
-		mainReservation.addReservation(date2, time2, noOfPax2, name2, contact2);
-		
-		LocalDate date3 = LocalDate.parse("20/11/2021", DateTimeFormatter.ofPattern("d/MM/yyyy"));
-		LocalTime time3 = LocalTime.parse("21:14", DateTimeFormatter.ofPattern("H:mm"));
-		int noOfPax3 = 7;
-		String name3 = "Yuh Horng";
-		int contact3 = 96735943;
-		
-		mainReservation.addReservation(date3, time3, noOfPax3, name3, contact3);
-		
-		LocalDate date4 = LocalDate.parse("20/11/2021", DateTimeFormatter.ofPattern("d/MM/yyyy"));
-		LocalTime time4 = LocalTime.parse("21:15", DateTimeFormatter.ofPattern("H:mm"));
-		int noOfPax4 = 7;
-		String name4 = "Yuh Horng";
-		int contact4 = 96735944;
-		
-		mainReservation.addReservation(date4, time4, noOfPax4, name4, contact4);
-		
-		LocalDate date5 = LocalDate.parse("20/11/2021", DateTimeFormatter.ofPattern("d/MM/yyyy"));
-		LocalTime time5 = LocalTime.parse("22:00", DateTimeFormatter.ofPattern("H:mm"));
-		int noOfPax5 = 7;
-		String name5 = "Yuh Horng";
-		int contact5 = 96735945;
-		
-		mainReservation.addReservation(date5, time5, noOfPax5, name5, contact5);
-		
-		//mainReservation.printReservationList();
-	
-	}
 
 }

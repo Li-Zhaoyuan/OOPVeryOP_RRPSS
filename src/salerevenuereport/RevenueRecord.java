@@ -72,6 +72,7 @@ public class RevenueRecord {
 	
 	/**
 	* Mutator of the order's netSales
+	* @param netSales the net sales made to be set
 	*/
 	public void setNetSales(double netSales)
 	{
@@ -80,6 +81,7 @@ public class RevenueRecord {
 	
 	/**
 	* Mutator of the year for each record
+	* @param year the year for the record
 	*/
 	public void setYear(int year)
 	{
@@ -88,6 +90,7 @@ public class RevenueRecord {
 	
 	/**
 	* Mutator of the month for each record
+	* @param month the month of the record
 	*/
 	public void setMonth(int month)
 	{
@@ -96,6 +99,7 @@ public class RevenueRecord {
 	
 	/**
 	* Mutator of the day for each record
+	* @param day the day of the record
 	*/
 	public void setDay(int day)
 	{

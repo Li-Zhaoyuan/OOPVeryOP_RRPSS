@@ -44,6 +44,7 @@ public class TableList {
 	
 	/**
 	 * Get Table Number of that can accommodate the number of people dining
+	 * @param numOfPax the number of people for the table
 	 * @return Table Number or -1 (if no table available)
 	 */
 	public int getAvailableTable(int numOfPax) {

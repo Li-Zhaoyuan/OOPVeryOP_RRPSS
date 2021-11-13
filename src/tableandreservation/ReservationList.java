@@ -293,7 +293,8 @@ public class ReservationList {
 	}
 	
 	/**
-	* Public ArrayList<Reservation> function that returns a copy of the internal list
+	* Public ArrayList Reservation function that returns a copy of the internal list
+	* @return the list of reservation array list from ReservationList 
 	*/
 	public ArrayList<Reservation> getlistOfReservation(){
 		return this.listOfReservation;

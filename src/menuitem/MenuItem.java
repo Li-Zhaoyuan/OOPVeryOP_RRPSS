@@ -24,6 +24,7 @@ public abstract class MenuItem {
 	
 	/**
 	* Accessor function to get the name (String) of the object
+	* @return the name of the menu item
 	*/
 	public String getName()
 	{
@@ -32,6 +33,7 @@ public abstract class MenuItem {
 	
 	/**
 	* Accessor function to get the description (String) of the object
+	* @return the description for the menu item
 	*/
 	public String getDescription()
 	{
@@ -40,6 +42,7 @@ public abstract class MenuItem {
 	
 	/**
 	* Accessor function to get the price (double) of the object
+	* @return the price of the menu item
 	*/
 	public double getPrice()
 	{

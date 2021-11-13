@@ -86,6 +86,7 @@ public class IndividualSaleRecord {
 	
 	/**
 	* Mutator of the menu item's name for each record
+	* @param name the name to assign
 	*/
 	public void setName(String name)
 	{
@@ -94,6 +95,7 @@ public class IndividualSaleRecord {
 	
 	/**
 	* Mutator of the menu item's quantity for each record
+	* @param quantity the number of menu items
 	*/
 	public void setQuantity(int quantity)
 	{
@@ -102,6 +104,7 @@ public class IndividualSaleRecord {
 	
 	/**
 	* Mutator of the year for each record
+	* @param year the year for the record
 	*/
 	public void setYear(int year)
 	{
@@ -110,6 +113,7 @@ public class IndividualSaleRecord {
 	
 	/**
 	* Mutator of the month for each record
+	* @param month the month for the record
 	*/
 	public void setMonth(int month)
 	{
@@ -118,6 +122,7 @@ public class IndividualSaleRecord {
 	
 	/**
 	* Mutator of the day for each record
+	* @param day the day for the record
 	*/
 	public void setDay(int day)
 	{

@@ -11,7 +11,7 @@ PromotionalSet - A type of menu item that contains a map of other items
 public class PromotionalSet extends MenuItem{
 	
 	/**
-	* Hashmap that stores key value pairs of <MenuItems, Quantity> for every item in this set 
+	* Hashmap that stores key value pairs of MenuItems, Quantity for every item in this set 
 	*/
 	private HashMap<MenuItem, Integer> items;
 
@@ -24,6 +24,7 @@ public class PromotionalSet extends MenuItem{
 	
 	/**
 	* Accessor of the PromotionalSet Object's items
+	* @return the hashmap of menu items and their quantities
 	*/
 	public HashMap<MenuItem, Integer> getItems(){
 		return items;

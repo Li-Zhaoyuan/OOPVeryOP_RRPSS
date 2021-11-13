@@ -54,6 +54,8 @@ public class WriteRecord {
 	* to append new individual sale record in the CSV for the sale revenue report
 	* @param menuItem is the name of menu item in the invoice, quantity the quantity of each menu item in the invoice
 	* the method append the menuItem, quantity, date and uses the CSVWriter class to save data into the individualsalerecord CSV
+	* @param quantity the amount of the menu item
+	* @throws IOException error caught
 	*/
 	public static void appendIndividualSaleRecord(String menuItem, int quantity) throws IOException
 	{   
@@ -66,6 +68,7 @@ public class WriteRecord {
 	* to append new revenue record in the CSV for the sale revenue report
 	* @param netSales is the net price of each invoice printed
 	* the method append the netSale, date and uses the CSVWriter class to save data into the revenuerecord CSV
+	* @throws IOException error caught
 	*/
 	public static void appendRevenueRecord(double netSales) throws IOException
 	{   

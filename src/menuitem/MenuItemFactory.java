@@ -35,6 +35,7 @@ public class MenuItemFactory {
 	
 	/**
 	* Public accessor function to get the ItemList
+	* @return itemList
 	*/
 	public ArrayList<MenuItem> getItemList(){
 		return itemList;
@@ -89,6 +90,7 @@ public class MenuItemFactory {
 	* Public accessor function to get an object from the ItemList
 	* Returns the object if found, else null
 	* @param name - The name of the item intended to be found
+	* @return when there is a mene item that matches the name, that object is returned, else null.
 	*/
 	public MenuItem getItem(String name){
 		for (MenuItem i : itemList) {
@@ -103,6 +105,7 @@ public class MenuItemFactory {
 	* @param name - name of the object
 	* @param description - description of the object
 	* @param price - price of the object
+	* @return obj reference of the dessert menu item created
 	*/
 	public Dessert createDessert(String name, String description, double price) {
 		Dessert obj = new Dessert();
@@ -118,6 +121,7 @@ public class MenuItemFactory {
 	* @param name - name of the object
 	* @param description - description of the object
 	* @param price - price of the object
+	* @return obj reference of the Drink menu item created
 	*/
 	public Drink createDrink(String name, String description, double price) {
 		Drink obj = new Drink();
@@ -133,6 +137,7 @@ public class MenuItemFactory {
 	* @param name - name of the object
 	* @param description - description of the object
 	* @param price - price of the object
+	* @return obj reference of the MainCourse menu item created
 	*/
 	public MainCourse createMainCourse(String name, String description, double price) {
 		MainCourse obj = new MainCourse();
@@ -148,6 +153,7 @@ public class MenuItemFactory {
 	* @param name - name of the object
 	* @param description - description of the object
 	* @param price - price of the object
+	* @return obj reference of the SideCourse menu item created
 	*/
 	public SideCourse createSideCourse(String name, String description, double price) {
 		SideCourse obj = new SideCourse();
@@ -164,6 +170,7 @@ public class MenuItemFactory {
 	* @param description - description of the object
 	* @param price - price of the object
 	* @param items - List of item names for each item in the PromotionalSet
+	* @return obj reference of the PromotionalSet menu item created
 	*/
 	public PromotionalSet createPromotionalSet(String name, String description, double price, ArrayList<String> items) {
 		PromotionalSet obj = new PromotionalSet();

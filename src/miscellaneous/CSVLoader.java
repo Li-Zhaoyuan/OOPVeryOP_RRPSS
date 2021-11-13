@@ -34,6 +34,7 @@ public class CSVLoader {
 	
 	/**
 	* Alternative Constructor for CSVLoader
+	* @param filePath the path of the file to load
 	*/
 	public CSVLoader(String filePath) {
 		csv = new ArrayList<ArrayList<String>>();
@@ -42,6 +43,8 @@ public class CSVLoader {
 	
 	/**
 	* Another alternative Constructor for CSVLoader
+	* @param filePath the path of the file to load
+	* @param csvHasHeader whether the file has a header
 	*/
 	public CSVLoader(String filePath, boolean csvHasHeader) {
 		csv = new ArrayList<ArrayList<String>>();
@@ -53,6 +56,7 @@ public class CSVLoader {
 	* into a local 2D array within the class
 	* 
 	* @param  filePath  an absolute file path to the target csv file
+	* @param  csvHasHeader boolean to state csv file has a csv header
 	*/
 	public void readFile(String filePath, boolean csvHasHeader) {
 		try {
@@ -79,13 +83,15 @@ public class CSVLoader {
 	
 	/**
 	* Public accessor function to get the header of the csv file
+	* @return array list of header
 	*/
 	public ArrayList<String> getCSVHeader(){
 		return header;
 	}
 	
 	/**
-	* Public ArrayList<ArrayList<String>> function to get the csv data
+	* Public ArrayList of ArrayList String  function to get the csv data
+	* @return csv data in the form of ArrayList of ArrayList String
 	*/
 	public ArrayList<ArrayList<String>> getCSVData(){
 		return csv;
@@ -96,6 +102,7 @@ public class CSVLoader {
 	* 
 	* @param  row  the row index to access
 	* @param  col  the col index to access
+	* @return string at specified indexes
 	*/
 	public String at(int row, int col) {
 		return csv.get(row).get(col);

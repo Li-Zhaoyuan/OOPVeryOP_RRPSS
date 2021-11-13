@@ -54,7 +54,7 @@ public class Order extends MenuItem {
 	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("E, dd/MM/yyyy, HH:mm");
 	
 	/**
-	* Hashmap that stores key value pairs of <MenuItems, Quantity> for every item in the order
+	* Hashmap that stores key value pairs of MenuItems, Quantity for every item in the order
 	*/
 	private HashMap<MenuItem, Integer> ItemsInOrder;
 	
@@ -95,6 +95,7 @@ public class Order extends MenuItem {
 
 	/**
 	* Accessor of the Order object's items
+	* @return the ItemsInOrder HashMap MenuItem, Integer
 	*/
 	public HashMap<MenuItem, Integer> getItemsInOrder() {
 		return ItemsInOrder;

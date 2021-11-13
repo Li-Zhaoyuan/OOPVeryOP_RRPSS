@@ -12,6 +12,7 @@ includes the implements the functions from the RRPS class for this application.
 public class Main {
 	/**
 	 * Main Function to run the main logic of the program
+	 * @param args default parameter for the main function
 	 */
 	public static void main(String[] args) {
 		//Scanner sc = new Scanner(System.in);

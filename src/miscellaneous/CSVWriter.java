@@ -25,6 +25,8 @@ public class CSVWriter {
 	
 	/**
 	* Constructor for CSVWriter
+	* @param filePath the file path of the csv file
+	* @param data the data we be writen into the csv file
 	*/
 	public CSVWriter(String filePath, String data) {
 		writeFile(filePath, true, data);
@@ -32,6 +34,9 @@ public class CSVWriter {
 	
 	/**
 	* Write string data into CSV file
+	* @param filePath the file path of the csv file
+	* @param append boolean to whether to append to the current specified file
+	* @param data the data we be writen into the csv file
 	*/
 	public void writeFile(String filePath, boolean append, String data) {
 			try { 

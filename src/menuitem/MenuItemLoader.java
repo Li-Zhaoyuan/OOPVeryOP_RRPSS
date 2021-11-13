@@ -43,6 +43,8 @@ public class MenuItemLoader {
 
 	/**
 	* Public void function to setup the file paths to loaders
+	* @param normalPath the path for the csv containing the alacarte menu items
+	* @param promoPath the path for the csv containing the promotional menu items
 	*/
 	public void initializeLoaders(String normalPath, String promoPath) {
 		this.normalPath = normalPath;
@@ -53,6 +55,7 @@ public class MenuItemLoader {
 	
 	/**
 	* Public accessor function to get the normal item csv file
+	* @return the alacarte menuitems CSV
 	*/
 	public CSVLoader getNormalCSV() {
 		return normalItemsCSV;
@@ -60,6 +63,7 @@ public class MenuItemLoader {
 	
 	/**
 	* Public accessor function to get the promo item csv file
+	* @return the promotional items CSV
 	*/
 	public CSVLoader getPromoCSV() {
 		return promoItemsCSV;
@@ -67,6 +71,7 @@ public class MenuItemLoader {
 	
 	/**
 	* Public void function to update the csv files used for the construction of menu items
+	* @param itemList the array list of menu items
 	*/
 	public void updateCSV(ArrayList<MenuItem> itemList) {
 		CSVWriter wrtr = new CSVWriter();
@@ -97,6 +102,8 @@ public class MenuItemLoader {
 	/**
 	* Private void function to convert a MenuItem to a string
 	* Convert item parameters as a concatenated string delimited with commas
+	* @param m the menu item to be converted to a string
+	* @return the string of the menu item
 	*/
 	private String itemToString(MenuItem m) {
 		String s = "";
