@@ -614,6 +614,11 @@ public class RRPSS {
 						System.out.println("Reservation can only be made in advance");
 						continue;
 					}
+					else if(parsedTime.isAfter(LocalTime.parse("22:00", formatterTime)))
+					{
+						System.out.println("Reservation Time cannot be later than 22:00hrs");
+						continue;
+					}
 					break;
 				}
 				else
@@ -696,7 +701,10 @@ public class RRPSS {
 		{
 			System.out.println("Enter (1) Check Reservation, (2) Remove Reservation, (0) To Return: ");
 			input = sc.nextInt();
-			
+			if(input > 2 || input < 1)
+			{
+				break;
+			}
 			System.out.println("Please enter your Contact Number for this Reservation: ");
 			if(!sc.hasNextInt())
 			{
@@ -707,6 +715,7 @@ public class RRPSS {
 				
 			inputContact = sc.nextInt();
 			sc.nextLine();
+			
 			
 			if(input == 1)
 			{
@@ -727,10 +736,7 @@ public class RRPSS {
 					System.out.println("There is no reservation made with this contact number!");
 				}
 			}
-			else
-			{
-				break;
-			}
+			
 		}
 		System.out.println("\nBack to Main Menu...\n");
 	}
