@@ -1,16 +1,15 @@
-/**
- IndividualSaleRecordFactory - create array of individual sale record object from CSV
- @author Heng Zheng Ping
- @version 1.0
- @since 2021-11-05
-*/
-
 package salerevenuereport;
 
 import java.util.ArrayList;
 
 import miscellaneous.CSVLoader;
 
+/**
+IndividualSaleRecordFactory - create array of individual sale record object from CSV
+@author Heng Zheng Ping
+@version 1.0
+@since 2021-11-05
+*/
 public class IndividualSaleRecordFactory {
 	/**
 	* array variable that stores multiple individual sale record

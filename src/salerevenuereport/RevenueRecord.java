@@ -1,12 +1,11 @@
-/**
- RevenueRecord - Entity of Revenue Record
- @author Heng Zheng Ping
- @version 1.0
- @since 2021-11-03
-*/
-
 package salerevenuereport;
 
+/**
+RevenueRecord - Entity of Revenue Record
+@author Heng Zheng Ping
+@version 1.0
+@since 2021-11-03
+*/
 public class RevenueRecord {
 	/**
 	* double variable that stores the netSales of order in the revenue record

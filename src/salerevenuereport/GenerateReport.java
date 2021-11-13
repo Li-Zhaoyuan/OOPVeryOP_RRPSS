@@ -1,10 +1,3 @@
-/**
- GenerateReport - Generate a monthly revenue report or revenue report for the day from CSV
- @author Heng Zheng Ping
- @version 1.0
- @since 2021-11-03
-*/
-
 package salerevenuereport;
 
 import java.util.Calendar;
@@ -13,6 +6,12 @@ import menuitem.MenuItem;
 import menuitem.MenuItemFactory;
 import miscellaneous.CSVLoader;
 
+/**
+GenerateReport - Generate a monthly revenue report or revenue report for the day from CSV
+@author Heng Zheng Ping
+@version 1.0
+@since 2021-11-03
+*/
 public class GenerateReport {
 	/**
 	* double variable that stores sales of each individual menu items

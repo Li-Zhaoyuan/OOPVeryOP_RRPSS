@@ -1,12 +1,11 @@
-/**
- IndividualSaleRecord - Entity of Individual Sale Record
- @author Heng Zheng Ping
- @version 1.0
- @since 2021-11-05
-*/
-
 package salerevenuereport;
 
+/**
+IndividualSaleRecord - Entity of Individual Sale Record
+@author Heng Zheng Ping
+@version 1.0
+@since 2021-11-05
+*/
 public class IndividualSaleRecord {
 	/**
 	* String variable that stores the name of menu item in the individual sale record

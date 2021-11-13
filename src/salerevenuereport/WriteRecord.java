@@ -1,10 +1,3 @@
-/**
- WriteRecord - contains public methods for writing the individual sale and revenue records into CSV  
- @author Heng Zheng Ping
- @version 1.0
- @since 2021-11-03
-*/
-
 package salerevenuereport;
 
 import java.io.IOException;
@@ -14,6 +7,12 @@ import java.util.Date;
 
 import miscellaneous.CSVWriter;
 
+/**
+WriteRecord - contains public methods for writing the individual sale and revenue records into CSV  
+@author Heng Zheng Ping
+@version 1.0
+@since 2021-11-03
+*/
 public class WriteRecord {
 	
 	/**

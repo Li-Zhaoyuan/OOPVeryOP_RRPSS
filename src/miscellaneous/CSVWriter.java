@@ -1,10 +1,3 @@
-/**
- CSVWriter - Write String data into .csv file
- @author Heng Zheng Ping
- @version 1.0
- @since 2021-11-03
-*/
-
 package miscellaneous;
 
 import java.io.BufferedWriter;
@@ -12,6 +5,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+CSVWriter - Write String data into .csv file
+@author Heng Zheng Ping
+@version 1.0
+@since 2021-11-03
+*/
 public class CSVWriter {
 	private FileWriter fw = null; 
 	private BufferedWriter bw = null; 
