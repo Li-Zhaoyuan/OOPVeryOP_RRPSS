@@ -31,19 +31,14 @@ public class ReservationList {
 	private LocalTime parsedTime;
 	
 	/**
-	 * String to store the latest time for reservation
-	 */
-	private static final String LastReservationTime = "22:00";
-	
-	/**
 	 * DateTimeFormatter to store the format for date of reservation
 	 */
-	DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("d/MM/yyyy");
+	private DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("d/MM/yyyy");
 	
 	/**
 	 * DateTimeFormatter to store the format for time of reservation
 	 */
-	DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("H:mm");
+	private DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("H:mm");
 
 	/**
 	 * Add reservation into Reservation List
@@ -52,9 +47,9 @@ public class ReservationList {
 	 * @param noOfPax - Number of people
 	 * @param customerName - Name of customer
 	 * @param contact - Contact number of customer
-	 * @return True or False (Success or not)
+	 * @return True or False (Success or Unsuccessful)
 	 */
-	public boolean addReservation(String date, String time, int noOfPax, String customerName, int contact) {
+	public boolean addReservation(LocalDate date, LocalTime time, int noOfPax, String customerName, int contact) {
 		
 		int tableNum;
 		boolean success = false;
@@ -67,13 +62,8 @@ public class ReservationList {
 			}
 		}
 		
-		//Check if the date and time entered is valid
-		if (!isValidDateTime(date, time)) {
-			return success;
-		}
-		
 		//Get Table Number for this reservation
-		tableNum = getTableNum(parsedDate, parsedTime, noOfPax);
+		tableNum = getTableNum(date, time, noOfPax);
 		
 		//If tableNum == -1 means no table available for this reservation
 		if (tableNum == -1) {
@@ -82,7 +72,7 @@ public class ReservationList {
 		}
 		
 		//Add Reservation into Reservation
-		listOfReservation.add(new Reservation(parsedDate, parsedTime, noOfPax, customerName, contact, tableNum));
+		listOfReservation.add(new Reservation(date, time, noOfPax, customerName, contact, tableNum));
 		success = true;
 		
 		return success;
@@ -210,51 +200,6 @@ public class ReservationList {
 	}
 	
 	/**
-	 * Check if Date and Time entered is Valid and after now
-	 * @param date - date of reservation
-	 * @param time - time of reservation
-	 * @return valid or not (true or false)
-	 */
-	public boolean isValidDateTime(String date, String time) {
-		
-		//Check if format of date entered is valid
-		if (!isValidDate(date)) {
-			return false;
-		}
-		
-		//Check if format of time entered is valid
-		else if (!isValidTime(time)) {
-			return false;
-		}
-		
-		//Check if time is after 22:00
-		if (parsedTime.isAfter(LocalTime.parse(LastReservationTime, formatterTime))) {
-			System.out.println("Reservation Time cannot be later than 22:00hrs");
-			return false;
-		}
-		
-		//Get difference in date
-		int datediff = parsedDate.compareTo(LocalDate.now());
-		
-		//Check if the date is the same
-		if (datediff == 0) {
-			//Check if reservation time is before now
-			if (parsedTime.isBefore(LocalTime.now())) {
-				System.out.println("Reservation can only be made in advance");
-				return false;
-			}
-		}
-		//Check if date is before today
-		else if (datediff < 0) {
-			System.out.println("Reservation can only be made in advance");
-			return false;
-		}
-		
-		return true;
-		
-	}
-	
-	/**
 	 * Get Table Number to be allocated to this reservation
 	 * @param date - date of reservation
 	 * @param time - time of reservation
@@ -290,8 +235,8 @@ public class ReservationList {
 		String date, time, sNumOfPax, customerName, sTableNum;
 		int numOfPax, tableNum;
 		
-		date = listOfReservation.get(index).getDate().toString();
-		time = listOfReservation.get(index).getTime().toString();
+		date = listOfReservation.get(index).getStringDate();
+		time = listOfReservation.get(index).getStringTime();
 		numOfPax = listOfReservation.get(index).getNoOfPax();
 		sNumOfPax = String.valueOf(numOfPax);
 		customerName = listOfReservation.get(index).getCustomerName();
@@ -307,19 +252,12 @@ public class ReservationList {
 	 */
 	public void printReservationList() {
 	
-		String date;
-		String time;
-		int numOfPax;
-		String sNumOfPax;
-		String customerName;
-		int contact;
-		String sContact;
-		int tableNum;
-		String sTableNum;
+		String date, time, sNumOfPax, customerName, sTableNum, sContact;
+		int numOfPax, tableNum, contact;
 		
 		for (int i = 0; i < listOfReservation.size(); i++) {
-			date = listOfReservation.get(i).getDate().toString();
-			time = listOfReservation.get(i).getTime().toString();
+			date = listOfReservation.get(i).getStringDate();
+			time = listOfReservation.get(i).getStringTime();
 			numOfPax = listOfReservation.get(i).getNoOfPax();
 			sNumOfPax = String.valueOf(numOfPax);
 			customerName = listOfReservation.get(i).getCustomerName();
@@ -329,7 +267,7 @@ public class ReservationList {
 			sTableNum = String.valueOf(tableNum);
 			
 			System.out.println(String.valueOf(i+1) + ". Date:" + date + " Time:" + time + " Name:" + customerName + " Contact:" + sContact
-					+ " Table Number:" + sTableNum);
+					+ " Table Number:" + sTableNum + " NumOfPax:" + sNumOfPax);
 		}
 	}
 	

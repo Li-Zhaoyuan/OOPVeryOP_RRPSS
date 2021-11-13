@@ -679,7 +679,7 @@ public class RRPSS {
 			break;
 		}
 			
-		if(reservationApp.getReservationList().addReservation(inputDate, inputTime, inputPax, inputName, inputContact))
+		if(reservationApp.getReservationList().addReservation(parsedDate, parsedTime, inputPax, inputName, inputContact))
 		{
 			System.out.println("Reservations Added!!!");
 		}
