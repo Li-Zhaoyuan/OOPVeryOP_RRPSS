@@ -101,6 +101,27 @@ public class ReservationList {
 	}
 	
 	/**
+	 * Remove Expired Reservations
+	 * reservations that is more than 2 hrs past the reservation time
+	 */
+	public void removeExpiredReservation() {
+		
+		for (int i = 0; i < listOfReservation.size(); i++) {
+			if (listOfReservation.get(i).getDate().isBefore(LocalDate.now())) {
+				listOfReservation.remove(i);
+				i--;
+			}
+			else if(listOfReservation.get(i).getDate().isEqual(LocalDate.now())) {
+				if (listOfReservation.get(i).getTime().plusHours(2).isBefore(LocalTime.now())) {
+					listOfReservation.remove(i);
+					i--;
+				}
+			}
+		}
+		
+	}
+	
+	/**
 	 * Check if there is reservation under this contact number
 	 * @param contact - contact number to check for in Reservation list
 	 * @return index of contact number or -1 (if does not exist)
