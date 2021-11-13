@@ -951,6 +951,10 @@ public class RRPSS {
 		System.out.println("\nBack to Main Menu...\n");
 	}
 	
+	/**
+	 * Function to get the table number from the user. and checks if the table have an order
+	 * @return returns a table number from 1 to 25 if invalid input it will be -1
+	 */
 	public int getInputForTableNumber()
 	{
 		Scanner sc = new Scanner(System.in);
