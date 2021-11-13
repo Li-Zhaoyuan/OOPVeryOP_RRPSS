@@ -118,7 +118,6 @@ public class ReservationList {
 				}
 			}
 		}
-		
 	}
 	
 	/**
@@ -236,7 +235,8 @@ public class ReservationList {
 			//Check if date is same date in reservation
 			if (listOfReservation.get(i).getDate().equals(date)) {
 				//Check if time is between 2hrs of reservation
-				if (time.equals(listOfReservation.get(i).getTime()) || (time.isAfter(listOfReservation.get(i).getTime()) && time.isBefore(listOfReservation.get(i).getTime().plusHours(2)))) {
+				LocalTime endTime = time.plusHours(2);
+				if (time.equals(listOfReservation.get(i).getTime()) || (time.isAfter(listOfReservation.get(i).getTime()) && time.isBefore(listOfReservation.get(i).getTime().plusHours(2))) || (endTime.isAfter(listOfReservation.get(i).getTime()) && endTime.isBefore(listOfReservation.get(i).getTime().plusHours(2)))) {
 					//Set that table to unavailable
 					listOfTables.setUnavailable(listOfReservation.get(i).getTableNum());
 				}

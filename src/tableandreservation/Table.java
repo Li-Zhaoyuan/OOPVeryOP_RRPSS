@@ -10,7 +10,7 @@ Table - Table Object
 public class Table {
 	
 	/**
-	 * int to store table num
+	 * int to store table number
 	 */
 	private int tableNum;
 	
